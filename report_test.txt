@@ -1,0 +1,27 @@
+# Apple Q1 2025 Earnings Analysis Report
+
+## Executive Summary
+Apple reported a record-breaking fiscal first quarter for 2025 (ending Dec 28, 2024).
+- **Revenue**: $124.3 Billion (+4% YoY, All-time Record)
+- **EPS**: $2.40 (+10% YoY, All-time Record)
+- **Net Income**: $36.3 Billion (Record)
+- **Stock Reaction**: Up ~3% in aftermarket trading, reaching ~$245.
+
+## Key Performance Indicators
+### Growth Drivers
+- **Services**: $26.3B (+14% YoY). New record high.
+- **Mac**: $8.99B (+15% YoY). Strong double-digit growth.
+- **iPad**: $8.09B (+15% YoY). Strong recovery and growth.
+
+### Challenges
+- **iPhone**: $69.14B (-1% YoY). Slight decline, missed some expectations. First full quarter with iPhone 16.
+- **China Market**: Revenue declined by 11%, due to local competition and AI feature regulatory delays.
+
+## Future Outlook
+- **AI Strategy**: Apple Intelligence features rolling out (more languages in April) are expected to drive future device upgrades.
+- **Installed Base**: Crossed 2.35 billion active devices.
+- **Guidance**: CEO Tim Cook called it the "best quarter ever".
+
+## Stock Analysis
+- Market reacted positively despite the iPhone miss, focusing on the robust Services growth and overall record profitability.
+- The 3% rise suggests investor confidence in the long-term AI strategy.
