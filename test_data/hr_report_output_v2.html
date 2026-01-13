@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구성원 성장 중심의 HR 제도 방향성 (Premium Design)</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Pretendard:wght@300;400;600;800&display=swap');
+
+        :root {
+            --bg-color: #0f172a;
+            /* Dark Slate */
+            --text-main: #f8fafc;
+            --text-secondary: #94a3b8;
+            --primary: #8b5cf6;
+            /* Violet */
+            --secondary: #3b82f6;
+            /* Blue */
+            --accent: #10b981;
+            /* Emerald */
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --gradient-main: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+            padding: 60px 20px;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 60px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Decorative blobs */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-main);
+            filter: blur(80px);
+            opacity: 0.15;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 0 0 40px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2 i {
+            color: var(--secondary);
+            font-size: 28px;
+        }
+
+        p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            flex-grow: 1;
+        }
+
+        .bento-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .bento-card.full-width {
+            grid-column: span 2;
+        }
+
+        .bento-card h3 {
+            font-size: 22px;
+            margin: 0 0 12px 0;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bento-card h3 i {
+            color: var(--accent);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--primary);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            width: fit-content;
+        }
+
+        /* Title Slide Specific */
+        .slide-title .content-wrapper {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            font-size: 72px;
+        }
+
+        .slide-title p {
+            font-size: 28px;
+            max-width: 600px;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide>* {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .metric-big {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 10px 0;
+        }
+
+        .metric-sub {
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        /* Comparison Table */
+        .comparison {
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .comp-col {
+            flex: 1;
+        }
+
+        .comp-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        .comp-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Title -->
+    <section class="slide slide-title">
+        <div class="content-wrapper">
+            <div class="tag">2025 HR Strategy</div>
+            <h1>구성원 성장 중심의<br>HR 제도 방향성</h1>
+            <p>From Management to Growth<br>조직 문화의 새로운 패러다임</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Executive Summary (Bento Grid) -->
+    <section class="slide">
+        <div class="content-wrapper">
+            <h2><i class="fa-solid fa-bullseye"></i> Executive Summary</h2>
+            <div class="bento-grid">
+                <div class="bento-card full-width">
+                    <h3><i class="fa-solid fa-star"></i> 핵심 목표</h3>
+                    <p>평가 등급 줄 세우기를 지양하고, <strong>상시 피드백</strong>과 코칭 문화를 정착시켜 직무 전문성을 강화합니다.</p>
+                </div>
+                <div class="bento-card">
+                    <h3><i class="fa-solid fa-chart-line"></i> 기대 효과 1</h3>
+                    <div class="metric-big">+20%</div>
+                    <div class="metric-sub">구성원 몰입도 (Engagement)</div>
+                </div>
+                <div class="bento-card">
+                    <h3><i class="fa-solid fa-user-shield"></i> 기대 효과 2</h3>
+                    <div class="metric-big">-5%</div>
+                    <div class="metric-sub">핵심 인재 퇴사율 감소</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: AS-IS vs TO-BE (Split Layout) -->
+    <section class="slide">
+        <div class="content-wrapper">
+            <h2><i class="fa-solid fa-arrow-right-arrow-left"></i> 변화의 방향</h2>
+            <div class="bento-grid">
+                <div class="bento-card"
+                    style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2);">
+                    <h3 style="color: #fca5a5;"><i class="fa-solid fa-ban"></i> AS-IS: 관리 중심</h3>
+                    <div class="comp-item"><i class="fa-solid fa-xmark" style="color:#f87171"></i> 과도한 상대 평가 경쟁</div>
+                    <div class="comp-item"><i class="fa-solid fa-xmark" style="color:#f87171"></i> 연 1회 형식적 면담</div>
+                    <div class="comp-item"><i class="fa-solid fa-xmark" style="color:#f87171"></i> 외적 보상 편중</div>
+                </div>
+                <div class="bento-card"
+                    style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2);">
+                    <h3 style="color: #6ee7b7;"><i class="fa-solid fa-check"></i> TO-BE: 성장 중심</h3>
+                    <div class="comp-item"><i class="fa-solid fa-check" style="color:#34d399"></i> 절대 평가 (Impact/Grow)
+                    </div>
+                    <div class="comp-item"><i class="fa-solid fa-check" style="color:#34d399"></i> 상시 1on1 피드백</div>
+                    <div class="comp-item"><i class="fa-solid fa-check" style="color:#34d399"></i> 내적 동기 및 성장 지원</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Roadmap -->
+    <section class="slide">
+        <div class="content-wrapper">
+            <h2><i class="fa-solid fa-road"></i> 2025 실행 로드맵</h2>
+            <div style="display: flex; gap: 20px; height: 100%; align-items: center;">
+                <div class="bento-card" style="flex:1; height: 200px; justify-content: center; position: relative;">
+                    <div class="tag">Step 1 (Q1)</div>
+                    <h3>Mindset</h3>
+                    <p>리더십 코칭 교육<br>피드백 스킬 강화</p>
+                    <i class="fa-solid fa-chevron-right"
+                        style="position: absolute; right: -25px; top: 50%; color: var(--text-secondary);"></i>
+                </div>
+                <div class="bento-card" style="flex:1; height: 200px; justify-content: center; position: relative;">
+                    <div class="tag">Step 2 (Q2)</div>
+                    <h3>Pilot</h3>
+                    <p>절대 평가 시범 운영<br>(IT/연구 조직)</p>
+                    <i class="fa-solid fa-chevron-right"
+                        style="position: absolute; right: -25px; top: 50%; color: var(--text-secondary);"></i>
+                </div>
+                <div class="bento-card highlight"
+                    style="flex:1; height: 200px; justify-content: center; background: rgba(139, 92, 246, 0.2); border-color: var(--primary);">
+                    <div class="tag" style="background: var(--primary); color: white;">Step 3 (H2)</div>
+                    <h3>Expand</h3>
+                    <p>전사 확대 적용<br>HR 시스템 교체</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>

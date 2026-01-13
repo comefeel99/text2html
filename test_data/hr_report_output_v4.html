@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구성원 성장 중심의 HR 제도 방향성 (Advanced V4)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        body {
+            background: #f1f5f9;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            border-radius: 20px;
+        }
+
+        /* Glassmorphism Card for V4 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+
+        .gradient-mesh {
+            background: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+                radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+            background-color: #0f172a;
+        }
+
+        .stat-value {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Title & Dashboard -->
+    <div class="slide bg-slate-50 relative flex">
+        <!-- Sidebar Decoration -->
+        <div class="w-24 h-full bg-slate-900 flex flex-col items-center py-10 gap-8">
+            <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white text-xl font-bold">
+                HR</div>
+            <div class="flex-grow"></div>
+            <div class="text-slate-500 text-xs -rotate-90 whitespace-nowrap mb-12">2025 STRATEGY</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-16 flex flex-col">
+            <!-- Header -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-2">
+                    <span
+                        class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wide">Vision
+                        2025</span>
+                    <span class="text-slate-400 text-sm">| Strategic Planning</span>
+                </div>
+                <h1 class="text-6xl font-black text-slate-800 leading-tight">
+                    구성원 성장 중심의<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">HR 제도
+                        방향성</span>
+                </h1>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-3 gap-8 flex-grow">
+                <!-- Stat Card 1 -->
+                <div
+                    class="glass-card rounded-2xl p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-slate-500 font-medium mb-1">Engagement Goal</p>
+                            <h3 class="text-6xl font-black stat-value">+20%</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                            <i class="fa-solid fa-chart-line text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="w-full bg-slate-100 rounded-full h-2 mb-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                        <p class="text-xs text-slate-400">Targeting 85% Score</p>
+                    </div>
+                </div>
+
+                <!-- Stat Card 2 -->
+                <div
+                    class="glass-card rounded-2xl p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-slate-500 font-medium mb-1">Retention Rate</p>
+                            <h3 class="text-6xl font-black stat-value text-emerald-500"
+                                style="background:none;-webkit-text-fill-color:inherit;color:#10b981;">95%</h3>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                            <i class="fa-solid fa-user-shield text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-600">핵심 인재 이탈 방지</p>
+                        <p class="text-xs text-emerald-500 font-bold mt-1">▼ 5% Decrease in Turnover</p>
+                    </div>
+                </div>
+
+                <!-- Text Card -->
+                <div
+                    class="bg-slate-900 rounded-2xl p-8 text-white flex flex-col justify-center relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-blue-600 opacity-20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 z-10">Core Philosophy</h3>
+                    <p class="text-slate-300 leading-relaxed z-10">
+                        "평가는 등급을 매기는 것이 아니라,<br>
+                        <strong class="text-white">성장(Growth)</strong>을 지원하는 과정입니다."
+                    </p>
+                    <div class="mt-6 flex gap-2 z-10">
+                        <span class="px-3 py-1 rounded-lg bg-white/10 text-xs">No Ranking</span>
+                        <span class="px-3 py-1 rounded-lg bg-white/10 text-xs">Feedback</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Roadmap Timeline (D3.js) -->
+    <div class="slide bg-white flex flex-col p-16">
+        <div class="mb-8 text-center">
+            <h2 class="text-4xl font-black text-slate-800">2025 Execution Roadmap</h2>
+            <p class="text-slate-500 mt-2">단계별 제도 도입 및 확산 계획</p>
+        </div>
+
+        <div class="flex-grow relative" id="roadmap-container">
+            <!-- D3 Chart will be rendered here -->
+        </div>
+
+        <div class="grid grid-cols-3 gap-8 mt-4">
+            <div class="text-center">
+                <div class="font-bold text-blue-600 mb-1">Q1. Mindset</div>
+                <p class="text-sm text-slate-500">리더십 코칭 교육 & 피드백 스킬</p>
+            </div>
+            <div class="text-center">
+                <div class="font-bold text-blue-600 mb-1">Q2. Pilot</div>
+                <p class="text-sm text-slate-500">IT/연구 조직 시범 운영</p>
+            </div>
+            <div class="text-center">
+                <div class="font-bold text-blue-600 mb-1">H2. Expand</div>
+                <p class="text-sm text-slate-500">전사 확대 & 시스템 교체</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // D3.js Timeline Code
+        document.addEventListener('DOMContentLoaded', function () {
+            const width = 1150;
+            const height = 300;
+            const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+
+            const svg = d3.select("#roadmap-container")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("viewBox", `0 0 ${width} ${height}`);
+
+            const data = [
+                { stage: "Step 1", title: "Mindset Change", date: "2025 Q1", x: 200 },
+                { stage: "Step 2", title: "Pilot Run", date: "2025 Q2", x: 575 },
+                { stage: "Step 3", title: "Global Expand", date: "2025 H2", x: 950 }
+            ];
+
+            // Curve Line
+            const lineGenerator = d3.line()
+                .x(d => d.x)
+                .y(d => d.y)
+                .curve(d3.curveCatmullRom);
+
+            const points = [
+                { x: 100, y: height / 2 },
+                { x: 200, y: height / 2 - 40 },
+                { x: 575, y: height / 2 + 40 },
+                { x: 950, y: height / 2 - 40 },
+                { x: 1050, y: height / 2 }
+            ];
+
+            // Animated Path
+            const path = svg.append("path")
+                .datum(points)
+                .attr("d", lineGenerator)
+                .attr("fill", "none")
+                .attr("stroke", "#e2e8f0")
+                .attr("stroke-width", 4);
+
+            const activePath = svg.append("path")
+                .datum(points)
+                .attr("d", lineGenerator)
+                .attr("fill", "none")
+                .attr("stroke", "url(#gradient)")
+                .attr("stroke-width", 6)
+                .attr("stroke-linecap", "round");
+
+            // Gradient Definition
+            const defs = svg.append("defs");
+            const gradient = defs.append("linearGradient")
+                .attr("id", "gradient")
+                .attr("x1", "0%")
+                .attr("y1", "0%")
+                .attr("x2", "100%")
+                .attr("y2", "0%");
+
+            gradient.append("stop").attr("offset", "0%").attr("stop-color", "#3b82f6");
+            gradient.append("stop").attr("offset", "100%").attr("stop-color", "#8b5cf6");
+
+            // Nodes
+            const nodes = svg.selectAll(".node")
+                .data(data)
+                .enter()
+                .append("g")
+                .attr("transform", (d, i) => `translate(${d.x}, ${i === 1 ? height / 2 + 40 : height / 2 - 40})`);
+
+            // Circles with pulse
+            nodes.append("circle")
+                .attr("r", 20)
+                .attr("fill", "white")
+                .attr("stroke", "#3b82f6")
+                .attr("stroke-width", 4)
+                .attr("class", "shadow-lg");
+
+            nodes.append("text")
+                .attr("dy", "0.35em")
+                .attr("text-anchor", "middle")
+                .attr("class", "fa-solid")
+                .attr("fill", "#3b82f6")
+                .text((d, i) => i === 0 ? "\uf0eb" : (i === 1 ? "\uf0c3" : "\uf0ac")) // Bulb, Flask, Globe
+                .style("font-family", "FontAwesome");
+
+            // Labels
+            nodes.append("text")
+                .attr("y", -40)
+                .attr("text-anchor", "middle")
+                .attr("font-weight", "bold")
+                .attr("fill", "#1e293b")
+                .attr("font-size", "18px")
+                .text(d => d.title);
+
+            nodes.append("text")
+                .attr("y", -60)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#64748b")
+                .attr("font-size", "14px")
+                .text(d => d.stage);
+
+        });
+    </script>
+</body>
+
+</html>
