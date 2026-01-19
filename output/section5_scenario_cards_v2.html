@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 5 - SCENARIO_CARDS v2 (정보 밀도 개선)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        body {
+            background: #f1f5f9;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Section 5: SCENARIO_CARDS v2 - 정보 밀도 개선 버전 -->
+    <div class="slide p-12 bg-white flex flex-col">
+        <div class="mb-6">
+            <h1 class="text-4xl font-bold text-gray-800">2026 성과 시나리오 <span class="text-blue-600">KODEX 총수익 전망</span>
+            </h1>
+            <p class="text-gray-500 mt-2">시장 상황별 KODEX 미국나스닥100데일리커버드콜OTM 예상 성과</p>
+        </div>
+
+        <!-- 5개 시나리오 그리드 -->
+        <div class="grid grid-cols-5 gap-4 flex-grow items-stretch">
+            <!-- 강세장 (긍정) -->
+            <div
+                class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-4 border-t-4 border-emerald-500 flex flex-col">
+                <!-- 헤더: 시나리오명 + 핵심수치 -->
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-emerald-600 text-xs font-bold">🚀 강세장</span>
+                    <span class="text-2xl font-black text-gray-800">+20~26%</span>
+                </div>
+                <!-- 세부 지표 (중간 채움) -->
+                <div class="space-y-2 flex-grow bg-white/50 rounded-lg p-3">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📊 NDX</span>
+                        <span class="font-semibold text-gray-700">+20% 이상</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📈 분배율</span>
+                        <span class="font-semibold text-gray-700">15~18%</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">💰 주가</span>
+                        <span class="font-semibold text-gray-700">+5~8%</span>
+                    </div>
+                </div>
+                <!-- 푸터: 평가 -->
+                <div class="mt-2 pt-2 border-t border-emerald-200 text-xs text-orange-600">
+                    ⚠️ 상방 캡으로 지수 대비 언더퍼폼
+                </div>
+            </div>
+
+            <!-- 완만상승 (Sweet Spot - 강조) -->
+            <div
+                class="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-4 border-t-4 border-blue-500 ring-2 ring-blue-400 flex flex-col">
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-blue-600 text-xs font-bold">⭐ 완만상승</span>
+                    <span class="text-2xl font-black text-blue-700">+24~30%</span>
+                </div>
+                <div class="space-y-2 flex-grow bg-white/60 rounded-lg p-3">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📊 NDX</span>
+                        <span class="font-semibold text-blue-700">+10% 내외</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📈 분배율</span>
+                        <span class="font-semibold text-blue-700">16~20%</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">💰 주가</span>
+                        <span class="font-semibold text-blue-700">+8~10%</span>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-t border-blue-300 text-xs text-blue-700 font-semibold">
+                    ✨ Sweet Spot - 최적 구간!
+                </div>
+            </div>
+
+            <!-- 횡보 (중립) -->
+            <div
+                class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-4 border-t-4 border-slate-400 flex flex-col">
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-slate-600 text-xs font-bold">➡️ 횡보</span>
+                    <span class="text-2xl font-black text-gray-800">+16~24%</span>
+                </div>
+                <div class="space-y-2 flex-grow bg-white/50 rounded-lg p-3">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📊 NDX</span>
+                        <span class="font-semibold text-gray-700">0% 내외</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📈 분배율</span>
+                        <span class="font-semibold text-gray-700">18~22%</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">💰 주가</span>
+                        <span class="font-semibold text-gray-700">-2~+2%</span>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-t border-slate-200 text-xs text-emerald-600">
+                    ✓ 지수 대비 압도적 아웃퍼폼
+                </div>
+            </div>
+
+            <!-- 하락 (경고) -->
+            <div
+                class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-4 border-t-4 border-orange-400 flex flex-col">
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-orange-600 text-xs font-bold">📉 하락</span>
+                    <span class="text-2xl font-black text-gray-800">+10~15%</span>
+                </div>
+                <div class="space-y-2 flex-grow bg-white/50 rounded-lg p-3">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📊 NDX</span>
+                        <span class="font-semibold text-gray-700">-10%</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📈 분배율</span>
+                        <span class="font-semibold text-gray-700">20~25%</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">💰 주가</span>
+                        <span class="font-semibold text-gray-700">-10%</span>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-t border-orange-200 text-xs text-emerald-600">
+                    ✓ 원금 방어 및 수익 창출
+                </div>
+            </div>
+
+            <!-- 폭락 (위험) -->
+            <div
+                class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-4 border-t-4 border-red-400 flex flex-col">
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-red-600 text-xs font-bold">⚠️ 폭락</span>
+                    <span class="text-2xl font-black text-gray-800">+5%</span>
+                </div>
+                <div class="space-y-2 flex-grow bg-white/50 rounded-lg p-3">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📊 NDX</span>
+                        <span class="font-semibold text-gray-700">-20% 이하</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">📈 분배율</span>
+                        <span class="font-semibold text-gray-700">25%+</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-500">💰 주가</span>
+                        <span class="font-semibold text-gray-700">-20%</span>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-t border-red-200 text-xs text-emerald-600">
+                    ✓ 손실폭 대폭 축소 (버퍼 효과)
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insight -->
+        <div class="mt-4 bg-blue-50 rounded-xl p-4 flex items-center">
+            <i class="fas fa-lightbulb text-xl text-amber-500 mr-4"></i>
+            <p class="text-sm text-gray-700"><strong>핵심 인사이트:</strong> 나스닥이 연 10% 내외로 꾸준히 상승하는 <span
+                    class="text-blue-600 font-semibold">'완만상승'</span> 시나리오에서 KODEX의 총수익이 최대화되며, 이는 2026년 IB 전망과 부합하는
+                환경입니다.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

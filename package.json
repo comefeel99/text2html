@@ -1,0 +1,15 @@
+{
+    "name": "html2slidehtml-runner",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Test runner for html2slidehtml skill",
+    "main": "test_runner.js",
+    "scripts": {
+        "test": "node test_runner.js",
+        "start": "node test_runner.js"
+    },
+    "dependencies": {
+        "dotenv": "^16.3.1",
+        "openai": "^4.28.0"
+    }
+}

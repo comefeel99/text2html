@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>2025 HR 패러다임 변화 - 성장과 연결</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 글래스모피즘 효과 */
+        .liquid-glass {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        /* 카드 호버 효과 */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15);
+        }
+
+        .tech-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .accent-text {
+            color: #2563eb;
+        }
+
+        .accent-bg {
+            background-color: #2563eb;
+        }
+
+        .accent-border {
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Title Slide -->
+    <div class="slide tech-bg flex flex-col justify-center items-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+
+        <div class="z-10 text-center px-12">
+            <div
+                class="inline-block px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-bold mb-6 text-sm tracking-widest shadow-sm">
+                2025 HR STRATEGY REPORT</div>
+            <h1 class="text-6xl font-black text-slate-800 leading-tight mb-4">구성원 성장 중심의<br><span class="accent-text">HR
+                    제도 방향성</span></h1>
+            <p class="text-2xl text-slate-500 font-light mt-4 max-w-4xl leading-relaxed">성장이 곧 성과로 연결되는<br>새로운 HR 패러다임의
+                시작</p>
+        </div>
+
+        <div
+            class="absolute bottom-0 w-full h-1/3 bg-white/50 backdrop-blur-sm flex justify-center items-center gap-16 border-t border-white/60">
+            <div class="text-center">
+                <div class="text-4xl font-black text-slate-800 mb-1">12%</div>
+                <div class="text-slate-500 text-sm font-medium">전략적 인력계획</div>
+            </div>
+            <div class="w-px h-16 bg-slate-300"></div>
+            <div class="text-center">
+                <div class="text-4xl font-black text-slate-800 mb-1">56%</div>
+                <div class="text-slate-500 text-sm font-medium">채용 수락률</div>
+            </div>
+            <div class="w-px h-16 bg-slate-300"></div>
+            <div class="text-center">
+                <div class="text-4xl font-black text-slate-800 mb-1">30%</div>
+                <div class="text-slate-500 text-sm font-medium">신규 입사자 이탈</div>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-400 font-mono text-xs">01 / 10</div>
+    </div>
+
+    <!-- Slide 2: HR 패러다임 변화 (PILLAR_CARD) -->
+    <div class="slide p-16 bg-white flex flex-col">
+        <div class="flex items-center mb-10">
+            <div class="w-16 h-2 accent-bg mr-6"></div>
+            <div class="flex flex-col">
+                <span class="text-blue-600 font-bold tracking-widest text-sm mb-1">STRATEGIC SHIFT</span>
+                <h1 class="text-4xl font-bold text-slate-800">2025 HR 패러다임 변화 <span class="font-light text-slate-400">|
+                        성장과 연결</span></h1>
+            </div>
+        </div>
+
+        <p class="text-xl text-slate-600 leading-relaxed mb-10 max-w-5xl">HR은 단순 지원 기능을 넘어, 구성원 성장과 비즈니스 목표를 직접 연결하는
+            '전략적 성장 파트너'로 진화하고 있습니다.</p>
+
+        <div class="grid grid-cols-2 gap-8 flex-1">
+            <div class="bg-slate-50 p-7 rounded-xl shadow-sm border-t-4 accent-border card-hover group cursor-pointer">
+                <div class="flex items-start mb-4">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mr-5 shadow-sm group-hover:bg-blue-50 transition-colors">
+                        <i class="fas fa-seedling text-3xl accent-text"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-blue-700 transition-colors">
+                            전략적 전환</h3>
+                        <p class="text-slate-600 leading-relaxed">구성원 성장이 곧 조직의 회복탄력성과 경쟁우위의 핵심 원천</p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-slate-50 p-7 rounded-xl shadow-sm border-t-4 border-indigo-500 card-hover group cursor-pointer">
+                <div class="flex items-start mb-4">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mr-5 shadow-sm group-hover:bg-indigo-50 transition-colors">
+                        <i class="fas fa-microchip text-3xl text-indigo-600"></i>
+                    </div>
+                    <div>
+                        <h3
+                            class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-indigo-700 transition-colors">
+                            기술의 역할</h3>
+                        <p class="text-slate-600 leading-relaxed">AI와 워크포스 분석이 인재 계획/지식 유지 방식의 혁신 주도</p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-slate-50 p-7 rounded-xl shadow-sm border-t-4 border-purple-500 card-hover group cursor-pointer">
+                <div class="flex items-start mb-4">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mr-5 shadow-sm group-hover:bg-purple-50 transition-colors">
+                        <i class="fas fa-puzzle-piece text-3xl text-purple-600"></i>
+                    </div>
+                    <div>
+                        <h3
+                            class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-purple-700 transition-colors">
+                            통합의 필요성</h3>
+                        <p class="text-slate-600 leading-relaxed">성과관리-학습-인재 기능의 분절을 해소하는 통합적 접근</p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-slate-50 p-7 rounded-xl shadow-sm border-t-4 border-rose-500 card-hover group cursor-pointer">
+                <div class="flex items-start mb-4">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mr-5 shadow-sm group-hover:bg-rose-50 transition-colors">
+                        <i class="fas fa-exclamation-triangle text-3xl text-rose-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-rose-700 transition-colors">
+                            현실적 과제</h3>
+                        <p class="text-slate-600 leading-relaxed">미국 HR 리더 중 <span
+                                class="font-bold text-rose-600 bg-rose-50 px-1 rounded">12%</span>만이 장기 전략적 인력계획 수행</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-400 font-mono text-xs">02 / 10</div>
+    </div>
+
+    <!-- Slide 3: 데이터 기반 인재 확보 (BAR_CHART) -->
+    <div class="slide p-16 bg-white flex flex-col">
+        <div class="mb-8">
+            <span class="text-blue-600 font-bold tracking-widest text-sm mb-1 block">DATA-DRIVEN RECRUITMENT</span>
+            <h1 class="text-4xl font-bold text-slate-800">데이터 기반 인재 확보와 유지 전략</h1>
+            <p class="text-lg text-slate-500 mt-2">직감에서 데이터로: 문화 적합성과 이직 위험을 예측하는 정밀 인재 관리</p>
+        </div>
+
+        <div class="flex gap-10 h-full">
+            <!-- Chart Section -->
+            <div class="w-5/12 flex flex-col">
+                <div
+                    class="bg-slate-50 rounded-2xl p-6 shadow-inner flex-1 flex flex-col justify-center items-center relative">
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 absolute top-6 left-6">채용 제안 수락률 격차</h3>
+                    <div id="acceptance_chart"></div>
+                    <div class="absolute bottom-6 right-6 text-2xl font-black text-rose-500">-29%p <span
+                            class="text-sm font-normal text-slate-400">GAP</span></div>
+                </div>
+            </div>
+
+            <!-- Details Section -->
+            <div class="w-7/12 flex flex-col justify-between">
+                <div class="liquid-glass p-6 rounded-xl flex items-start space-x-4 mb-4 card-hover">
+                    <div class="mt-1 bg-blue-100 p-2 rounded-lg text-blue-600"><i class="fas fa-filter"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-lg">데이터 선발</h4>
+                        <p class="text-slate-600 text-sm mt-1">이력서 너머의 성장 잠재력과 조직 문화 적합성을 데이터로 검증하여 채용 실패 비용 최소화</p>
+                    </div>
+                </div>
+                <div class="liquid-glass p-6 rounded-xl flex items-start space-x-4 mb-4 card-hover">
+                    <div class="mt-1 bg-indigo-100 p-2 rounded-lg text-indigo-600"><i class="fas fa-radar"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-lg">예측적 방어 (Retention)</h4>
+                        <p class="text-slate-600 text-sm mt-1">이직 위험 인재 사전 식별 → 멘토링/보상 등 선제적 타깃 개입으로 핵심 인재 유출 방지</p>
+                    </div>
+                </div>
+                <div class="liquid-glass p-6 rounded-xl flex items-start space-x-4 mb-4 card-hover">
+                    <div class="mt-1 bg-emerald-100 p-2 rounded-lg text-emerald-600"><i class="fas fa-coins"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-lg">비용 효율성</h4>
+                        <p class="text-slate-600 text-sm mt-1">단순 인원 유지를 넘어 채용 비용 절감(평균 연봉의 50%~200%)과 핵심 지식/네트워크 보존</p>
+                    </div>
+                </div>
+
+                <div class="bg-rose-50 p-4 rounded-lg border-l-4 border-rose-500">
+                    <div class="flex items-center text-rose-700 font-bold mb-1">
+                        <i class="fas fa-exclamation-circle mr-2"></i> Critical Issue
+                    </div>
+                    <p class="text-rose-600 text-sm">현재 채용 제안 수락률 56% (목표 85%) → 인재 유치 경쟁력 취약</p>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-400 font-mono text-xs">03 / 10</div>
+    </div>
+
+    <!-- Slide 4: 개인화된 L&D 생태계 (CARD_GRID) -->
+    <div class="slide p-16 bg-slate-50 flex flex-col">
+        <div class="text-center mb-12">
+            <span
+                class="inline-block py-1 px-3 rounded-full bg-purple-100 text-purple-700 text-xs font-bold tracking-wider mb-3">PERSONALIZATION</span>
+            <h1 class="text-4xl font-bold text-slate-800">개인화된 L&D(학습 및 개발) 생태계</h1>
+            <p class="text-lg text-slate-500 mt-3">AI 추천 맞춤형 성장 경로로 조직 전략과 개인 비전 일치</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div
+                class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow border-t-8 border-blue-500 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fas fa-fingerprint text-8xl text-blue-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">초개인화 학습</h3>
+                <p class="text-slate-600 leading-relaxed mb-6">획일적 교육 탈피. 미래 역량 수요와 개인 선호도를 AI로 매칭한 커리어 경로 제공.</p>
+                <div class="inline-block bg-blue-50 text-blue-700 px-3 py-1 rounded font-semibold text-sm">AI
+                    Recommendation</div>
+            </div>
+
+            <!-- Card 2 -->
+            <div
+                class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow border-t-8 border-rose-400 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fas fa-comment-slash text-8xl text-rose-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">피드백의 부재</h3>
+                <div class="flex items-end gap-2 mb-4">
+                    <span class="text-5xl font-black text-rose-500">26%</span>
+                    <span class="text-slate-400 font-medium mb-1">직원</span>
+                </div>
+                <p class="text-slate-600 leading-relaxed">지난 1년간 피드백을 한 번도 받지 못함. 성장 가이드가 실종된 상태.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+                class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow border-t-8 border-orange-400 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fas fa-hourglass-half text-8xl text-orange-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">학습량 부족</h3>
+                <div class="flex items-end gap-2 mb-4">
+                    <span class="text-5xl font-black text-orange-500">6일</span>
+                    <span class="text-slate-400 font-medium mb-1">/ Year</span>
+                </div>
+                <p class="text-slate-600 leading-relaxed">연간 교육 시간이 절대적으로 부족. 지속적 역량 개발의 한계.</p>
+            </div>
+
+            <!-- Integration Section (Full Width) -->
+            <div
+                class="col-span-3 bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-8 text-white flex items-center justify-between shadow-lg mt-2">
+                <div>
+                    <h3 class="text-xl font-bold mb-1"><i class="fas fa-link mr-2 text-blue-400"></i>Integration Synergy
+                    </h3>
+                    <p class="text-slate-300">성과관리 ↔ 학습 ↔ 승계계획의 연계</p>
+                </div>
+                <div class="flex gap-8">
+                    <div class="text-center">
+                        <div class="font-bold text-2xl text-blue-400">33%</div>
+                        <div class="text-xs text-slate-400">승계계획 보유율</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="font-bold text-2xl text-emerald-400">Target</div>
+                        <div class="text-xs text-slate-400">100% Core Roles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-400 font-mono text-xs">04 / 10</div>
+    </div>
+
+    <!-- Slide 5: Gap Analysis (TABLE) -->
+    <div class="slide p-16 bg-white flex flex-col">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-slate-800">전략적 HR 실행 격차 <span class="text-slate-400 font-light">(Gap
+                    Analysis)</span></h1>
+            <p class="text-lg text-slate-500 mt-2">인식은 높으나 실행력은 미흡. 특히 장기 전략과 승계 관리의 리스크가 큼.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-slate-50 text-slate-500 text-sm uppercase tracking-wider">
+                        <th class="py-5 px-8 text-left font-semibold">주요 지표 (Key Metric)</th>
+                        <th class="py-5 px-8 text-center font-semibold">현재 실행률</th>
+                        <th class="py-5 px-8 text-center font-semibold">이상적 목표</th>
+                        <th class="py-5 px-8 text-center font-semibold">격차 (Gap)</th>
+                    </tr>
+                </thead>
+                <tbody class="text-slate-700">
+                    <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                        <td class="py-5 px-8 font-medium"><i class="fas fa-check-circle text-emerald-500 mr-3"></i>운영적
+                            인력계획</td>
+                        <td class="py-5 px-8 text-center font-bold text-lg">73%</td>
+                        <td class="py-5 px-8 text-center text-slate-400">-</td>
+                        <td class="py-5 px-8 text-center text-emerald-600 font-bold">Good</td>
+                    </tr>
+                    <!-- Highlighted Row -->
+                    <tr class="bg-rose-50 border-l-4 border-rose-500 shadow-sm relative z-10">
+                        <td class="py-6 px-8 font-bold text-slate-900">
+                            <i class="fas fa-exclamation-triangle text-rose-500 mr-3"></i>전략적 인력계획 (3년+)
+                        </td>
+                        <td class="py-6 px-8 text-center font-black text-2xl text-rose-600">12%</td>
+                        <td class="py-6 px-8 text-center font-bold text-slate-600">60%</td>
+                        <td class="py-6 px-8 text-center">
+                            <span
+                                class="bg-rose-100 text-rose-700 py-1 px-3 rounded-full font-bold text-sm">-48%p</span>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                        <td class="py-5 px-8 font-medium"><i class="fas fa-layer-group text-slate-400 mr-3"></i>통합 개발 전략
+                        </td>
+                        <td class="py-5 px-8 text-center font-bold text-lg">35%</td>
+                        <td class="py-5 px-8 text-center text-slate-500">80%</td>
+                        <td class="py-5 px-8 text-center text-rose-500 font-bold">-45%p</td>
+                    </tr>
+                    <!-- Highlighted Row 2 -->
+                    <tr class="bg-orange-50 border-l-4 border-orange-400">
+                        <td class="py-6 px-8 font-bold text-slate-900">
+                            <i class="fas fa-user-clock text-orange-500 mr-3"></i>핵심 직무 승계계획
+                        </td>
+                        <td class="py-6 px-8 text-center font-black text-2xl text-orange-600">33%</td>
+                        <td class="py-6 px-8 text-center font-bold text-slate-600">100%</td>
+                        <td class="py-6 px-8 text-center">
+                            <span
+                                class="bg-orange-100 text-orange-700 py-1 px-3 rounded-full font-bold text-sm">-67%p</span>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="py-5 px-8 font-medium"><i class="fas fa-handshake text-slate-400 mr-3"></i>채용 제안 수락률
+                        </td>
+                        <td class="py-5 px-8 text-center font-bold text-lg">56%</td>
+                        <td class="py-5 px-8 text-center text-slate-500">85%</td>
+                        <td class="py-5 px-8 text-center text-rose-500 font-bold">-29%p</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-6 flex items-center justify-end text-slate-400 text-sm">
+            <i class="fas fa-info-circle mr-2"></i> 데이터 출처: McKinsey HR Monitor 2025
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-400 font-mono text-xs">05 / 10</div>
+    </div>
+
+    <!-- Slide 6: 조직 민첩성 인프라 (INFRASTRUCTURE_CARD) -->
+    <div class="slide p-16 bg-white flex flex-col">
+        <div class="flex items-center mb-8">
+            <div class="w-16 h-2 bg-indigo-600 mr-6"></div>
+            <div class="flex flex-col">
+                <span class="text-indigo-600 font-bold tracking-widest text-sm mb-1">INFRASTRUCTURE</span>
+                <h1 class="text-4xl font-bold text-slate-800">조직 민첩성 확보를 위한 인프라</h1>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-8 mb-10">
+            <!-- Card 1 -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-indigo-500 card-hover flex flex-col">
+                <div class="w-16 h-16 rounded-full bg-indigo-50 flex items-center justify-center mb-6">
+                    <i class="fas fa-users-cog text-3xl text-indigo-600"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-3">유연한 인력 구성</h3>
+                <div class="w-12 h-1 bg-indigo-200 mb-4"></div>
+                <p class="text-slate-600 mb-6 flex-grow">정규직, 계약직, 외부 전문가를 아우르는 'Total Workforce' 관점의 통합 관리.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold">Total
+                        Workforce</span>
+                    <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold">Gig
+                        Economy</span>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-blue-500 card-hover flex flex-col">
+                <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-6">
+                    <i class="fas fa-laptop-house text-3xl text-blue-600"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-3">하이브리드 문화</h3>
+                <div class="w-12 h-1 bg-blue-200 mb-4"></div>
+                <p class="text-slate-600 mb-6 flex-grow">원격/대면 근무의 유연성을 유지하되, 문화적 온보딩 강화로 조기 이탈 방지.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold">Onboarding</span>
+                    <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold">Culture Fit</span>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-purple-500 card-hover flex flex-col">
+                <div class="w-16 h-16 rounded-full bg-purple-50 flex items-center justify-center mb-6">
+                    <i class="fas fa-robot text-3xl text-purple-600"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-3">AI 행정 자동화</h3>
+                <div class="w-12 h-1 bg-purple-200 mb-4"></div>
+                <p class="text-slate-600 mb-6 flex-grow">이력서 스크리닝, 급여, 일정 관리 등 반복 업무의 AI 완전 자동화.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-bold">Screening</span>
+                    <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-bold">Payroll</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Highlight Box -->
+        <div class="bg-slate-900 rounded-xl p-6 text-white flex items-center shadow-lg">
+            <div class="bg-indigo-500 p-3 rounded-lg mr-6 flex-shrink-0">
+                <i class="fas fa-crosshairs text-2xl text-white"></i>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold text-indigo-300">Strategy Focus</h4>
+                <p class="text-slate-300">자동화로 확보된 시간 ➜ HR 담당자의 전략적 기획과 구성원 상담(Human Touch)에 투자</p>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-400 font-mono text-xs">06 / 10</div>
+    </div>
+
+    <!-- Slide 7: 학습 문화와 웰빙 (BULLET_CARD) -->
+    <div class="slide p-16 bg-slate-50 flex flex-col">
+        <div class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-slate-800">지속적 학습 문화와 <span class="text-emerald-600">전인적 웰빙</span></h1>
+            <p class="text-lg text-slate-500 mt-3">변화에 적응하는 '학습 민첩성'과 번아웃 방지를 위한 'Total Care'</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 flex-1">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative">
+                <div
+                    class="absolute -top-4 left-8 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold shadow-md">
+                    Agile Learning</div>
+                <ul class="mt-4 space-y-8">
+                    <li class="flex">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xl font-bold mr-5">
+                            01</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">유연한 경력 (Career Mobility)</h4>
+                            <p class="text-slate-600">직무 순환, 교차 훈련(Cross-training)을 통해 내부 이동성을 확대하고 다양한 역할을 수행하는 멀티 플레이어
+                                육성</p>
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xl font-bold mr-5">
+                            02</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">진화된 성과관리</h4>
+                            <p class="text-slate-600">연 1회 평가 등급 산정 → <span class="font-bold text-blue-600">상시적
+                                    피드백</span>과 <span class="font-bold text-blue-600">성장 코칭</span>으로 패러다임 전환</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative">
+                <div
+                    class="absolute -top-4 left-8 bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-md">
+                    Holistic Wellbeing</div>
+                <ul class="mt-4 space-y-8">
+                    <li class="flex">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 text-xl font-bold mr-5">
+                            03</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">전인적 웰빙 (Holistic Care)</h4>
+                            <p class="text-slate-600">단순 복지를 넘어 정신 건강(Mental), 재정 안정(Financial), 신체 활력(Physical)을 포함하는
+                                종합 케어</p>
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 text-xl font-bold mr-5">
+                            04</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">동반 성장</h4>
+                            <p class="text-slate-600">지속적 학습 문화는 조직의 혁신 역량과 개인의 시장 가치를 동시에 높이는 Win-Win 전략</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-400 font-mono text-xs">07 / 10</div>
+    </div>
+
+    <!-- Slide 8: Action Plan (TIMELINE/PROCESS) -->
+    <div class="slide p-14 bg-slate-900 text-white flex flex-col">
+        <div class="flex justify-between items-end mb-12 border-b border-slate-700 pb-6">
+            <div>
+                <h1 class="text-4xl font-bold text-white mb-2">한국 기업을 위한 Action Plan</h1>
+                <p class="text-slate-400">인구 감소와 노동력 부족 시대, 통합적 인재 전략은 생존의 필수 조건</p>
+            </div>
+            <div class="text-right">
+                <div class="text-sm font-bold text-blue-400 uppercase tracking-widest">Priority Roadmap</div>
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center relative mt-8 flex-1 px-8">
+            <!-- Connecting Line -->
+            <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-700 -z-10 transform -translate-y-1/2"></div>
+
+            <!-- Step 1 -->
+            <div
+                class="flex flex-col items-center group cursor-pointer hover:-translate-y-2 transition-transform duration-300">
+                <div
+                    class="w-16 h-16 rounded-full bg-slate-800 border-4 border-blue-500 flex items-center justify-center text-2xl font-black mb-4 z-10 shadow-lg group-hover:bg-blue-600 transition-colors">
+                    1</div>
+                <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-48 text-center shadow-xl">
+                    <h4 class="font-bold text-blue-400 mb-1">인력계획 수립</h4>
+                    <p class="text-xs text-slate-300">3~5년 중장기 수급 예측 (인구구조 반영)</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div
+                class="flex flex-col items-center group cursor-pointer hover:-translate-y-2 transition-transform duration-300">
+                <div
+                    class="w-16 h-16 rounded-full bg-slate-800 border-4 border-indigo-500 flex items-center justify-center text-2xl font-black mb-4 z-10 shadow-lg group-hover:bg-indigo-600 transition-colors">
+                    2</div>
+                <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-48 text-center shadow-xl">
+                    <h4 class="font-bold text-indigo-400 mb-1">개발 기능 통합</h4>
+                    <p class="text-xs text-slate-300">채용-교육-평가 데이터 파이프라인 구축</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div
+                class="flex flex-col items-center group cursor-pointer hover:-translate-y-2 transition-transform duration-300">
+                <div
+                    class="w-16 h-16 rounded-full bg-slate-800 border-4 border-purple-500 flex items-center justify-center text-2xl font-black mb-4 z-10 shadow-lg group-hover:bg-purple-600 transition-colors">
+                    3</div>
+                <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-48 text-center shadow-xl">
+                    <h4 class="font-bold text-purple-400 mb-1">승계계획 강화</h4>
+                    <p class="text-xs text-slate-300">Key Position 공백 리스크 최소화</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div
+                class="flex flex-col items-center group cursor-pointer hover:-translate-y-2 transition-transform duration-300">
+                <div
+                    class="w-16 h-16 rounded-full bg-slate-800 border-4 border-rose-500 flex items-center justify-center text-2xl font-black mb-4 z-10 shadow-lg group-hover:bg-rose-600 transition-colors">
+                    4</div>
+                <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-48 text-center shadow-xl">
+                    <h4 class="font-bold text-rose-400 mb-1">예측적 유지</h4>
+                    <p class="text-xs text-slate-300">데이터 기반 이탈 징후 포착 및 방어</p>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div
+                class="flex flex-col items-center group cursor-pointer hover:-translate-y-2 transition-transform duration-300">
+                <div
+                    class="w-16 h-16 rounded-full bg-slate-800 border-4 border-emerald-500 flex items-center justify-center text-2xl font-black mb-4 z-10 shadow-lg group-hover:bg-emerald-600 transition-colors">
+                    5</div>
+                <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-48 text-center shadow-xl">
+                    <h4 class="font-bold text-emerald-400 mb-1">유연한 구조</h4>
+                    <p class="text-xs text-slate-300">직무 중심 인사 및 유연 근무제 정착</p>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-500 font-mono text-xs">08 / 10</div>
+    </div>
+
+    <!-- Slide 9: KPIs (KPI_DASHBOARD) -->
+    <div class="slide p-16 bg-slate-50 flex flex-col">
+        <div class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-slate-800">HR 혁신의 성과 지표 <span
+                    class="text-slate-400 font-light">(KPIs)</span></h1>
+            <p class="text-lg text-slate-500 mt-3">전략적 HR 투자의 효과를 입증하는 구체적인 측정 지표</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 flex-1">
+            <!-- KPI 1 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-blue-500 flex items-center card-hover">
+                <div
+                    class="w-24 h-24 rounded-full bg-blue-50 flex flex-col items-center justify-center mr-8 flex-shrink-0">
+                    <span class="text-3xl font-black text-blue-600">30<span class="text-sm">일</span></span>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">채용 소요기간 (Time to Hire)
+                    </h3>
+                    <p class="text-4xl font-bold text-slate-800 mb-2">30일 이하</p>
+                    <div class="flex justify-between items-center bg-slate-50 rounded px-3 py-1">
+                        <span class="text-xs text-slate-500">Target: 2년 내</span>
+                        <span class="text-xs font-bold text-blue-500">핵심 인재 적기 확보</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 2 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-rose-500 flex items-center card-hover">
+                <div
+                    class="w-24 h-24 rounded-full bg-rose-50 flex flex-col items-center justify-center mr-8 flex-shrink-0">
+                    <i class="fas fa-arrow-down text-2xl text-rose-500 mb-1"></i>
+                    <span class="text-2xl font-black text-rose-600">10<span class="text-sm">%</span></span>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">자발적 이직률</h3>
+                    <p class="text-4xl font-bold text-slate-800 mb-2">10% 감소</p>
+                    <div class="flex justify-between items-center bg-slate-50 rounded px-3 py-1">
+                        <span class="text-xs text-slate-500">Target: 14개월 내</span>
+                        <span class="text-xs font-bold text-rose-500">비용 절감 & 안정성</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 3 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-purple-500 flex items-center card-hover">
+                <div
+                    class="w-24 h-24 rounded-full bg-purple-50 flex flex-col items-center justify-center mr-8 flex-shrink-0">
+                    <i class="fas fa-arrow-up text-2xl text-purple-500 mb-1"></i>
+                    <span class="text-2xl font-black text-purple-600">20<span class="text-sm">%</span></span>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">내부 승진률</h3>
+                    <p class="text-4xl font-bold text-slate-800 mb-2">연 20% 증가</p>
+                    <div class="flex justify-between items-center bg-slate-50 rounded px-3 py-1">
+                        <span class="text-xs text-slate-500">Target: 매년</span>
+                        <span class="text-xs font-bold text-purple-500">성장 동기 부여</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 4 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-amber-500 flex items-center card-hover">
+                <div
+                    class="w-24 h-24 rounded-full bg-amber-50 flex flex-col items-center justify-center mr-8 flex-shrink-0">
+                    <i class="fas fa-chart-line text-2xl text-amber-500 mb-1"></i>
+                    <span class="text-2xl font-black text-amber-600">15<span class="text-sm">%</span></span>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">직원 몰입도</h3>
+                    <p class="text-4xl font-bold text-slate-800 mb-2">15% 상승</p>
+                    <div class="flex justify-between items-center bg-slate-50 rounded px-3 py-1">
+                        <span class="text-xs text-slate-500">Target: 분기별</span>
+                        <span class="text-xs font-bold text-amber-500">생산성 혁신</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-8 text-slate-400 font-mono text-xs">09 / 10</div>
+    </div>
+
+    <!-- Slide 10: Summary (CLOSING) -->
+    <div class="slide bg-slate-900 flex flex-col justify-center items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 opacity-80"></div>
+
+        <div class="z-10 text-center max-w-5xl px-8">
+            <h1 class="text-6xl font-black text-white mb-8">성장이 곧 성과입니다</h1>
+
+            <p class="text-2xl text-blue-200 font-light leading-relaxed mb-16">
+                구성원의 성장을 돕는 것이 조직이 성공하는 가장 확실한 전략입니다.<br>
+                <span class="text-white font-bold">2025년, HR은 비즈니스의 심장이 됩니다.</span>
+            </p>
+
+            <div class="grid grid-cols-3 gap-8 text-left border-t border-slate-700 pt-12">
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-2">Source 1</h4>
+                    <p class="text-slate-400 text-sm">Humanity HR, 2025 "How Strategic HR Cultivates Business Growth"
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-2">Source 2</h4>
+                    <p class="text-slate-400 text-sm">McKinsey HR Monitor 2025 (Global Survey Data)</p>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-2">Source 3</h4>
+                    <p class="text-slate-400 text-sm">Criterion HCM, "Strategic Human Resource Management Guide"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-6 right-8 text-slate-600 font-mono text-xs">10 / 10</div>
+    </div>
+
+    <script>
+        // D3.js Bar Chart Implementation for Slide 3
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById("acceptance_chart");
+            if (container) {
+                // Clear previous contents
+                container.innerHTML = '';
+
+                // Set dimensions
+                const width = 300;
+                const height = 240;
+                const margin = { top: 20, right: 20, bottom: 40, left: 20 };
+
+                // Create SVG
+                const svg = d3.select(container)
+                    .append("svg")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .append("g")
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                // Data
+                const data = [
+                    { label: "현재", value: 56, color: "#f43f5e" }, // Rose-500
+                    { label: "목표", value: 85, color: "#cbd5e1" }  // Slate-300 (Target)
+                ];
+
+                // Scales
+                const x = d3.scaleBand()
+                    .range([0, width - margin.left - margin.right])
+                    .domain(data.map(d => d.label))
+                    .padding(0.3);
+
+                const y = d3.scaleLinear()
+                    .domain([0, 100])
+                    .range([height - margin.top - margin.bottom, 0]);
+
+                // Bars
+                svg.selectAll("rect")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                    .attr("x", d => x(d.label))
+                    .attr("y", d => y(d.value))
+                    .attr("width", x.bandwidth())
+                    .attr("height", d => height - margin.top - margin.bottom - y(d.value))
+                    .attr("fill", d => d.color)
+                    .attr("rx", 6);
+
+                // Labels
+                svg.selectAll(".label")
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("class", "label")
+                    .attr("x", d => x(d.label) + x.bandwidth() / 2)
+                    .attr("y", d => y(d.value) - 8)
+                    .attr("text-anchor", "middle")
+                    .style("font-weight", "bold")
+                    .style("font-size", "18px")
+                    .style("fill", "#334155")
+                    .text(d => d.value + "%");
+
+                // X Axis labels
+                svg.append("g")
+                    .attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
+                    .call(d3.axisBottom(x).tickSize(0))
+                    .select(".domain").remove();
+
+                svg.selectAll(".tick text")
+                    .style("font-size", "14px")
+                    .style("font-weight", "bold")
+                    .style("fill", "#64748b")
+                    .attr("dy", "15px");
+            }
+        });
+    </script>
+
+</body>
+
+</html>

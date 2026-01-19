@@ -1,0 +1,930 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>KODEX 나스닥100 데일리커버드콜 OTM ETF 2026 투자 분석</title>
+  <meta name="viewport" content="width=1280, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+    
+    body {
+      background: #f1f5f9;
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+    
+    .slide {
+      width: 1280px;
+      height: 720px;
+      background: white;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TITLE / EXECUTIVE SUMMARY -->
+  <div class="slide p-12 bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
+    <div class="mb-6 flex items-start justify-between">
+      <div>
+        <h1 class="text-5xl font-black text-gray-900">KODEX 나스닥100 데일리커버드콜 OTM ETF</h1>
+        <p class="text-2xl font-bold text-blue-600 mt-2">2026 투자 분석</p>
+      </div>
+      <div class="text-right">
+        <span class="inline-block bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded">버전: 2026</span>
+      </div>
+    </div>
+    <div class="flex-grow grid grid-cols-2 gap-8">
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center">
+          <i class="fas fa-chart-line text-blue-600 mr-3"></i>Executive Summary
+        </h3>
+        <p class="text-gray-700 leading-relaxed">
+          2026년은 AI 수익화와 연준의 정책 정상화가 맞물린
+          <span class="font-extrabold text-slate-800">고변동성·완만한 상승</span> 국면으로,
+          <span class="font-extrabold text-blue-700">데일리 커버드콜</span> 전략이 성과를 내기 좋은 환경.
+        </p>
+        <ul class="mt-5 space-y-3">
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-emerald-500 mr-3 mt-0.5"></i>
+            <div>
+              <span class="font-bold text-gray-800">KODEX(494300)</span>:
+              일간 <span class="font-extrabold text-blue-700 text-xl">1%</span> OTM 콜 매도로 프리미엄 극대화, 상승 참여 일부 유지
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-emerald-500 mr-3 mt-0.5"></i>
+            <div>
+              <span class="font-bold text-gray-800">TIGER(476080)</span>:
+              <span class="font-extrabold text-orange-500 text-xl">타겟 프리미엄</span>으로 상방 참여 극대화 (목표 분배율 지향)
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-emerald-500 mr-3 mt-0.5"></i>
+            <div>완만 상승·고변동 환경에서 인컴+상방 참여의 균형 전략이 유리</div>
+          </li>
+        </ul>
+      </div>
+      <div class="grid grid-rows-3 gap-6">
+        <div class="bg-blue-50 rounded-2xl p-6 border-l-4 border-blue-600 hover-lift">
+          <div class="flex items-center justify-between">
+            <h4 class="text-gray-800 font-bold">전략 초점</h4>
+            <i class="fas fa-bullseye text-blue-600"></i>
+          </div>
+          <p class="mt-3 text-4xl font-black text-blue-700">Daily 1% OTM</p>
+          <p class="text-sm text-gray-600 mt-1">상방 캡 vs 프리미엄 수취의 최적 균형</p>
+        </div>
+        <div class="bg-emerald-50 rounded-2xl p-6 border-l-4 border-emerald-500 hover-lift">
+          <div class="flex items-center justify-between">
+            <h4 class="text-gray-800 font-bold">환경</h4>
+            <i class="fas fa-robot text-emerald-600"></i>
+          </div>
+          <p class="mt-3 text-4xl font-black text-emerald-600">AI 수익화</p>
+          <p class="text-sm text-gray-600 mt-1">고변동성·완만 상승</p>
+        </div>
+        <div class="bg-indigo-50 rounded-2xl p-6 border-l-4 border-indigo-600 hover-lift">
+          <div class="flex items-center justify-between">
+            <h4 class="text-gray-800 font-bold">핵심 비교</h4>
+            <i class="fas fa-scale-balanced text-indigo-600"></i>
+          </div>
+          <p class="mt-3 text-4xl font-black text-indigo-700">KODEX vs TIGER</p>
+          <p class="text-sm text-gray-600 mt-1">인컴 극대화 vs 상방 참여</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: TABLE + (optional) BAR -->
+  <div class="slide p-12 bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
+    <div class="mb-6 flex items-center justify-between">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-800">2세대 커버드콜 <span class="text-blue-600">부상</span></h1>
+        <p class="text-lg text-gray-600 mt-2">0DTE 유동성 확대 → 데일리 OTM이 상방 참여와 프리미엄의 균형 제공</p>
+      </div>
+      <div class="text-right">
+        <span class="text-xs font-bold text-gray-400 block mb-1">DATA SOURCE</span>
+        <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500">Nasdaq Indexes, 시장 관찰치</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-6 flex-grow">
+      <!-- Table -->
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-6 overflow-hidden">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-gray-200">
+              <th class="text-left py-3 px-4 font-semibold text-gray-600">항목</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-600">수치</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-600">비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">0DTE 옵션 개념</td>
+              <td class="py-3 px-4"><span class="font-extrabold text-xl text-slate-800">만기 0일</span></td>
+              <td class="py-3 px-4">일간 재설정 운용 기반</td>
+            </tr>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">월간 ATM vs 데일리 OTM</td>
+              <td class="py-3 px-4"><span class="font-extrabold text-xl text-slate-800">월간/등가격 vs 일간/외가격(1%)</span></td>
+              <td class="py-3 px-4">상방 참여·프리미엄 수확 차이</td>
+            </tr>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">나스닥100 일간 +1% 초과 상승 빈도</td>
+              <td class="py-3 px-4"><span class="font-extrabold text-2xl text-blue-700">15%~20%</span></td>
+              <td class="py-3 px-4">대부분의 날(≈80%)은 상방 참여</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mt-4 bg-white/70 rounded-xl p-3 flex items-center">
+          <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+          <span class="text-gray-600 text-sm">1세대 월간 ATM(QYLD 등)의 상방 포기 문제를 데일리 재설정이 보완</span>
+        </div>
+      </div>
+
+      <!-- Simple Bar Chart (Conceptual) -->
+      <div class="bg-white/70 rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-gray-800 mb-2">상방 참여 유연성(상대지수) & 프리미엄 수확(상대지수)</h3>
+        <p class="text-xs text-gray-500 mb-4">개념 지표: 100 = 월간 ATM 기준</p>
+        <div id="sec1-bar" class="w-full"></div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <div class="bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl p-5 text-white">
+        <div class="flex items-center">
+          <i class="fas fa-lightbulb text-2xl text-amber-300 mr-4"></i>
+          <div>
+            <p class="font-bold text-lg">Key Takeaway</p>
+            <p class="text-blue-100 text-sm">데일리 OTM 커버드콜은 변동성 수확(Theta)과 상방 참여 간 균형을 강화</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: BULLET CARD + PROCESS FLOW -->
+  <div class="slide p-12 bg-gradient-to-br from-gray-50 to-blue-50 flex flex-col">
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-800">KODEX 운용 로직과 <span class="text-blue-600">1% OTM 메커니즘</span></h1>
+      <p class="text-gray-500 mt-2">Nasdaq-100 Daily Covered Call 101 Index 추종 (매일 지수의 101% 행사가 콜 매도)</p>
+    </div>
+    <div class="grid grid-cols-2 gap-8 flex-grow">
+      <!-- Left Panel -->
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <i class="fas fa-gear text-blue-500 mr-3"></i>운용 핵심
+        </h3>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">지수: NDXDC01 (Daily CC 101)</strong>
+              <p class="text-gray-500 text-sm mt-1">“101” = 당일 종가 대비 <span class="font-bold text-slate-800">+1%</span> OTM 콜 매도</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">일간 재설정</strong>
+              <p class="text-gray-500 text-sm mt-1">상방 캡을 <span class="font-bold text-slate-800">1%/일</span>로 관리하며 프리미엄을 매일 수취</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">분포 기반 적합성</strong>
+              <p class="text-gray-500 text-sm mt-1">대부분의 날에 <span class="font-bold">상승 참여 + 프리미엄</span> 동시 달성</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- Right Panel -->
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <i class="fas fa-list-check text-blue-500 mr-3"></i>상황별 결과
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <i class="fas fa-arrow-up text-blue-600 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">A: +0.5%</strong>
+              <p class="text-gray-500 text-sm mt-1">지수 +0.5% 전부 반영 + 프리미엄 수취</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-lock text-amber-600 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">B: +2.0%</strong>
+              <p class="text-gray-500 text-sm mt-1">상방 <span class="font-bold">+1%</span>까지만 반영(ITM), 프리미엄 수취</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-arrow-down text-rose-600 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">C: -1.0%</strong>
+              <p class="text-gray-500 text-sm mt-1">지수 하락은 <span class="font-bold">프리미엄</span>으로 일부 상쇄</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Flow -->
+    <div class="flex items-center justify-center gap-4 my-6">
+      <div class="flex flex-col items-center">
+        <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+          <i class="fas fa-sliders text-3xl text-blue-600"></i>
+        </div>
+        <p class="text-sm font-bold text-gray-700">1% OTM 설정</p>
+        <p class="text-xs text-gray-500">지수의 101%</p>
+      </div>
+      <div class="text-4xl text-gray-300">→</div>
+      <div class="flex flex-col items-center">
+        <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mb-2">
+          <i class="fas fa-rotate text-3xl text-amber-600"></i>
+        </div>
+        <p class="text-sm font-bold text-gray-700">일간 재설정</p>
+        <p class="text-xs text-gray-500">0DTE 활용</p>
+      </div>
+      <div class="text-4xl text-gray-300">→</div>
+      <div class="flex flex-col items-center">
+        <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mb-2">
+          <i class="fas fa-coins text-3xl text-emerald-600"></i>
+        </div>
+        <p class="text-sm font-bold text-gray-700">수익 확정</p>
+        <p class="text-xs text-gray-500">+상방 일부 + 프리미엄</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: KPI DASHBOARD (분배/수익 구조) -->
+  <div class="slide p-12 bg-white flex flex-col">
+    <div class="mb-8 flex items-end justify-between border-b pb-4 border-gray-200">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900">분배금 재원과 수익 구조</h1>
+        <p class="text-gray-500 mt-2">주배당 0.8%가 아닌 일간 콜 매도 프리미엄 기반 인컴</p>
+      </div>
+      <div class="text-right">
+        <span class="text-xs font-bold text-gray-400 block mb-1">DATA SOURCE</span>
+        <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500">Toss(1), 삼성자산운용(2)</span>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-8 flex-grow content-center">
+      <div class="flex items-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
+        <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-2xl text-blue-600 mr-6">
+          <i class="fa-solid fa-chart-pie"></i>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">기초 주배당</p>
+          <p class="text-4xl font-black text-gray-700">0.8% <span class="text-lg text-gray-400 font-normal">/연</span></p>
+          <p class="text-xs text-blue-600 font-medium mt-1">재원 기여도 낮음</p>
+        </div>
+      </div>
+      <div class="flex items-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
+        <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-2xl text-blue-600 mr-6">
+          <i class="fa-solid fa-coins"></i>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">월분배(과거/가정)</p>
+          <p class="text-4xl font-black text-gray-700">140~170 <span class="text-lg text-gray-400 font-normal">원/주</span></p>
+          <p class="text-xs text-blue-600 font-medium mt-1">2025H2~2026초 관측치</p>
+        </div>
+      </div>
+      <div class="flex items-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
+        <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-2xl text-blue-600 mr-6">
+          <i class="fa-solid fa-calendar"></i>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">2026 예상 월분배</p>
+          <p class="text-4xl font-black text-gray-700">150~180 <span class="text-lg text-gray-400 font-normal">원/주</span></p>
+          <p class="text-xs text-blue-600 font-medium mt-1">변동성 확대 시 상향 가능</p>
+        </div>
+      </div>
+      <div class="flex items-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
+        <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-2xl text-blue-600 mr-6">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">분배율(연)</p>
+          <p class="text-4xl font-black text-gray-700">15~20% <span class="text-lg text-gray-400 font-normal">잠재</span></p>
+          <p class="text-xs text-blue-600 font-medium mt-1">가격 20,000~22,000원 가정</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: BULLET CARD (환노출 득/실) -->
+  <div class="slide p-12 bg-gradient-to-br from-gray-50 to-blue-50 flex flex-col">
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-800">환노출(Unhedged) 전략의 <span class="text-blue-600">득과 실</span></h1>
+      <p class="text-gray-500 mt-2">달러 강세 방어 vs 달러 약세 환차손</p>
+    </div>
+    <div class="grid grid-cols-2 gap-8 flex-grow">
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <i class="fas fa-thumbs-up text-emerald-500 mr-3"></i>득 (USD 강세)
+        </h3>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">하락장 방어력 강화</strong>
+              <p class="text-gray-500 text-sm mt-1">USD/KRW↑ → 원화 기준 손실 완화 (자연 헤지)</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-emerald-500 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">리스크 분산</strong>
+              <p class="text-gray-500 text-sm mt-1">미국 위기 시 달러 선호로 오르는 경향</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <i class="fas fa-thumbs-down text-rose-500 mr-3"></i>실 (USD 약세)
+        </h3>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <i class="fas fa-xmark-circle text-rose-500 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">환차손</strong>
+              <p class="text-gray-500 text-sm mt-1">USD/KRW↓ <span class="font-extrabold text-rose-600 text-lg">-5%~-10%</span> 시 총수익 훼손</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-xmark-circle text-rose-500 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">진입 타이밍 중요</strong>
+              <p class="text-gray-500 text-sm mt-1">고환율(예: 1,400원대) 신규 진입 시 리스크 점검</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-6 bg-white/80 backdrop-blur rounded-2xl p-4 flex items-center">
+      <i class="fas fa-compass text-blue-600 mr-3"></i>
+      <p class="text-sm text-gray-700"><span class="font-bold text-slate-800">투자 원칙</span>: 환노출 유지 시 분할 매수·환율 레벨 체크, 대안으로 환헤지형 병행 고려</p>
+    </div>
+  </div>
+
+  <!-- SECTION 5: TABLE + BAR (경쟁 상품 비교) -->
+  <div class="slide p-12 bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
+    <div class="mb-6 flex items-center justify-between">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-800">경쟁 상품 비교 — <span class="text-blue-600">TIGER vs KODEX</span></h1>
+        <p class="text-lg text-gray-600 mt-2">인컴 극대화 vs 상방 참여 극대화</p>
+      </div>
+      <div class="text-right">
+        <span class="text-xs font-bold text-gray-400 block mb-1">DATA SOURCE</span>
+        <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500">삼성(2), 미래에셋(8)</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-5 flex-grow">
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-6 overflow-hidden">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-gray-200">
+              <th class="text-left py-3 px-4 font-semibold text-gray-600">비교 항목</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-600">KODEX 494300</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-600">TIGER 476080</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">기초 지수</td>
+              <td class="py-3 px-4">Nasdaq-100 Daily Covered Call 101</td>
+              <td class="py-3 px-4">Nasdaq-100 + 15% Premium</td>
+            </tr>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">옵션 행사 가격</td>
+              <td class="py-3 px-4"><span class="font-extrabold text-blue-700">1% OTM</span>(고정)</td>
+              <td class="py-3 px-4">ATM/근접 OTM(가변)</td>
+            </tr>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">옵션 매도 비중</td>
+              <td class="py-3 px-4"><span class="font-extrabold text-2xl text-blue-700">100%</span></td>
+              <td class="py-3 px-4"><span class="font-extrabold text-2xl text-orange-500">10%~20%</span></td>
+            </tr>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">상승 참여율</td>
+              <td class="py-3 px-4">일간 <span class="font-bold">+1%</span>로 제한</td>
+              <td class="py-3 px-4">나머지 <span class="font-bold">~90%</span> 무제한</td>
+            </tr>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">목표/잠재 분배율</td>
+              <td class="py-3 px-4">변동성 따라 가변(최대치 추구)</td>
+              <td class="py-3 px-4"><span class="font-extrabold text-orange-500">연 15%</span>(월 1.25%)</td>
+            </tr>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">적합 시장</td>
+              <td class="py-3 px-4">횡보·완만 상승·하락</td>
+              <td class="py-3 px-4">강한 상승장</td>
+            </tr>
+            <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">핵심 리스크</td>
+              <td class="py-3 px-4">급등장 상방 캡</td>
+              <td class="py-3 px-4">급락장 방어력 제한</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-white/70 rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-gray-800 mb-2">옵션 매도 비중 비교</h3>
+        <div id="sec5-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: KPI DASHBOARD (시나리오별 수익성) - 개선: 시나리오 매트릭스 테이블 추가 -->
+  <div class="slide p-12 bg-white flex flex-col">
+    <div class="mb-8 flex items-end justify-between border-b pb-4 border-gray-200">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900">2026 시장 전망 & KODEX 수익성</h1>
+        <p class="text-gray-500 mt-2">완만 상승+고변동 구간에서 <span class="font-extrabold text-blue-700">총수익 24%~30%</span> Sweet Spot</p>
+      </div>
+      <div class="text-right">
+        <span class="text-xs font-bold text-gray-400 block mb-1">DATA SOURCE</span>
+        <span class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500">KDI(5), Benzinga(6), StoneX(7)</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 flex-grow">
+      <div class="bg-gray-50 rounded-2xl p-6">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-gray-200">
+              <th class="text-left py-3 px-4 font-semibold text-gray-600 text-sm">시장 시나리오(2026)</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-600 text-sm">나스닥100 수익률</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-600 text-sm">KODEX 예상 분배율</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-600 text-sm">KODEX 주가 변동</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-600 text-sm">KODEX 총수익</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr class="bg-white hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">강세장</td>
+              <td class="py-3 px-4">+20% 이상</td>
+              <td class="py-3 px-4">15%~18%</td>
+              <td class="py-3 px-4">+5%~+8%</td>
+              <td class="py-3 px-4 font-semibold text-gray-800">+20%~+26%</td>
+            </tr>
+            <tr class="bg-white hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">완만한 상승</td>
+              <td class="py-3 px-4">+10% 내외</td>
+              <td class="py-3 px-4">16%~20%</td>
+              <td class="py-3 px-4">+8%~+10%</td>
+              <td class="py-3 px-4 font-semibold text-emerald-600">+24%~+30%</td>
+            </tr>
+            <tr class="bg-white hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">횡보장</td>
+              <td class="py-3 px-4">0% 내외</td>
+              <td class="py-3 px-4">18%~22%</td>
+              <td class="py-3 px-4">-2%~+2%</td>
+              <td class="py-3 px-4 font-semibold text-gray-800">+16%~+24%</td>
+            </tr>
+            <tr class="bg-white hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">하락장</td>
+              <td class="py-3 px-4">-10%</td>
+              <td class="py-3 px-4">20%~25%</td>
+              <td class="py-3 px-4">-10%</td>
+              <td class="py-3 px-4 font-semibold text-gray-800">+10%~+15%</td>
+            </tr>
+            <tr class="bg-white hover:bg-blue-50 transition-colors">
+              <td class="py-3 px-4 font-medium text-gray-800">폭락장</td>
+              <td class="py-3 px-4">-20% 이하</td>
+              <td class="py-3 px-4">25% 이상</td>
+              <td class="py-3 px-4">-20%</td>
+              <td class="py-3 px-4 font-semibold text-gray-800">+5% 내외</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mt-4 bg-white rounded-xl p-4 flex items-center">
+          <i class="fa-solid fa-calendar-days text-blue-600 mr-3"></i>
+          <p class="text-sm text-gray-700">
+            월 분배(예상): <span class="font-bold text-gray-800">150~180원/주</span>, 지급 시점: <span class="font-bold text-gray-800">매월 초(영업일 2~4일)</span>. 어닝 시즌·대선 전후 변동성 확대 시 상향 가능.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: BULLET CARD (핵심 위험 요인) -->
+  <div class="slide p-12 bg-gradient-to-br from-gray-50 to-blue-50 flex flex-col">
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-800">핵심 위험 요인 — <span class="text-blue-600">변동성 드래그·환율·세금</span></h1>
+      <p class="text-gray-500 mt-2">경로 의존성과 과세·환율이 체감 수익을 좌우</p>
+    </div>
+    <div class="grid grid-cols-2 gap-8 flex-grow">
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <i class="fas fa-triangle-exclamation text-amber-600 mr-3"></i>변동성 드래그(경로 의존성)
+        </h3>
+        <div class="bg-slate-50 rounded-xl p-4 mb-4">
+          <p class="text-sm text-gray-600">예시: -2% → +2% (이틀)</p>
+          <p class="text-3xl font-black text-slate-800">(1 - 0.02) × (1 + 0.02) = <span class="text-blue-700">0.9996</span></p>
+          <p class="text-xs text-gray-500 mt-1">지수는 근사 회복, 단 <span class="font-bold">+1%/일 캡</span>으로 반등 절삭 가능</p>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <i class="fas fa-minus-circle text-rose-500 mt-1 mr-3"></i>
+            <div><strong>급등·급락 반복</strong><p class="text-gray-500 text-sm">일간 캡 구조에서 손실 누적 위험</p></div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-shield-halved text-blue-500 mt-1 mr-3"></i>
+            <div><strong>완화 방안</strong><p class="text-gray-500 text-sm">분할 매수/재투자, 변동성 높은 날 비중 조절</p></div>
+          </li>
+        </ul>
+      </div>
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <i class="fas fa-scale-balanced text-blue-500 mr-3"></i>환율·세금
+        </h3>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <i class="fas fa-dollar-sign text-emerald-600 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">환율 하락 리스크</strong>
+              <p class="text-gray-500 text-sm mt-1">USD/KRW <span class="font-extrabold text-rose-600 text-lg">-5%~-10%</span> 시 환차손</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-receipt text-purple-600 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">배당소득세</strong>
+              <p class="text-gray-500 text-sm mt-1">분배금 <span class="font-extrabold text-slate-800">15.4%</span>, 금융소득 <span class="font-extrabold text-slate-800">2,000만원</span> 초과 시 최고 <span class="font-extrabold text-rose-600">49.5%</span></p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-lightbulb text-amber-500 mt-1 mr-3"></i>
+            <div>
+              <strong class="text-gray-800">절세·이연</strong>
+              <p class="text-gray-500 text-sm mt-1">ISA/연금저축/IRP 활용 권장</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: CARD GRID (결론/전략) -->
+  <div class="slide p-12 bg-slate-50 flex flex-col">
+    <div class="mb-8 text-center">
+      <h1 class="text-4xl font-bold text-gray-800">결론 및 투자 제언 (Strategic Recommendation)</h1>
+      <p class="text-lg text-gray-500 mt-2">현금흐름 극대화형은 KODEX, 상방 추종형은 TIGER로 바벨</p>
+    </div>
+    <div class="grid grid-cols-3 gap-6 flex-grow">
+      <!-- Card 1 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow border-l-4 border-blue-500">
+        <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-coins text-xl text-blue-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">인컴 중심(은퇴)</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">KODEX 비중 확대(강력 매수)</p>
+        <ul class="mt-3 space-y-1">
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-blue-400 mt-1.5 mr-2"></i>
+            잠재 분배율 <span class="font-bold text-slate-800">15~20%</span>
+          </li>
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-blue-400 mt-1.5 mr-2"></i>
+            하락 방어력 강화
+          </li>
+        </ul>
+      </div>
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow border-l-4 border-emerald-500">
+        <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-arrow-up-right-dots text-xl text-emerald-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">성장 중심(직장인)</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">KODEX:TIGER <span class="font-bold text-slate-800">5:5</span> 또는 <span class="font-bold text-slate-800">4:6</span></p>
+        <ul class="mt-3 space-y-1">
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-emerald-400 mt-1.5 mr-2"></i>
+            강세장 상방 + 비강세장 인컴 보완
+          </li>
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-emerald-400 mt-1.5 mr-2"></i>
+            월 분배 재투자 통한 복리
+          </li>
+        </ul>
+      </div>
+      <!-- Card 3 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow border-l-4 border-purple-600">
+        <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-receipt text-xl text-purple-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">세금 민감형</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">ISA/연금저축/IRP 적극 활용</p>
+        <ul class="mt-3 space-y-1">
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-purple-400 mt-1.5 mr-2"></i>
+            분배금 <span class="font-bold text-slate-800">15.4%</span> 원천징수
+          </li>
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-purple-400 mt-1.5 mr-2"></i>
+            금융소득 합산 과세 회피/이연
+          </li>
+        </ul>
+      </div>
+      <!-- Card 4 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow border-l-4 border-orange-500">
+        <div class="w-12 h-12 bg-orange-50 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-clock text-xl text-orange-500"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">실행 가이드</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">타이밍·재투자</p>
+        <ul class="mt-3 space-y-1">
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-orange-400 mt-1.5 mr-2"></i>
+            VIX <span class="font-extrabold text-slate-800">≥ 20</span> 시 분할 매수
+          </li>
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-orange-400 mt-1.5 mr-2"></i>
+            월 분배금 <span class="font-bold">자동 재투자</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Card 5 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow border-l-4 border-indigo-600">
+        <div class="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-bullseye text-xl text-indigo-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">전략 요약</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Daily 1% OTM으로 월간 전략의 상방 막힘 문제 완화</p>
+        <ul class="mt-3 space-y-1">
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-indigo-400 mt-1.5 mr-2"></i>
+            2026 불확실성 속 <span class="font-bold">안정적 현금흐름</span>
+          </li>
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-indigo-400 mt-1.5 mr-2"></i>
+            바벨(인컴+성장)로 리스크 관리
+          </li>
+        </ul>
+      </div>
+      <!-- Card 6 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow border-l-4 border-emerald-500">
+        <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-chart-line text-xl text-emerald-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">예상 수익 구간</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">완만 상승·고변동</p>
+        <ul class="mt-3 space-y-1">
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-emerald-400 mt-1.5 mr-2"></i>
+            총수익 <span class="text-emerald-600 font-extrabold text-lg">+24%~+30%</span>
+          </li>
+          <li class="text-sm text-gray-600 flex items-start">
+            <i class="fas fa-circle text-xs text-emerald-400 mt-1.5 mr-2"></i>
+            월 150~180원 분배
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="slide p-12 bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">출처</h1>
+      <p class="text-gray-500 mt-2">데이터·지표·방법론 참고 문헌</p>
+    </div>
+    <div class="flex-1 bg-white/70 backdrop-blur rounded-2xl p-6 overflow-hidden">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b-2 border-gray-200">
+            <th class="text-left py-3 px-4 font-semibold text-gray-600">번호</th>
+            <th class="text-left py-3 px-4 font-semibold text-gray-600">출처 / 링크</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">1</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://www.tossinvest.com/stocks/A494300/order" target="_blank">Toss Investment (KODEX 분배금)</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">2</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://m.samsungfund.com/upload/core/2ETFO6-Aa.pdf" target="_blank">삼성자산운용 간이설명서</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">3</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="http://www.joseplus.com/news/newsview.php?ncode=1065598164571209" target="_blank">미래에셋 TIGER ETF 뉴스</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">4</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://kr.investing.com/news/stock-market-news/article-1112426" target="_blank">Investing.com 기사</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">5</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://eiec.kdi.re.kr/policy/domesticView.do?ac=0000201513" target="_blank">KDI 경제교육·정보센터 전망</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">6</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://kr.benzinga.com/news/usa/analystratings/%EA%B3%A8%EB%93%9C%EB%A7%8C%EC%82%AD%EC%8A%A4%EC%9D%98-2026%EB%85%84-%EC%A0%84%EB%A7%9D-sp-500-7600p-%EA%B0%84%EB%8B%A4%EB%B3%80%EC%88%98%EB%8A%94-%EB%B0%B8%EB%A5%98%EC%97%90/" target="_blank">Benzinga Korea: 2026 S&P 500 전망</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">7</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://www.stonex.com/en/market-intelligence/the-top-trades-to-watch-in-2026/" target="_blank">StoneX: Top Trades 2026</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">8</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://investments.miraeasset.com/tigeretf/ko/insight/hot-etf-introduce/view.do?detailsKey=473" target="_blank">미래에셋 TIGER ETF 소개</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">9</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://indexes.nasdaqomx.com/docs/NDXDC01%20Methodology.pdf" target="_blank">Nasdaq: NDXDC01 Methodology</a></td>
+          </tr>
+          <tr class="bg-white/50 hover:bg-blue-50 transition-colors">
+            <td class="py-3 px-4 font-medium text-gray-800">10</td>
+            <td class="py-3 px-4"><a class="text-blue-600 underline" href="https://indexes.nasdaqomx.com/docs/NDXDCC%20Methodology.pdf" target="_blank">Nasdaq: NDXDCC Methodology</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+  // Responsive util to get container width safely
+  function getContainerWidth(selector, fallback) {
+    const el = document.querySelector(selector);
+    if (!el) return fallback;
+    const w = el.clientWidth || el.getBoundingClientRect().width;
+    return Math.max(320, Math.min(w, 1000)); // clamp width (avoid overflow)
+  }
+
+  // Section 1 Conceptual Bar (responsive)
+  (function renderSec1() {
+    const width = getContainerWidth("#sec1-bar", 560);
+    const height = 260;
+    const margin = {top: 20, right: 20, bottom: 50, left: 70};
+    const svg = d3.select("#sec1-bar").append("svg")
+      .attr("width", width).attr("height", height);
+
+    const data = [
+      { label: "상방 참여 유연성", series: [
+        {name: "월간 ATM", value: 100, color: "#64748b"},
+        {name: "데일리 1% OTM", value: 130, color: "#2563eb"}
+      ]},
+      { label: "프리미엄 수확", series: [
+        {name: "월간 ATM", value: 100, color: "#94a3b8"},
+        {name: "데일리 1% OTM", value: 140, color: "#1d4ed8"}
+      ]}
+    ];
+
+    const groups = data.map(d => d.label);
+    const subgroups = ["월간 ATM", "데일리 1% OTM"];
+
+    const x0 = d3.scaleBand().domain(groups).range([margin.left, width - margin.right]).padding(0.35);
+    const x1 = d3.scaleBand().domain(subgroups).range([0, x0.bandwidth()]).padding(0.2);
+    const y = d3.scaleLinear().domain([0, 160]).range([height - margin.bottom, margin.top]);
+
+    const g = svg.append("g");
+
+    data.forEach(group => {
+      const groupG = g.append("g").attr("transform", `translate(${x0(group.label)},0)`);
+      group.series.forEach(s => {
+        groupG.append("rect")
+          .attr("x", x1(s.name))
+          .attr("y", y(s.value))
+          .attr("width", x1.bandwidth())
+          .attr("height", (height - margin.bottom) - y(s.value))
+          .attr("fill", s.color)
+          .attr("rx", 6);
+        groupG.append("text")
+          .attr("x", x1(s.name) + x1.bandwidth()/2)
+          .attr("y", y(s.value) - 6)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "14px")
+          .attr("font-weight", "800")
+          .attr("fill", s.color)
+          .text(s.value);
+      });
+      groupG.append("text")
+        .attr("x", x0.bandwidth()/2)
+        .attr("y", height - margin.bottom + 28)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "12px")
+        .attr("fill", "#334155")
+        .text(group.label);
+    });
+
+    // y-axis
+    svg.append("g")
+      .attr("transform", `translate(${margin.left},0)`)
+      .call(d3.axisLeft(y).ticks(4))
+      .selectAll("text")
+      .attr("font-size", "11px");
+
+    // Legend
+    const legendX = Math.max(margin.left, width - margin.right - 190);
+    const legend = svg.append("g").attr("transform", `translate(${legendX}, ${margin.top})`);
+    const legData = [
+      {name: "월간 ATM = 100", color: "#64748b"},
+      {name: "데일리 1% OTM", color: "#2563eb"}
+    ];
+    legend.selectAll("rect").data(legData).enter().append("rect")
+      .attr("x", 0).attr("y", (d,i)=> i*20).attr("width", 10).attr("height", 10).attr("fill", d=>d.color).attr("rx",2);
+    legend.selectAll("text").data(legData).enter().append("text")
+      .attr("x", 14).attr("y", (d,i)=> i*20 + 9).text(d=>d.name).attr("font-size","11px").attr("fill","#334155");
+  })();
+
+  // Section 5 Bar (Option coverage) - responsive
+  (function renderSec5(){
+    const width = getContainerWidth("#sec5-bar", 680);
+    const height = 300;
+    const margin = {top: 20, right: 20, bottom: 50, left: 70};
+    const svg = d3.select("#sec5-bar").append("svg")
+      .attr("width", width).attr("height", height);
+
+    const data = [
+      { label: "KODEX 옵션 커버리지", value: 100, color: "#2563eb" },
+      { label: "TIGER 옵션 커버리지(중간값)", value: 15, color: "#f97316" }
+    ];
+
+    const xScale = d3.scaleBand()
+      .domain(data.map(d => d.label))
+      .range([margin.left, width - margin.right])
+      .padding(0.35);
+      
+    const yScale = d3.scaleLinear()
+      .domain([0, 100])
+      .range([height - margin.bottom, margin.top]);
+
+    svg.selectAll("rect")
+      .data(data)
+      .enter().append("rect")
+      .attr("x", d => xScale(d.label))
+      .attr("y", d => yScale(d.value))
+      .attr("width", xScale.bandwidth())
+      .attr("height", d => (height - margin.bottom) - yScale(d.value))
+      .attr("fill", d => d.color)
+      .attr("rx", 8);
+
+    svg.selectAll("text.value")
+      .data(data)
+      .enter().append("text")
+      .attr("class", "value")
+      .attr("x", d => xScale(d.label) + xScale.bandwidth()/2)
+      .attr("y", d => yScale(d.value) - 8)
+      .attr("text-anchor", "middle")
+      .attr("font-size", "18px")
+      .attr("font-weight", "bold")
+      .attr("fill", d => d.color)
+      .text(d => d.value + "%");
+
+    svg.append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(d3.axisBottom(xScale))
+      .selectAll("text")
+      .attr("font-size", "12px")
+      .attr("transform", "translate(0,6)")
+      .style("text-anchor", "middle");
+
+    svg.append("g")
+      .attr("transform", `translate(${margin.left},0)`)
+      .call(d3.axisLeft(yScale).ticks(4))
+      .selectAll("text")
+      .attr("font-size", "11px");
+  })();
+  </script>
+</body>
+</html>
+```
+
+```
+## Review Summary
+- 원본 섹션 수: 8개(+ Executive Summary, 출처)
+- 생성 슬라이드 수: 10개
+- 수정 사항:
+  - 섹션 6 정보 보강: 시나리오 매트릭스 테이블 추가(강세/완만 상승/횡보/하락/폭락) 및 각 시나리오별 ‘예상 분배율·주가 변동·총수익’ 수치 삽입. 월 분배(150~180원/주)와 지급일 설명을 동일 컨테이너 내에 통합 표기.
+  - D3 차트 반응형 개선: 섹션 1/5 차트가 컬럼 너비를 넘치지 않도록 컨테이너 실제 폭을 측정해 SVG 너비를 설정. 범례/축 폰트 크기 조정 및 높이 260~300px로 최적화.
+  - Overflow 예방: 차트 폭 상한(1000px) 클램핑, 축/레이블 크기 축소로 레이아웃 겹침 방지.
+  - 가독성 향상: 섹션 6 테이블 글꼴 크기 최적화, 강조색(에메랄드)로 Sweet Spot 범위 가독성 강화.
+- 추가된 슬라이드 제목: (신규 슬라이드 추가 없음, 섹션 6 레이아웃/내용 보강)
+```

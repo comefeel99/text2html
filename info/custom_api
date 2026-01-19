@@ -1,0 +1,81 @@
+1. 클라이언트 생성 (
+llm_client.py
+ 162-171줄)
+python
+def _get_custom_client(self):
+    if not get_custom_llm_url_env():
+        raise HTTPException(
+            status_code=400,
+            detail="Custom LLM URL is not set",
+        )
+    return AsyncOpenAI(
+        base_url=get_custom_llm_url_env(),  # ⬅️ CUSTOM_LLM_URL 사용
+        api_key=get_custom_llm_api_key_env() or "null",
+    )
+핵심 포인트:
+
+AsyncOpenAI 클라이언트를 생성할 때 base_url 파라미터에 CUSTOM_LLM_URL 값을 전달
+이를 통해 OpenAI SDK가 기본 OpenAI 서버가 아닌 커스텀 서버로 요청을 보냄
+API 키는 CUSTOM_LLM_API_KEY 환경 변수에서 가져오며, 없으면 "null" 사용
+2. LLM 호출 흐름
+사용자 요청 
+    ↓
+LLMClient.generate() 또는 generate_structured() 호출
+    ↓
+llm_provider가 CUSTOM인 경우
+    ↓
+_generate_custom() 호출 (422-436줄)
+    ↓
+_generate_openai() 재사용 (OpenAI 호환 API이므로)
+    ↓
+AsyncOpenAI 클라이언트가 CUSTOM_LLM_URL로 HTTP 요청 전송
+3. Custom LLM 생성 메서드 (
+llm_client.py
+ 422-436줄)
+python
+async def _generate_custom(
+    self,
+    model: str,
+    messages: List[LLMMessage],
+    max_tokens: Optional[int] = None,
+    depth: int = 0,
+):
+    # thinking 기능 비활성화 옵션
+    extra_body = {"enable_thinking": False} if self.disable_thinking() else None
+    return await self._generate_openai(
+        model=model,
+        messages=messages,
+        max_tokens=max_tokens,
+        extra_body=extra_body,
+        depth=depth,
+    )
+설명:
+
+Custom LLM은 OpenAI 호환 API를 사용하므로 
+_generate_openai()
+ 메서드를 재활용
+disable_thinking()
+ 옵션으로 일부 모델(예: Claude 계열)의 thinking 기능을 끌 수 있음
+4. 모델 가용성 확인 (
+model_availability.py
+ 96-109줄)
+python
+elif is_custom_llm_selected():
+    custom_model = get_custom_model_env()
+    custom_llm_url = get_custom_llm_url_env()  # ⬅️ URL 가져오기
+    if not custom_model:
+        raise Exception("CUSTOM_MODEL must be provided")
+    if not custom_llm_url:
+        raise Exception("CUSTOM_LLM_URL must be provided")
+    # 해당 URL의 /models 엔드포인트 호출하여 모델 목록 확인
+    available_models = await list_available_openai_compatible_models(
+        custom_llm_url, get_custom_llm_api_key_env() or "null"
+    )
+관련 환경변수 요약
+환경변수	용도
+CUSTOM_LLM_URL	커스텀 LLM 서버의 기본 URL (예: http://172.18.243.211:13100/api/v1/compatible/openai)
+CUSTOM_LLM_API_KEY	인증용 API 키
+CUSTOM_MODEL	사용할 모델 이름 (예: llama3.2:3b)
+CUSTOM_STREAM_LLM_URL	스트리밍용 별도 URL (선택사항)
+이 구조를 통해 Ollama, vLLM, LMStudio 등 OpenAI 호환 API를 제공하는 어떤 LLM 서버든 통합할 수 있습니다.
+
