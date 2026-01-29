@@ -74,7 +74,7 @@ const PHASES = [
     },
     {
         name: 'report',
-        promptFile: 'prompts/2_report.md',
+        promptFile: 'resources/2_report.md',
         outputFile: '2_report_result.md',
         description: 'Report Phase - 보고서 구조화'
     },

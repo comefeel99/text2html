@@ -1,11 +1,11 @@
 ---
 name: Text to HTML Slide Generator
-description: 텍스트 문서나 주제를 시각적으로 뛰어난 HTML 슬라이드 프레젠테이션으로 변환합니다. 리서치, 구조화, HTML 생성, 검토의 4단계 프로세스를 통해 정보 밀도가 높은 슬라이드를 생성합니다.
+description: 텍스트 문서나 주제를 시각적으로 뛰어난 HTML 슬라이드 프레젠테이션으로 변환합니다. 리서치, 구조화, HTML 생성의 3단계 프로세스를 통해 정보 밀도가 높은 슬라이드를 생성합니다.
 ---
 
 # Text to HTML Slide Generator
 
-텍스트 기반 요청을 시각적으로 뛰어난 HTML 슬라이드 프레젠테이션으로 변환하는 4단계 멀티 에이전트 프로세스입니다.
+텍스트 기반 요청을 시각적으로 뛰어난 HTML 슬라이드 프레젠테이션으로 변환하는 3단계 멀티 에이전트 프로세스입니다.
 
 ## 핵심 원칙
 - **정보 밀도 최대화**: 원본 자료의 모든 주제와 수치를 슬라이드에 반영
@@ -50,6 +50,12 @@ description: 텍스트 문서나 주제를 시각적으로 뛰어난 HTML 슬라
 | 비율/배분 데이터 | PIE_CHART |
 | 수치 비교 | BAR_CHART |
 | 프로세스/흐름 | PROCESS_FLOW |
+| A vs B 비교 | COMPARISON_DIAGRAM |
+| 핵심 장점/가치 | PILLAR_CARD |
+| 인프라/역량 설명 | INFRASTRUCTURE_CARD |
+| 제품 갤러리 | PRODUCT_GALLERY |
+| 기능 비교표 | FEATURE_COMPARISON_TABLE |
+| 브랜드 A vs B | BRAND_COMPARISON |
 
 ---
 
@@ -69,18 +75,6 @@ description: 텍스트 문서나 주제를 시각적으로 뛰어난 HTML 슬라
 - 슬라이드당 최소 3개 정보 블록
 - 모든 수치 포함
 - 출처 표시
-
----
-
-### Phase 4: Review & Refine (검토 및 보완)
-**목적**: 생성된 HTML 품질 검증 및 개선
-
-참조: `resources/4_review.md`
-
-**검증 항목**:
-1. **정보 완전성**: 누락된 섹션/수치 확인
-2. **시각적 품질**: 레이아웃, 색상 일관성, 가독성
-3. **기술적 검증**: 라이브러리, D3.js 차트 렌더링
 
 ---
 
