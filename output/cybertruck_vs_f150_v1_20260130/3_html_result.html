@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla Cybertruck vs Ford F-150 Lightning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        :root {
+            --bg-color: #f0f0f5;
+            --slide-bg: white;
+            --text-primary: #111111;
+            --text-secondary: #333333;
+            --accent-color: #BB162B;
+            /* Strong Red */
+            --accent-light: #ffeeee;
+            --font-heading: 'Noto Sans KR', sans-serif;
+            --font-body: 'Noto Sans KR', sans-serif;
+        }
+
+        /* Theme D: Construct */
+        .theme-construct {
+            --bg-color: #f0f0f5;
+            --slide-bg: white;
+            --text-primary: #111111;
+            --text-secondary: #333333;
+            --accent-color: #BB162B;
+            --accent-light: #ffeeee;
+            --font-heading: 'Noto Sans KR', sans-serif;
+            --font-body: 'Noto Sans KR', sans-serif;
+            --card-bg: white;
+            --card-border: 2px solid #e5e5e5;
+            --card-backdrop: none;
+        }
+
+        body {
+            background: var(--bg-color);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: var(--slide-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            font-family: var(--font-body);
+            color: var(--text-primary);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+        }
+
+        /* Construct Theme Specifics */
+        .theme-construct h1,
+        .theme-construct h2 {
+            font-weight: 900;
+            /* Black weight */
+        }
+
+        .construct-card {
+            border: 2px solid #e5e5e5;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .construct-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .slide-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body class="theme-construct">
+
+    <!-- Slide 1: Title -->
+    <div class="slide flex flex-col justify-center relative">
+        <div
+            class="absolute top-0 right-0 w-1/3 h-full bg-[#BB162B] opacity-10 skew-x-[-12deg] transform origin-top-right">
+        </div>
+        <div class="absolute bottom-0 left-0 w-1/2 h-48 bg-gray-100 skew-y-3 z-0"></div>
+
+        <div class="slide-content p-20 z-10 justify-center">
+            <div class="inline-block px-4 py-2 bg-[#BB162B] text-white font-bold tracking-widest uppercase mb-6 w-max">
+                Comparative Analysis
+            </div>
+            <h1 class="text-7xl font-black text-gray-900 mb-6 leading-tight uppercase">
+                Tesla Cybertruck<br>
+                <span class="text-[#BB162B]">vs</span><br>
+                Ford F-150 Lightning
+            </h1>
+            <p class="text-2xl text-gray-500 font-bold max-w-3xl">
+                미래와 전통의 대결: 2025년 전기 픽업트럭 시장의 승자는?
+            </p>
+            <div class="mt-12 flex gap-8">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-calendar-alt text-[#BB162B] text-xl"></i>
+                    <span class="font-bold text-gray-700">2026.01.30 Report</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-industry text-[#BB162B] text-xl"></i>
+                    <span class="font-bold text-gray-700">EV Pickup Market</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Market Performance (Bar Chart) -->
+    <div class="slide p-12 flex flex-col">
+        <div class="mb-8 border-l-8 border-[#BB162B] pl-6">
+            <h2 class="text-5xl font-black text-gray-900">시장 판도의 변화</h2>
+            <p class="text-xl text-gray-500 mt-2 font-bold">2024년 사이버트럭 돌풍 이후 2025년 포드의 반격</p>
+        </div>
+
+        <div class="flex flex-grow gap-8">
+            <!-- Chart -->
+            <div class="w-2/3 construct-card bg-white p-6 rounded-none flex items-center justify-center relative"
+                id="sales-chart-container">
+                <!-- D3 Chart will be rendered here -->
+            </div>
+
+            <!-- Key Insights -->
+            <div class="w-1/3 flex flex-col gap-6">
+                <div class="construct-card bg-gray-50 p-6">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-[#BB162B] text-white flex items-center justify-center font-bold text-xl rounded-none flex-shrink-0">
+                            1</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">2024: 사이버트럭 1위</h3>
+                            <p class="text-gray-600 font-medium">출시 초기 대기 수요 폭발로 39,000대 판매 달성. 전기 픽업 시장 리드.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="construct-card bg-white border-[#BB162B] p-6">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-gray-900 text-white flex items-center justify-center font-bold text-xl rounded-none flex-shrink-0">
+                            2</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-[#BB162B] mb-2">2025: 라이트닝 역전</h3>
+                            <p class="text-gray-600 font-medium">신뢰성과 실용성을 중시하는 시장 흐름으로 포드가 다시 1위 탈환 전망.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-auto text-right">
+                    <p class="text-sm text-gray-400 font-bold">Data Source: CarBuzz, Finviz (2025 Est)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Real World Efficiency (Table) -->
+    <div class="slide p-12 flex flex-col">
+        <div class="mb-8 border-l-8 border-[#BB162B] pl-6 flex justify-between items-end">
+            <div>
+                <h2 class="text-5xl font-black text-gray-900">주행 거리의 진실</h2>
+                <p class="text-xl text-gray-500 mt-2 font-bold">제원상 스펙 vs 실제 고속 주행 효율 비교</p>
+            </div>
+            <div class="text-[#BB162B] font-black text-2xl">
+                <i class="fas fa-road mr-2"></i>Real World Test
+            </div>
+        </div>
+
+        <div class="flex-grow construct-card bg-white p-0 overflow-hidden">
+            <table class="w-full h-full border-collapse">
+                <thead>
+                    <tr class="bg-gray-100 text-gray-700 text-left">
+                        <th class="p-6 font-black text-xl border-b-2 border-gray-300">구분</th>
+                        <th class="p-6 font-black text-xl border-b-2 border-gray-300">Tesla Cybertruck (AWD)</th>
+                        <th class="p-6 font-black text-xl border-b-2 border-gray-300">Ford F-150 Lightning (ER)</th>
+                        <th class="p-6 font-black text-xl border-b-2 border-gray-300">Analysis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-200">
+                        <td class="p-6 font-bold text-lg text-gray-600">공식 주행 거리 (EPA)</td>
+                        <td class="p-6 font-bold text-lg text-gray-900">340 miles</td>
+                        <td class="p-6 font-bold text-lg text-gray-900">320 miles</td>
+                        <td class="p-6 font-bold text-red-500">Cybertruck +20</td>
+                    </tr>
+                    <!-- Highlight Row -->
+                    <tr class="bg-blue-50 border-l-8 border-[#BB162B]">
+                        <td class="p-6 font-black text-xl text-[#BB162B]">
+                            <i class="fas fa-tachometer-alt mr-2"></i>실제 고속 주행
+                        </td>
+                        <td class="p-6 text-xl text-gray-500 line-through decoration-2 decoration-red-400 font-bold">254
+                            miles</td>
+                        <td class="p-6 font-black text-3xl text-gray-900">332 miles</td>
+                        <td class="p-6 font-bold text-blue-700">
+                            <span class="bg-blue-200 px-2 py-1 rounded text-sm mr-2 text-blue-800">WINNER</span>
+                            Lightning +78
+                        </td>
+                    </tr>
+                    <tr class="border-b border-gray-200">
+                        <td class="p-6 font-bold text-lg text-gray-600">공식 대비 달성률</td>
+                        <td class="p-6 font-bold text-lg text-gray-400">74.7% (Performance Gap)</td>
+                        <td class="p-6 font-bold text-lg text-green-600">103.7% (Overachieved)</td>
+                        <td class="p-6 font-bold text-gray-700">Ford Reliability</td>
+                    </tr>
+                    <tr class="border-b border-gray-200 bg-gray-50">
+                        <td class="p-6 font-bold text-lg text-gray-600">배터리 용량</td>
+                        <td class="p-6 font-bold text-lg text-gray-900">123 kWh</td>
+                        <td class="p-6 font-bold text-lg text-gray-900">131 kWh</td>
+                        <td class="p-6 font-bold text-gray-700">Better Efficiency</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="mt-4 text-right text-sm text-gray-400 font-bold">* Source: Edmunds Real World EV Range Test (70mph
+            avg)</p>
+    </div>
+
+    <!-- Slide 4: Powertrain & Utility -->
+    <div class="slide p-12 flex flex-col bg-gray-100">
+        <div class="mb-10 text-center">
+            <h2 class="text-5xl font-black text-gray-900 uppercase">Power & Utility Specs</h2>
+            <div class="w-24 h-2 bg-[#BB162B] mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 flex-grow">
+            <!-- Left: Towing -->
+            <div class="construct-card bg-white p-8 relative flex flex-col justify-between">
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <i class="fas fa-trailer text-9xl text-gray-900"></i>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-black text-gray-900 mb-4">Towing Capacity</h3>
+                    <div class="flex items-end gap-2 mb-2">
+                        <span class="text-6xl font-black text-[#BB162B]">11,000</span>
+                        <span class="text-2xl font-bold text-gray-500 mb-2">lbs</span>
+                    </div>
+                    <p class="text-gray-700 font-bold mb-6 border-b-2 border-gray-100 pb-4">Tesla Cybertruck (Class
+                        Leader)</p>
+
+                    <div class="flex items-end gap-2">
+                        <span class="text-5xl font-black text-gray-700">10,000</span>
+                        <span class="text-xl font-bold text-gray-500 mb-2">lbs</span>
+                    </div>
+                    <p class="text-gray-500 font-bold">Ford F-150 Lightning</p>
+                </div>
+                <div class="mt-6 flex items-center gap-2 text-sm font-bold text-gray-400">
+                    <i class="fas fa-info-circle"></i> Both sufficient for heavy duty
+                </div>
+            </div>
+
+            <!-- Right: Frunk & Power -->
+            <div class="flex flex-col gap-6">
+                <!-- Frunk -->
+                <div class="construct-card bg-white p-6 flex items-center gap-6">
+                    <div class="w-20 h-20 bg-gray-900 text-white flex items-center justify-center text-4xl">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-500 uppercase">Frunk Storage</h4>
+                        <div class="text-3xl font-black text-[#BB162B]">400 Liters</div>
+                        <div class="text-gray-700 font-bold">Ford Mega Power Frunk (Wins)</div>
+                        <div class="text-sm text-gray-400 mt-1">vs Cybertruck (~200L)</div>
+                    </div>
+                </div>
+
+                <!-- Power -->
+                <div class="construct-card bg-white p-6 flex items-center gap-6">
+                    <div class="w-20 h-20 bg-[#BB162B] text-white flex items-center justify-center text-4xl">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-500 uppercase">Onboard Power</h4>
+                        <div class="text-3xl font-black text-gray-900">9.6 kW</div>
+                        <div class="text-gray-700 font-bold">Both Vehicles Capable</div>
+                        <div class="text-sm text-gray-400 mt-1">Generator Replacement</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Innovation vs Practicality -->
+    <div class="slide p-12 flex flex-col">
+        <div class="mb-8 border-l-8 border-[#BB162B] pl-6">
+            <h2 class="text-5xl font-black text-gray-900">혁신 vs 실용</h2>
+            <p class="text-xl text-gray-500 mt-2 font-bold">운전의 미래인가, 작업의 혁신인가?</p>
+        </div>
+
+        <div class="flex flex-grow gap-0 mt-4">
+            <!-- Cybertruck: Future -->
+            <div
+                class="w-1/2 bg-gray-900 text-white p-10 flex flex-col justify-center relative overflow-hidden clip-path-polygon construct-card border-none">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl"></div>
+                <h3 class="text-3xl font-black text-white mb-8 border-b-4 border-[#BB162B] pb-4 inline-block w-max">
+                    TESLA INNOVATION</h3>
+
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-gamepad text-[#BB162B] text-3xl mt-1"></i>
+                        <div>
+                            <h4 class="text-xl font-bold">Steer-by-Wire</h4>
+                            <p class="text-gray-400 text-sm mt-1">물리적 연결 없는 전자식 조향. 저속 회전 반경 극소화.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-microchip text-[#BB162B] text-3xl mt-1"></i>
+                        <div>
+                            <h4 class="text-xl font-bold">48V Architecture</h4>
+                            <p class="text-gray-400 text-sm mt-1">업계 최초 48V 전장. 배선 중량 감소 및 효율 증대.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-robot text-[#BB162B] text-3xl mt-1"></i>
+                        <div>
+                            <h4 class="text-xl font-bold">FSD (Supervised)</h4>
+                            <p class="text-gray-400 text-sm mt-1">도심 자율주행. 혁신적이나 여전히 베타 단계.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ford: Practicality -->
+            <div class="w-1/2 bg-white text-gray-900 p-10 flex flex-col justify-center construct-card border-l-0">
+                <h3 class="text-3xl font-black text-gray-900 mb-8 border-b-4 border-blue-600 pb-4 inline-block w-max">
+                    FORD UTILITY</h3>
+
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-hands text-blue-600 text-3xl mt-1"></i>
+                        <div>
+                            <h4 class="text-xl font-bold">BlueCruise</h4>
+                            <p class="text-gray-500 text-sm mt-1">고속도로 핸즈프리. 보수적이나 높은 신뢰성과 안정감.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-tools text-blue-600 text-3xl mt-1"></i>
+                        <div>
+                            <h4 class="text-xl font-bold">Pro Power Onboard</h4>
+                            <p class="text-gray-500 text-sm mt-1">작업 현장 최적화. 11개의 아웃렛으로 전동 공구 완벽 지원.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-sync text-blue-600 text-3xl mt-1"></i>
+                        <div>
+                            <h4 class="text-xl font-bold">Parts Compatibility</h4>
+                            <p class="text-gray-500 text-sm mt-1">기존 F-150 액세서리 호환. 수리 및 유지보수 용이.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Reliability & Risks -->
+    <div class="slide p-12 flex flex-col">
+        <div class="mb-10 text-center">
+            <h2 class="text-5xl font-black text-gray-900">신뢰성 및 리스크 분석</h2>
+            <p class="text-lg text-gray-500 mt-4 font-bold">구매 결정의 핵심 요인: 내구성 vs 수리비</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 flex-grow">
+            <!-- Card 1 -->
+            <div class="construct-card bg-white p-6 hover:border-red-500">
+                <div class="w-12 h-12 bg-red-100 rounded-none flex items-center justify-center mb-4">
+                    <i class="fas fa-exclamation-triangle text-xl text-red-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">초기 품질 이슈</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-3">사이버트럭은 가속 페달, 와이퍼 모터 등 11만 대 규모 리콜 발생.</p>
+                <div class="text-xs font-bold text-red-500">Risk: High for Early Adopters</div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="construct-card bg-white p-6 hover:border-blue-500">
+                <div class="w-12 h-12 bg-blue-100 rounded-none flex items-center justify-center mb-4">
+                    <i class="fas fa-wrench text-xl text-blue-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">수리 접근성</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-3">포드는 전국 딜러망 이용 가능. 테슬라 스테인리스 차체는 전용 센터 필수.</p>
+                <div class="text-xs font-bold text-blue-600">Advantage: Ford Lightning</div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="construct-card bg-white p-6 hover:border-gray-500">
+                <div class="w-12 h-12 bg-gray-200 rounded-none flex items-center justify-center mb-4">
+                    <i class="fas fa-shield-alt text-xl text-gray-700"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">내구성 검증</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-3">포드는 수십 년 트럭 노하우 적용. 사이버트럭은 알루미늄 캐스팅 내구성 검증 단계.</p>
+                <div class="text-xs font-bold text-gray-500">Verification: Ongoing</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Draw Sales Chart for Slide 2
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById("sales-chart-container");
+            if (!container) return;
+
+            const width = container.clientWidth - 48;
+            const height = 320;
+            const margin = { top: 40, right: 30, bottom: 40, left: 60 };
+
+            const svg = d3.select("#sales-chart-container").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            const data = [
+                { year: "2024", Tesla: 39000, Ford: 33510 },
+                { year: "2025 (Est)", Tesla: 20200, Ford: 27231 }
+            ];
+
+            const subgroups = ["Tesla", "Ford"];
+            const groups = data.map(d => d.year);
+
+            // X Axis
+            const x = d3.scaleBand()
+                .domain(groups)
+                .range([margin.left, width - margin.right])
+                .padding([0.2]);
+
+            svg.append("g")
+                .attr("transform", `translate(0, ${height - margin.bottom})`)
+                .call(d3.axisBottom(x).tickSize(0))
+                .selectAll("text")
+                .attr("font-size", "14px")
+                .attr("font-weight", "bold")
+                .attr("dy", "10px");
+
+            // Y Axis
+            const y = d3.scaleLinear()
+                .domain([0, 45000])
+                .range([height - margin.bottom, margin.top]);
+
+            svg.append("g")
+                .attr("transform", `translate(${margin.left}, 0)`)
+                .call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0s")));
+
+            // Grid
+            svg.append("g")
+                .attr("class", "grid")
+                .attr("stroke", "lightgray")
+                .attr("stroke-opacity", 0.5)
+                .call(d3.axisLeft(y)
+                    .tickSize(-(width - margin.left - margin.right))
+                    .tickFormat("")
+                )
+                .attr("transform", `translate(${margin.left}, 0)`);
+
+            // Subgroup Scale
+            const xSub = d3.scaleBand()
+                .domain(subgroups)
+                .range([0, x.bandwidth()])
+                .padding([0.05]);
+
+            // Bars
+            const color = d3.scaleOrdinal()
+                .domain(subgroups)
+                .range(['#111111', '#BB162B']); // Tesla Black, Ford Red (using Theme Accents)
+
+            svg.append("g")
+                .selectAll("g")
+                .data(data)
+                .join("g")
+                .attr("transform", d => `translate(${x(d.year)}, 0)`)
+                .selectAll("rect")
+                .data(d => subgroups.map(key => ({ key: key, value: d[key] })))
+                .join("rect")
+                .attr("x", d => xSub(d.key))
+                .attr("y", d => y(d.value))
+                .attr("width", xSub.bandwidth())
+                .attr("height", d => height - margin.bottom - y(d.value))
+                .attr("fill", d => color(d.key));
+
+            // Labels
+            svg.append("g")
+                .selectAll("g")
+                .data(data)
+                .join("g")
+                .attr("transform", d => `translate(${x(d.year)}, 0)`)
+                .selectAll("text")
+                .data(d => subgroups.map(key => ({ key: key, value: d[key] })))
+                .join("text")
+                .attr("x", d => xSub(d.key) + xSub.bandwidth() / 2)
+                .attr("y", d => y(d.value) - 5)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12px")
+                .attr("font-weight", "bold")
+                .text(d => d.value.toLocaleString());
+
+            // Legend
+            const legend = svg.append("g")
+                .attr("transform", `translate(${width - 150}, ${margin.top})`);
+
+            legend.append("rect").attr("x", 0).attr("y", 0).attr("width", 15).attr("height", 15).attr("fill", "#111111");
+            legend.append("text").attr("x", 20).attr("y", 12).text("Tesla Cybertruck").attr("font-size", "12px").attr("font-weight", "bold");
+
+            legend.append("rect").attr("x", 0).attr("y", 25).attr("width", 15).attr("height", 15).attr("fill", "#BB162B");
+            legend.append("text").attr("x", 20).attr("y", 37).text("Ford F-150 Lightning").attr("font-size", "12px").attr("font-weight", "bold");
+        });
+    </script>
+</body>
+
+</html>

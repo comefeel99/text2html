@@ -10,7 +10,41 @@
 ## OUTPUT
 HTML 파일 (1280x720px 슬라이드 형식)
 
+## THEME SYSTEM (New!)
+보고서의 주제(Topic)와 톤(Tone)을 분석하여 아래 두 가지 테마 중 **하나를 반드시 선택**하여 적용해야 해.
+
+### Theme A: Corporate Glass (Updated)
+- **Mood**: 신뢰, 전문성, IT, 미래지향적, 깔끔함, Apple Style
+- **Font**: 'Noto Sans KR' (Main)
+- **Palette**: Slate (Background), **Apple Blue** (`#007AFF`) (Primary)
+- **Decoration**: **Glassmorphism**, Gradient, Soft Shadows
+- **Usage**: 기술 보고서, 매뉴얼, 공식 비즈니스 제안서, SaaS 소개
+
+### Theme B: Premium Warm
+- **Mood**: 고급스러움, 감성적, 라이프스타일, 트렌디, 인문학
+- **Font**: 'Poppins' (Headings), 'Roboto Condensed' (Data/Body)
+- **Palette**: Warm White (`#fffdf7`) (Background), Dark Brown/Orange (Primary)
+- **Decoration**: **Artistic Shapes** (배경에 SVG 패턴, 유기적 도형, 질감), Layered Layout
+- **Usage**: 트렌드 분석, 마케팅 제안, 인문학, 라이프스타일
+
+### Theme C: Cinematic (New)
+- **Mood**: 웅장함, 비전, 스토리텔링, 감동, 여행
+- **Font**: 'Montserrat' (Headings), 'Noto Sans KR' (Body)
+- **Palette**: **Full Image Background** + Dark Overlay, White Text
+- **Decoration**: High Quality Unsplash Images, Dark Gradients, Text Shadow
+- **Usage**: 여행, 비전 선포, 역사, 환경, 영화/미디어
+
+### Theme D: Construct (New)
+- **Mood**: 강렬함, 엔지니어링, 남성적, 직관적, 하드웨어
+- **Font**: 'Noto Sans KR' (Black/Bold - 900 Weight)
+- **Palette**: White Background, **Strong Red** (`#BB162B`) or **Navy** (`#002C5F`)
+- **Decoration**: High Contrast Borders, Rectangular Shapes, Hard Shadows
+- **Usage**: 자동차, 건설, 제조, 금융/투자 비교, 하드웨어 비교
+
+---
+
 ## DESIGN SYSTEM
+
 
 ### 기술 스택
 ```html
@@ -23,10 +57,83 @@ HTML 파일 (1280x720px 슬라이드 형식)
 ```html
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+  
+  :root {
+    /* Default Variables (will be overridden by Theme Class) */
+    --bg-color: #f1f5f9;
+    --slide-bg: white;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --accent-color: #2563eb;
+    --font-heading: 'Noto Sans KR', sans-serif;
+    --font-body: 'Noto Sans KR', sans-serif;
+  }
+
+  /* Theme A: Corporate Glass */
+  .theme-corporate {
+    --bg-color: #f5f7fa;
+    --slide-bg: white;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --accent-color: #007AFF; /* Apple Blue */
+    --accent-light: #e0f2fe;
+    --font-heading: 'Noto Sans KR', sans-serif;
+    --font-body: 'Noto Sans KR', sans-serif;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --card-border: 1px solid rgba(255, 255, 255, 0.8);
+    --card-backdrop: blur(12px);
+  }
+
+  /* Theme B: Premium Warm */
+  .theme-warm {
+    --bg-color: #e8e6e1;
+    --slide-bg: #fffdf7; /* Warm White */
+    --text-primary: #2f1800; /* Dark Brown */
+    --text-secondary: #5d4037;
+    --accent-color: #f98049; /* Soft Orange */
+    --accent-light: #fff3e0;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Roboto Condensed', sans-serif;
+    --card-bg: #ffffff;
+    --card-border: none;
+    --card-backdrop: none;
+  }
+
+  /* Theme C: Cinematic */
+  .theme-cinematic {
+    --bg-color: #1a1a1a;
+    --slide-bg: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #e5e5e5;
+    --accent-color: #E50914; /* Netflix Red-ish */
+    --accent-light: rgba(255, 255, 255, 0.2);
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Noto Sans KR', sans-serif;
+    --card-bg: rgba(0, 0, 0, 0.6);
+    --card-border: 1px solid rgba(255, 255, 255, 0.2);
+    --card-backdrop: blur(8px);
+  }
+
+  /* Theme D: Construct */
+  .theme-construct {
+    --bg-color: #f0f0f5;
+    --slide-bg: white;
+    --text-primary: #111111;
+    --text-secondary: #333333;
+    --accent-color: #BB162B; /* Strong Red */
+    --accent-light: #ffeeee;
+    --font-heading: 'Noto Sans KR', sans-serif; /* Black weight via class */
+    --font-body: 'Noto Sans KR', sans-serif;
+    --card-bg: white;
+    --card-border: 2px solid #e5e5e5;
+    --card-backdrop: none;
+  }
   
   body {
-    background: #f1f5f9;
-    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg-color);
+    font-family: var(--font-body);
     margin: 0;
     padding: 40px;
     display: flex;
@@ -38,11 +145,33 @@ HTML 파일 (1280x720px 슬라이드 형식)
   .slide {
     width: 1280px;
     height: 720px;
-    background: white;
+    background: var(--slide-bg);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     position: relative;
     flex-shrink: 0;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  /* Decoration Layer (Theme B only) */
+  .artistic-decoration {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Content Layer */
+  .slide-content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   
   .hover-lift {
@@ -72,12 +201,24 @@ HTML 파일 (1280x720px 슬라이드 형식)
 </style>
 ```
 
-### 기본 슬라이드 구조
+### HTML 구조 가이드 (중요)
+모든 슬라이드는 `body` 태그에 **테마 클래스**(`theme-corporate` 또는 `theme-warm`)를 적용해야 합니다.
 ```html
-<div class="slide p-12 bg-white flex flex-col">
-  <!-- 슬라이드 내용 (overflow: hidden 자동 적용) -->
-</div>
+<body class="theme-corporate"> <!-- 또는 theme-warm -->
+  <div class="slide">
+    <!-- Theme B일 경우 장식 요소 추가 -->
+    <!-- <div class="artistic-decoration top-0 right-0 ..."></div> -->
+    
+    <div class="slide-content p-12">
+       ...
+    </div>
+  </div>
+</body>
 ```
+```
+
+### 기본 슬라이드 구조
+<!-- REMOVED: Old Basic Slide Structure -->
 
 ---
 
@@ -276,16 +417,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## INFORMATION DENSITY GUIDELINES
 
-### 필수 규칙
+### 필수 규칙 (강화됨)
 1. **총 슬라이드 수**: 타이틀 + 본문 + 결론 포함 **최대 10장 이내**
 2. **섹션당 1 슬라이드**: 보고서의 각 섹션을 별도 슬라이드로 생성
-3. **최소 정보량**: 슬라이드당 최소 3개 이상의 정보 블록
-4. **수치 강조**: 모든 수치 데이터는 크고 굵게 표시
+3. **최소 정보량**: 슬라이드당 **최소 5개 이상**의 정보 블록
+4. **수치 강조**: 모든 수치 데이터는 크고 굵게 표시 (text-3xl font-bold 이상)
+5. **구체성 필수**: 각 슬라이드에 구체적 도구명, 기업명, 사례 포함
+6. **출처 표시**: 주요 데이터에 출처 인라인 표시 (text-xs text-gray-400)
 
-### 슬라이드 타입 선택
+### 슬라이드 타입 선택 (강화됨)
 보고서의 `권장 슬라이드 타입`을 따르되, 정보량에 맞게 조정:
-- 항목 3개 이하: 2-column layout
-- 항목 4-6개: Card Grid (2x2 또는 3x2)
+- 항목 3개 이하: 2-column layout + 추가 정보 박스
+- 항목 4-6개: Card Grid (2x3 또는 3x2)
 - 항목 7개 이상: Table 또는 분할
 
 ### 금지 사항
@@ -296,23 +439,32 @@ document.addEventListener('DOMContentLoaded', function() {
 - ❌ 슬라이드 컨테이너(`.slide`)에 `border-radius` 적용 (모서리는 직각 유지)
 - ❌ 필수 CSS 스타일 블록 누락
 - ❌ 슬라이드당 3종 이상의 컴포넌트 조합
+- ❌ 추상적인 설명만 존재 (구체적 수치/사례 없음)
 
-### 슬라이드당 컴포넌트 밀도 제한
-슬라이드 내 요소 겹침을 방지하기 위해 아래 제한을 준수:
+### 슬라이드당 컴포넌트 밀도 최적화 (강화됨)
+슬라이드 내 요소 격침을 방지하면서 정보 밀도를 높이기 위한 기준:
 
-| 컴포넌트 | 최대 개수 |
-|---------|----------|
-| KPI 카드 | 4개 |
-| 차트 (Bar/Line/Pie) | 2개 |
-| 테이블 | 1개 |
-| Process Flow | 1개 (단계 5개 이하) |
-| Key Takeaway | 1개 |
+| 컴포넌트 | 최소 개수 | 최대 개수 | 회밝기준 |
+|---------|----------|----------|----------|
+| CARD_GRID | 4개 | 6개 | 3개 이하 시 2-column으로 변경 |
+| TABLE | 4행 x 4열 | 8행 x 6열 | 3행 이하 시 CARD_GRID로 변경 |
+| KPI 카드 | 4개 | 6개 | 2개 이하 시 2-column으로 변경 |
+| PILLAR_CARD | 3개 | 4개 | - |
+| PROCESS_FLOW | 4단계 | 6단계 | 3단계 이하 시 BULLET 사용 |
+| Key Takeaway | 1개 | 1개 | 모든 콘텐츠 슬라이드에 권장 |
+
+### 정보 밀도 강화 권장사항
+- 각 카드에 **텍스트 + 수치 + 아이콘** 3요소 포함
+- 테이블 행에 아이콘 포함으로 가독성 향상
+- Key Takeaway에 **구체적 수치** 포함
+- 출처 정보를 슬라이드 하단 또는 데이터 근처에 표시
 
 **허용되는 조합 (2종 이하):**
-- ✅ KPI 4개 + Flow 1개
-- ✅ Table 1개 + 설명 카드 2개
+- ✅ KPI 4~6개 + Key Takeaway 1개
+- ✅ Table 1개 + 설명 카드 2~3개
 - ✅ Chart 2개 (같은 행)
 - ✅ Table 1개 + Chart 1개 (세로 분리)
+- ✅ CARD_GRID 6개 + Key Takeaway 1개
 
 **금지 조합 (3종 이상):**
 - ❌ KPI 4개 + Chart 1개 + Flow 1개
@@ -321,22 +473,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ---
 
-## COLOR PALETTE
+## THEME PALETTES (Reference)
 
-```css
-/* Primary */
---blue-600: #2563eb;
---indigo-600: #4f46e5;
+## THEME PALETTES (Reference)
 
-/* Accent */
---emerald-500: #10b981;
---purple-600: #9333ea;
---orange-500: #f97316;
+### Theme A (Corporate Glass)
+- Primary: Apple Blue (`#007AFF`)
+- Background: Slate (`#f5f7fa`) with Glassmorphism
+- Text: Dark Gray (`#1e293b`)
 
-/* Neutral */
---slate-800: #1e293b;
---slate-500: #64748b;
---slate-100: #f1f5f9;
+### Theme B (Premium Warm)
+- Primary: Dark Brown (`#2f1800`), Soft Orange (`#f98049`)
+- Background: Warm White (`#fffdf7`)
+- Text: Dark Brown (`#2f1800`)
+
+### Theme C (Cinematic)
+- Primary: Netflix Red-ish (`#E50914`)
+- Background: Black (`#000000`) + Full Image Overlay
+- Text: White (`#ffffff`)
+
+### Theme D (Construct)
+- Primary: Strong Red (`#BB162B`) or Navy (`#002C5F`)
+- Background: Pure White (`#ffffff`)
+- Text: Black (`#111111`)
+
+## THEME COMPLIANCE GUIDE
+**Theme B (Premium Warm)** 선택 시 다음 규칙을 템플릿에 적용:
+1. **Background**: `bg-white` 대신 `bg-[var(--slide-bg)]` 사용
+2. **Decoration**: `.slide` 내부에 `ARTISTIC ASSETS` 배치
+
+**Theme C (Cinematic)** 선택 시 다음 규칙을 템플릿에 적용:
+1. **Layout**: 반드시 `bg-image` 컨테이너 위에 `bg-black/80` 오버레이를 씌운 구조 사용
+2. **Image**: Unsplash 등에서 `1280x720` 고해상도 이미지 URL 사용 (Topic 관련 키워드)
+
+**Theme D (Construct)** 선택 시 다음 규칙을 템플릿에 적용:
+1. **Border**: 모든 카드/박스에 `border-2 border-gray-200` 적용 (그림자 대신 보더 강조)
+2. **Font**: 제목에 `font-black` (font-weight: 900) 적용
+
+## ARTISTIC ASSETS (For Theme B Only)
+Theme B일 때 `.artistic-decoration` 컨테이너 안에 배치할 SVG 요소들:
+
+### 1. Organic Blend (Top Right)
+```html
+<div class="artistic-decoration top-[-50px] right-[-50px] w-[300px] h-[300px] opacity-20">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#f98049" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.3,82.2,22.9,71.3,35.1C60.4,47.3,49.9,58.1,37.6,65.8C25.3,73.5,11.2,78.1,-1.9,81.4C-15,84.7,-28.9,86.7,-41.2,80.7C-53.5,74.7,-64.2,60.7,-72.3,46.5C-80.4,32.3,-85.9,17.9,-83.4,4.9C-80.9,-8.1,-70.4,-19.7,-60.1,-29.3C-49.8,-38.9,-39.7,-46.5,-29,-55.8C-18.3,-65.1,-7,-76.1,6.3,-87C19.6,-97.9,30.5,-108.7,44.7,-76.4Z" transform="translate(100 100)" />
+  </svg>
+</div>
+```
+
+### 2. Geometric Accent (Bottom Left)
+```html
+<div class="artistic-decoration bottom-[20px] left-[20px] w-[150px] h-[150px] opacity-10">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="10" width="80" height="80" stroke="#2f1800" stroke-width="2" fill="none" />
+    <circle cx="50" cy="50" r="30" fill="#f98049" opacity="0.5" />
+  </svg>
+</div>
 ```
 
 ## ICONS (Font Awesome)

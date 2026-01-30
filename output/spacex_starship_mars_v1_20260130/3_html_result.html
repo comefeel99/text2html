@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceX Starship: Vision for Mars Colonization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+        :root {
+            --bg-color: #1a1a1a;
+            --slide-bg: #000000;
+            --text-primary: #ffffff;
+            --text-secondary: #e5e5e5;
+            --accent-color: #E50914;
+            /* Netflix Red */
+            --accent-light: rgba(229, 9, 20, 0.2);
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Noto Sans KR', sans-serif;
+            --card-bg: rgba(0, 0, 0, 0.6);
+            --card-border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--slide-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            color: var(--text-primary);
+        }
+
+        /* Cinematic Theme Specifics */
+        .cinematic-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+
+        .cinematic-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            /* Dark overlay */
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 3rem;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-heading);
+        }
+
+        .card-glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: var(--card-border);
+            border-radius: 1rem;
+        }
+
+        .text-accent {
+            color: var(--accent-color);
+        }
+
+        .bg-accent {
+            background-color: var(--accent-color);
+        }
+
+        .border-accent {
+            border-color: var(--accent-color);
+        }
+    </style>
+</head>
+
+<body class="theme-cinematic">
+
+    <!-- Slide 1: Title -->
+    <div class="slide">
+        <div class="cinematic-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=1920');">
+        </div>
+        <div class="cinematic-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4));">
+        </div>
+        <div class="slide-content justify-center items-center text-center">
+            <div class="mb-6 tracking-widest text-accent font-bold uppercase text-lg">Special Report</div>
+            <h1 class="text-7xl font-black mb-6 leading-tight">SpaceX Starship:<br>Vision for Mars</h1>
+            <p class="text-2xl text-gray-300 max-w-3xl leading-relaxed">
+                인류를 다행성 종족으로 만들기 위한 혁명적인 완전 재사용 우주선 프로젝트와 2050년 화성 이주 비전
+            </p>
+            <div class="mt-12 flex gap-4">
+                <div class="px-6 py-3 border border-white/30 rounded-full text-sm backdrop-blur-sm">
+                    <i class="fas fa-rocket mr-2 text-accent"></i>Fully Reusable
+                </div>
+                <div class="px-6 py-3 border border-white/30 rounded-full text-sm backdrop-blur-sm">
+                    <i class="fas fa-globe mr-2 text-accent"></i>Multi-Planetary
+                </div>
+                <div class="px-6 py-3 border border-white/30 rounded-full text-sm backdrop-blur-sm">
+                    <i class="fas fa-people-group mr-2 text-accent"></i>1 Million People
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Ultimate Launch System (Table) -->
+    <div class="slide">
+        <div class="cinematic-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1541185933-710f50031080?q=80&w=1920'); opacity: 0.4;">
+        </div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content">
+            <div class="mb-10 border-l-4 border-accent pl-6">
+                <h2 class="text-4xl font-bold mb-2">The Ultimate Launch System</h2>
+                <p class="text-xl text-gray-400">압도적인 성능과 완전 재사용성을 갖춘 역사상 가장 강력한 로켓</p>
+            </div>
+
+            <div class="flex gap-10 h-full">
+                <!-- Left: Stats -->
+                <div class="w-1/3 flex flex-col gap-6 justify-center">
+                    <div class="card-glass p-6">
+                        <div class="text-accent text-lg font-bold mb-1">Height</div>
+                        <div class="text-5xl font-black">121<span class="text-2xl ml-1 text-gray-400">m</span></div>
+                        <div class="text-sm text-gray-400 mt-2">자유의 여신상(93m)보다 거대한 크기</div>
+                    </div>
+                    <div class="card-glass p-6">
+                        <div class="text-accent text-lg font-bold mb-1">Thrust</div>
+                        <div class="text-5xl font-black">7,590<span class="text-2xl ml-1 text-gray-400">tf</span></div>
+                        <div class="text-sm text-gray-400 mt-2">NASA SLS 로켓 추력의 약 2배</div>
+                    </div>
+                    <div class="card-glass p-6">
+                        <div class="text-accent text-lg font-bold mb-1">Payload</div>
+                        <div class="text-5xl font-black">150<span class="text-2xl ml-1 text-gray-400">t</span></div>
+                        <div class="text-sm text-gray-400 mt-2">완전 재사용 시 지구 저궤도 운송 능력</div>
+                    </div>
+                </div>
+
+                <!-- Right: Comparison Table -->
+                <div class="w-2/3 card-glass p-8 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-scale-balanced mr-3 text-accent"></i>Launch Vehicle Comparison
+                    </h3>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-white/20 text-gray-400">
+                                <th class="py-4">Vehicle</th>
+                                <th class="py-4">Height</th>
+                                <th class="py-4">Thrust (tf)</th>
+                                <th class="py-4">Payload to LEO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                                <td class="py-4 font-bold text-gray-300">Saturn V (Apollo)</td>
+                                <td class="py-4">110m</td>
+                                <td class="py-4">3,400</td>
+                                <td class="py-4">118t</td>
+                            </tr>
+                            <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                                <td class="py-4 font-bold text-gray-300">NASA SLS Block 1</td>
+                                <td class="py-4">98m</td>
+                                <td class="py-4">3,900</td>
+                                <td class="py-4">95t</td>
+                            </tr>
+                            <tr class="bg-accent/20 border-l-4 border-l-accent">
+                                <td class="py-5 pl-4 font-black text-white flex items-center">
+                                    <i class="fas fa-star text-accent mr-2"></i>SpaceX Starship
+                                </td>
+                                <td class="py-5 font-bold text-white">121m</td>
+                                <td class="py-5 font-bold text-white">7,590</td>
+                                <td class="py-5 font-bold text-accent">150t (Reusable)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Revolutionary Technologies (Grid) -->
+    <div class="slide">
+        <div class="cinematic-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1517976384346-3136801d605d?q=80&w=1920'); opacity: 0.3;">
+        </div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content">
+            <div class="mb-10 text-center">
+                <h2 class="text-5xl font-bold mb-3">Revolutionary Technologies</h2>
+                <p class="text-xl text-gray-400">불가능을 가능으로 만드는 스페이스X의 파괴적 혁신 기술</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 flex-grow">
+                <!-- Card 1 -->
+                <div class="card-glass p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 text-accent text-2xl">
+                        <i class="fas fa-fire-burner"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Raptor V3 Engine</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-3">
+                        세계 최초의 풀 플로우 다단 연소 사이클 엔진. 300bar의 챔버 압력으로 최고의 효율 달성.
+                    </p>
+                    <div class="text-accent text-sm font-bold">Fuel: Liquid Methane + LOX</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card-glass p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 text-accent text-2xl">
+                        <i class="fas fa-tower-cell"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Mechazilla Catch</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-3">
+                        착륙 다리 없이 발사대 로봇 팔(Chopsticks)로 귀환하는 부스터를 공중에서 포획.
+                    </p>
+                    <div class="text-accent text-sm font-bold">Benefit: Weight Reduction</div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-glass p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 text-accent text-2xl">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Heat Shield Tiles</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-3">
+                        18,000개의 육각형 세라믹 타일이 대기권 재진입 시 섭씨 1,400도 이상의 고열 차단.
+                    </p>
+                    <div class="text-accent text-sm font-bold">Automated Install</div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card-glass p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 text-accent text-2xl">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Hot Staging</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-3">
+                        부스터 엔진 가동 중 상단 엔진 점화 및 분리. 추진력 손실 최소화 및 효율 극대화.
+                    </p>
+                    <div class="text-accent text-sm font-bold">+10% Payload Capacity</div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="card-glass p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 text-accent text-2xl">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Orbital Refueling</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-3">
+                        지구 궤도상에서 추진제 재보급(Tanker). 화성까지 대량의 화물 운송을 가능케 함.
+                    </p>
+                    <div class="text-accent text-sm font-bold">Key to Mars</div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="card-glass p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 text-accent text-2xl">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Stainless Steel 304L</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-3">
+                        복합소재 대신 스테인리스 스틸 사용. 저렴한 비용, 쉬운 가공, 우수한 내열성.
+                    </p>
+                    <div class="text-accent text-sm font-bold">Rapid Production</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Flight Test Milestones (Timeline) -->
+    <div class="slide">
+        <div class="cinematic-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?q=80&w=1920'); opacity: 0.3;">
+        </div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content">
+            <div class="mb-4 flex justify-between items-end border-b border-gray-700 pb-4">
+                <div>
+                    <h2 class="text-4xl font-bold text-white">Flight Test Milestones</h2>
+                    <p class="text-lg text-gray-400 mt-2">Iterative Development: 실패를 통한 빠른 학습</p>
+                </div>
+                <div class="text-accent font-bold text-xl">2023 - 2024</div>
+            </div>
+
+            <div id="timeline-container" class="flex-grow w-full relative"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById("timeline-container");
+            const width = container.clientWidth;
+            const height = 400;
+            const margin = { top: 40, right: 40, bottom: 40, left: 40 };
+
+            const svg = d3.select("#timeline-container").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            const data = [
+                { date: "2023.04", title: "IFT-1", desc: "최초 통합 비행, 이륙 성공", result: "Partial", color: "#64748b" },
+                { date: "2023.11", title: "IFT-2", desc: "핫 스테이징 성공, 우주 도달", result: "Partial", color: "#64748b" },
+                { date: "2024.03", title: "IFT-3", desc: "궤도 속도, 페이로드 도어", result: "Success", color: "#E50914" },
+                { date: "2024.06", title: "IFT-4", desc: "제어된 재진입 및 연착수", result: "Success", color: "#E50914" },
+                { date: "2024.10", title: "IFT-5", desc: "부스터 공중 포획(Catch)", result: "Historic", color: "#E50914" }
+            ];
+
+            // Draw Line
+            svg.append("line")
+                .attr("x1", margin.left)
+                .attr("y1", height / 2)
+                .attr("x2", width - margin.right)
+                .attr("y2", height / 2)
+                .attr("stroke", "rgba(255,255,255,0.2)")
+                .attr("stroke-width", 2);
+
+            // Draw Nodes
+            const xScale = d3.scalePoint()
+                .domain(data.map(d => d.title))
+                .range([margin.left, width - margin.right])
+                .padding(0.5);
+
+            const groups = svg.selectAll("g")
+                .data(data)
+                .enter()
+                .append("g")
+                .attr("transform", d => `translate(${xScale(d.title)}, ${height / 2})`);
+
+            // Circles
+            groups.append("circle")
+                .attr("r", 10)
+                .attr("fill", d => d.result === "Historic" ? "#E50914" : (d.result === "Success" ? "#E50914" : "#475569"))
+                .attr("stroke", "white")
+                .attr("stroke-width", 2);
+
+            // Labels
+            groups.append("text")
+                .attr("y", -30)
+                .attr("text-anchor", "middle")
+                .attr("font-weight", "bold")
+                .attr("fill", "#fff")
+                .attr("font-size", "18px")
+                .text(d => d.date);
+
+            groups.append("text")
+                .attr("y", -55)
+                .attr("text-anchor", "middle")
+                .attr("font-weight", "bold")
+                .attr("fill", d => d.color)
+                .attr("font-size", "22px")
+                .text(d => d.title);
+
+            // Descriptions (Alternating blocks)
+            groups.append("foreignObject")
+                .attr("x", -100)
+                .attr("y", 30)
+                .attr("width", 200)
+                .attr("height", 100)
+                .append("xhtml:div")
+                .style("text-align", "center")
+                .style("color", "#a1a1aa")
+                .style("font-size", "14px")
+                .html(d => `<div style="background:rgba(0,0,0,0.5); padding:10px; border-radius:8px; border:1px solid #333;">${d.desc}</div>`);
+
+            // Highlight Effect for IFT-5
+            const lastNode = groups.filter(d => d.title === "IFT-5");
+            lastNode.append("circle")
+                .attr("r", 20)
+                .attr("fill", "none")
+                .attr("stroke", "#E50914")
+                .attr("stroke-width", 2)
+                .attr("opacity", 0)
+                .transition()
+                .duration(1500)
+                .attr("opacity", 1)
+                .attr("r", 30)
+                .transition()
+                .duration(1500)
+                .attr("opacity", 0)
+                .attr("r", 40)
+                .on("end", function repeat() {
+                    d3.select(this)
+                        .attr("r", 20)
+                        .attr("opacity", 1)
+                        .transition()
+                        .duration(1500)
+                        .attr("r", 40)
+                        .attr("opacity", 0)
+                        .on("end", repeat);
+                });
+        });
+    </script>
+
+    <!-- Slide 5: Vision for Mars 2050 (Infrastructure) -->
+    <div class="slide">
+        <div class="cinematic-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1614728853975-69c960f7274f?q=80&w=1920'); opacity: 0.5;">
+        </div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content">
+            <div class="mb-10 flex items-center">
+                <div class="bg-accent text-white px-4 py-1 rounded font-bold mr-4">2050 GOAL</div>
+                <h2 class="text-4xl font-bold">Vision for Mars</h2>
+            </div>
+
+            <div class="flex gap-8 h-full">
+                <!-- Main Vision Card -->
+                <div class="w-1/3 card-glass p-8 flex flex-col justify-between border-l-8 border-l-accent">
+                    <div>
+                        <h3 class="text-3xl font-black mb-4">1 Million People</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            자급자족 가능한 화성 문명을 유지하기 위한 최소 인구 규모. 2050년까지 달성 목표.
+                        </p>
+                    </div>
+                    <div class="mt-8">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-clock text-accent w-8 text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-400">Avg. Transit Time</div>
+                                <div class="text-xl font-bold">
+                                    < 6 Months</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-sync text-accent w-8 text-xl"></i>
+                                <div>
+                                    <div class="text-xs text-gray-400">Launch Frequency</div>
+                                    <div class="text-xl font-bold">3 Flights / Day</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Process Steps -->
+                    <div class="w-2/3 grid grid-cols-2 gap-6 content-center">
+                        <div class="card-glass p-6 hover:bg-white/10 transition-colors">
+                            <h4 class="text-lg font-bold text-accent mb-2">1. The Golden Ticket</h4>
+                            <p class="text-sm text-gray-400">지구와 화성이 가까워지는 26개월 주기의 발사 창구(Launch Window) 활용</p>
+                        </div>
+                        <div class="card-glass p-6 hover:bg-white/10 transition-colors">
+                            <h4 class="text-lg font-bold text-accent mb-2">2. Mass Transit</h4>
+                            <p class="text-sm text-gray-400">1,000척의 스타십 선단(Fleet)이 궤도 대기 후 동시 출발</p>
+                        </div>
+                        <div class="card-glass p-6 hover:bg-white/10 transition-colors">
+                            <h4 class="text-lg font-bold text-accent mb-2">3. ISRU</h4>
+                            <p class="text-sm text-gray-400">In-Situ Resource Utilization. 화성의 물(H2O)과 대기(CO2)로 메탄 연료 현지
+                                생산</p>
+                        </div>
+                        <div class="card-glass p-6 hover:bg-white/10 transition-colors">
+                            <h4 class="text-lg font-bold text-accent mb-2">4. Terraforming</h4>
+                            <p class="text-sm text-gray-400">장기적으로 화성의 기온과 대기를 변화시켜 지구와 유사한 환경 조성</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Economics (Bar Chart) -->
+        <div class="slide">
+            <div class="cinematic-bg"
+                style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920'); opacity: 0.3;">
+            </div>
+            <div class="cinematic-overlay"></div>
+            <div class="slide-content">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold">The Economics of Space</h2>
+                    <p class="text-xl text-gray-400 mt-2">완전 재사용이 가져올 우주 수송 비용의 혁명적 변화</p>
+                </div>
+
+                <div class="flex gap-10 flex-grow items-center">
+                    <!-- Description -->
+                    <div class="w-1/3 space-y-6">
+                        <div class="card-glass p-6 border-l-4 border-l-accent">
+                            <h3 class="text-xl font-bold mb-2">Cost Reduction</h3>
+                            <div class="text-4xl font-black text-accent">-99%</div>
+                            <p class="text-sm text-gray-400 mt-2">Space Shuttle 대비 비용 절감 효과</p>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed text-sm">
+                            "스타십은 로켓 연료 비용만으로 비행할 수 있도록 설계되었습니다. 이는 우주 여행을 항공 여행처럼 저렴하게 만들 것입니다."
+                        </p>
+                        <div class="text-sm font-bold text-accent">- Elon Musk</div>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="w-2/3 h-[400px]" id="cost-chart-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const container = document.getElementById("cost-chart-container");
+                const width = container.clientWidth;
+                const height = 400;
+                const margin = { top: 20, right: 30, bottom: 60, left: 100 };
+
+                const svg = d3.select("#cost-chart-container").append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
+
+                // Log scale for dramatic difference
+                const data = [
+                    { name: "Space Shuttle", value: 54500, display: "$54,500" },
+                    { name: "Falcon 9", value: 2600, display: "$2,600" },
+                    { name: "Starship (Target)", value: 100, display: "< $100" }
+                ];
+
+                const x = d3.scaleBand()
+                    .range([margin.left, width - margin.right])
+                    .domain(data.map(d => d.name))
+                    .padding(0.4);
+
+                const y = d3.scaleLog()
+                    .domain([10, 100000])
+                    .range([height - margin.bottom, margin.top]);
+
+                // Bars
+                svg.selectAll("rect")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                    .attr("x", d => x(d.name))
+                    .attr("width", x.bandwidth())
+                    .attr("y", height - margin.bottom) // Animate from bottom
+                    .attr("height", 0)
+                    .attr("fill", d => d.name.includes("Starship") ? "#E50914" : "#475569")
+                    .transition()
+                    .duration(1000)
+                    .attr("y", d => y(d.value))
+                    .attr("height", d => height - margin.bottom - y(d.value));
+
+                // Labels
+                svg.selectAll(".label")
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("class", "label")
+                    .attr("x", d => x(d.name) + x.bandwidth() / 2)
+                    .attr("y", d => y(d.value) - 10)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "white")
+                    .attr("font-weight", "bold")
+                    .attr("font-size", "20px")
+                    .text(d => d.display)
+                    .style("opacity", 0)
+                    .transition()
+                    .delay(800)
+                    .duration(500)
+                    .style("opacity", 1);
+
+                // Axis
+                svg.append("g")
+                    .attr("transform", `translate(0,${height - margin.bottom})`)
+                    .call(d3.axisBottom(x))
+                    .attr("font-size", "14px")
+                    .attr("color", "#9ca3af");
+
+                svg.append("g")
+                    .attr("transform", `translate(${margin.left},0)`)
+                    .call(d3.axisLeft(y).ticks(5, "~s"))
+                    .attr("font-size", "14px")
+                    .attr("color", "#9ca3af");
+
+                // Y-Axis Label
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 30)
+                    .attr("x", 0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .style("fill", "#64748b")
+                    .text("Launch Cost per kg ($)");
+            });
+        </script>
+
+        <!-- Slide 7: Title (Closing) -->
+        <div class="slide">
+            <div class="cinematic-bg"
+                style="background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1920'); opacity: 0.6;">
+            </div>
+            <div class="cinematic-overlay"></div>
+            <div class="slide-content justify-center items-center text-center">
+                <h1 class="text-6xl font-black mb-8 leading-tight">Making Humanity<br><span
+                        class="text-accent">Multi-Planetary</span></h1>
+                <p class="text-2xl text-gray-300 max-w-2xl leading-relaxed mb-12">
+                    "The future is going to be exciting"
+                </p>
+                <div class="border-t border-white/20 pt-8 w-1/2">
+                    <p class="text-gray-500 uppercase tracking-widest text-sm">SpaceX Starship Report</p>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

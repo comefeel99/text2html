@@ -4,9 +4,29 @@
 <!-- 여기에 생각나는 대로 자유롭게 작성하세요 -->
 <!-- 예시: "테스트 자동화 개선하고 싶음", "에러 처리 로직 정리 필요" -->
 
-1. prompts 폴더 정리
-    - skill과 중복되어 불필요, 삭제
-    
+테마 테스트 
+
+1. Theme A: Corporate Glass
+주제: 2025 엔터프라이즈 SaaS 보안 트렌드
+특징: backdrop-filter: blur, Apple Blue 포인트 컬러, 깔끔한 글래스모피즘
+결과물: output/test_theme_a/3_html_result.html
+2. Theme B: Premium Warm
+주제: 2025 핸드드립 커피 시장 트렌드
+특징: 웜톤 배경(#fffdf7), Poppins 폰트, 유기적 SVG 장식
+결과물: output/test_theme_b/3_html_result.html
+3. Theme C: Cinematic
+주제: SpaceX 스타십: 화성 이주 비전
+특징: 전체 화면 배경 이미지, Dark Overlay, 웅장한 텍스트 배치
+결과물: output/test_theme_c/3_html_result.html
+4. Theme D: Construct
+주제: 테슬라 사이버트럭 vs 포드 F-150 라이트닝
+특징: 강렬한 대비(High Contrast), 직각 디자인, 굵은 폰트(Black Weight)
+결과물: output/test_theme_d/3_html_result.html
+
+
+
+무료 이미지를 활용한 슬라이드 디자인  품질 향상 방안
+
 
 ---
 
@@ -22,6 +42,7 @@
 - **설명**: output 파일들을 `hr_report_gpt5.1_20260116` 형식의 폴더로 구조화
 - **상태**: ✅ 완료 (2026-01-29)
 
+
 ---
 
 ## ✅ 진행 결정됨
@@ -33,6 +54,10 @@
 
 ## 🚀 완료
 <!-- 수행 완료된 항목들 -->
+
+### 2026-01-30: prompts 폴더 삭제
+- 루트의 `prompts/` 폴더 삭제 완료
+- `.agent/skills/text2slidehtml/resources/`와 중복되어 정리함
 
 ### 2026-01-30: IDE 테스트 워크플로우 정리
 - `.agent/workflows/text2html.md` → `ide-test.md`로 이름 변경

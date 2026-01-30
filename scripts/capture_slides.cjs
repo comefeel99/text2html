@@ -7,12 +7,12 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
 
-async function captureSlides(htmlFilePath, outputDir) {
+async function captureSlides(htmlFilePath, outputDir, args = []) {
     // 절대 경로로 변환
     const absoluteHtmlPath = path.resolve(htmlFilePath);
 
     // 출력 디렉토리 설정 (기본값: HTML 파일과 같은 디렉토리의 slides 폴더)
-    if (!outputDir) {
+    if (!outputDir || outputDir.startsWith('--')) { // outputDir이 옵션인 경우 처리
         outputDir = path.join(path.dirname(absoluteHtmlPath), 'slides');
     }
 
@@ -23,6 +23,9 @@ async function captureSlides(htmlFilePath, outputDir) {
 
     console.log(`📄 HTML 파일: ${absoluteHtmlPath}`);
     console.log(`📁 출력 디렉토리: ${outputDir}`);
+
+    // 옵션 파싱
+    const noBorder = args.includes('--no-border');
 
     // 브라우저 실행
     const browser = await puppeteer.launch({
@@ -56,6 +59,19 @@ async function captureSlides(htmlFilePath, outputDir) {
                 }
             });
         });
+
+        // 테두리옵션 적용 (기본값: 적용)
+        if (!noBorder) {
+            console.log('🎨 기본 테두리(검은색) 적용 중...');
+            await page.addStyleTag({
+                content: `
+                    .slide { 
+                        border: 1px solid black !important;
+                        box-sizing: border-box !important;
+                    }
+                `
+            });
+        }
 
         // 추가 대기 (D3 차트 등 동적 콘텐츠 렌더링)
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -116,4 +132,4 @@ if (args.length === 0) {
 const htmlFilePath = args[0];
 const outputDir = args[1];
 
-captureSlides(htmlFilePath, outputDir);
+captureSlides(htmlFilePath, outputDir, args);
