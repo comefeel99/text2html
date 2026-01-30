@@ -3,10 +3,11 @@
     "version": "1.0.0",
     "type": "module",
     "description": "Test runner for text2slidehtml skill",
-    "main": "test_runner.js",
+    "main": "src/runner.js",
     "scripts": {
-        "test": "node test_runner.js",
-        "start": "node test_runner.js"
+        "test": "node src/runner.js",
+        "start": "node src/runner.js",
+        "api-test": "node src/test_api.js"
     },
     "dependencies": {
         "dotenv": "^16.3.1",

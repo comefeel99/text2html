@@ -10,29 +10,29 @@ Text-to-HTML 슬라이드 생성기: 텍스트 요청을 HTML 슬라이드 프�
 
 ```bash
 # 전체 파이프라인 실행
-npm test                              # 또는: node test_runner.js "주제"
+npm test                              # 또는: node src/runner.js "주제"
 
 # 특정 단계만 실행
-node test_runner.js --phase=html_gen "주제"
-node test_runner.js --phase=research "주제"
-node test_runner.js --phase=report "주제"
+node src/runner.js --phase=html_gen "주제"
+node src/runner.js --phase=research "주제"
+node src/runner.js --phase=report "주제"
 
 # 리서치 단계 건너뛰기 (기존 결과 사용)
-node test_runner.js --skip-research "주제"
-node test_runner.js --skip-research --input=output/1_research_result.md
+node src/runner.js --skip-research "주제"
+node src/runner.js --skip-research --input=output/1_research_result.md
 
 # HTML 생성에 커스텀 프롬프트 사용
-node test_runner.js --phase=html_gen --prompt=info/3_html_gen.md
+node src/runner.js --phase=html_gen --prompt=prompts/3_html_gen.md
 
 # 커스텀 출력 디렉토리 지정
-node test_runner.js --output-dir=output/my_experiment "주제"
+node src/runner.js --output-dir=output/my_experiment "주제"
 
 # 슬라이드를 PNG 이미지로 캡처
 node scripts/capture_slides.cjs output/3_html_result.html
 node scripts/capture_slides.cjs output/3_html_result.html ./custom_output_dir
 
 # LLM 연결 테스트
-node test_api.js
+npm run api-test                      # 또는: node src/test_api.js
 ```
 
 ## 아키텍처
@@ -50,9 +50,9 @@ node test_api.js
    - 슬라이드 유형: TABLE, CARD_GRID, TIMELINE, KPI_DASHBOARD, BULLET_CARD, LINE_CHART_ANNOTATED, PIE_CHART, BAR_CHART, PROCESS_FLOW, COMPARISON_DIAGRAM, PILLAR_CARD, INFRASTRUCTURE_CARD, PRODUCT_GALLERY, FEATURE_COMPARISON_TABLE, BRAND_COMPARISON
 
 **주요 파일:**
-- `test_runner.js` - CLI 파싱을 포함한 메인 오케스트레이터
-- `prompts/` - 단계별 프롬프트 템플릿 (로컬 오버라이드)
-- `.agent/skills/text2slidehtml/resources/` - 기본 프롬프트 템플릿
+- `src/runner.js` - CLI 파싱을 포함한 메인 오케스트레이터
+- `src/llm-client.js` - LLM API 클라이언트 (OpenAI/Custom)
+- `prompts/` - 단계별 프롬프트 템플릿
 - `scripts/capture_slides.cjs` - Puppeteer 기반 슬라이드 캡처
 
 ## 설정

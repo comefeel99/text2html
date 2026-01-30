@@ -1,11 +1,16 @@
-import 'dotenv/config';
-import OpenAI from 'openai';
+/**
+ * Text2SlideHTML Test Runner
+ * 텍스트를 HTML 슬라이드로 변환하는 3단계 파이프라인
+ */
+
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { callLLM, getLLMConfig } from './llm-client.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const PROJECT_ROOT = path.dirname(__dirname);
 
 // CLI arguments parsing
 const args = process.argv.slice(2);
@@ -29,62 +34,31 @@ const outputDirArg = args.find(arg => arg.startsWith('--output-dir='));
 const customOutputDir = outputDirArg ? outputDirArg.split('=')[1] : null;
 
 // Configuration
-const SKILL_DIR = path.join(__dirname, '.agent/skills/text2slidehtml');
+const PROMPTS_DIR = path.join(PROJECT_ROOT, 'prompts');
 const OUTPUT_DIR = customOutputDir
-    ? path.join(__dirname, customOutputDir)
-    : path.join(__dirname, 'output');
-
-// LLM Provider 설정
-const LLM_PROVIDER = process.env.LLM || 'openai';
-const isCustomLLM = LLM_PROVIDER === 'custom';
-
-// Custom LLM 설정
-const CUSTOM_LLM_URL = process.env.CUSTOM_LLM_URL;
-const CUSTOM_LLM_API_KEY = process.env.CUSTOM_LLM_API_KEY || 'null';
-const CUSTOM_MODEL = process.env.CUSTOM_MODEL;
-
-// 환경변수 검증
-if (isCustomLLM) {
-    if (!CUSTOM_LLM_URL) {
-        console.error('❌ 오류: LLM=custom 설정 시 CUSTOM_LLM_URL이 필요합니다.');
-        process.exit(1);
-    }
-    if (!CUSTOM_MODEL) {
-        console.error('❌ 오류: LLM=custom 설정 시 CUSTOM_MODEL이 필요합니다.');
-        process.exit(1);
-    }
-}
-
-// 모델 선택
-const MODEL = isCustomLLM ? CUSTOM_MODEL : (process.env.OPENAI_MODEL || 'gpt-4');
-
-// OpenAI 호환 클라이언트 생성
-const openai = new OpenAI({
-    baseURL: isCustomLLM ? CUSTOM_LLM_URL : undefined,
-    apiKey: isCustomLLM ? CUSTOM_LLM_API_KEY : process.env.OPENAI_API_KEY
-});
+    ? path.join(PROJECT_ROOT, customOutputDir)
+    : path.join(PROJECT_ROOT, 'output');
 
 // Phase definitions
 const PHASES = [
     {
         name: 'research',
-        promptFile: 'resources/1_research.md',
+        promptFile: '1_research.md',
         outputFile: '1_research_result.md',
         description: 'Research Phase - 자료 수집'
     },
     {
         name: 'report',
-        promptFile: 'resources/2_report.md',
+        promptFile: '2_report.md',
         outputFile: '2_report_result.md',
         description: 'Report Phase - 보고서 구조화'
     },
     {
         name: 'html_gen',
-        promptFile: 'resources/3_html_gen.md',
+        promptFile: '3_html_gen.md',
         outputFile: '3_html_result.html',
         description: 'HTML Generation Phase - 슬라이드 생성'
     },
-
 ];
 
 /**
@@ -93,68 +67,12 @@ const PHASES = [
 async function loadPrompt(filename, useCustomPrompt = false) {
     // 커스텀 프롬프트 사용 시 프로젝트 루트 기준 경로
     if (useCustomPrompt && customPromptPath) {
-        const customFilePath = path.join(__dirname, customPromptPath);
+        const customFilePath = path.join(PROJECT_ROOT, customPromptPath);
         console.log(`  → 커스텀 프롬프트 사용: ${customPromptPath}`);
         return await fs.readFile(customFilePath, 'utf-8');
     }
-    const filepath = path.join(SKILL_DIR, filename);
-    try {
-        // Try loading from SKILL_DIR
-        return await fs.readFile(filepath, 'utf-8');
-    } catch (e) {
-        // If not found in SKILL_DIR, try loading from project root (e.g. prompts/)
-        if (filename.startsWith('prompts/')) {
-            const localPath = path.join(__dirname, filename);
-            console.log(`  → 프로젝트 로컬 프롬프트 사용: ${filename}`);
-            return await fs.readFile(localPath, 'utf-8');
-        }
-        throw e;
-    }
-}
-
-/**
- * Call OpenAI API with the given prompt
- */
-async function callLLM(systemPrompt, userMessage, phaseName = 'unknown') {
-    const startTime = Date.now();
-    console.log('  → API 호출 중...');
-
-    const response = await openai.chat.completions.create({
-        model: MODEL,
-        messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: userMessage }
-        ],
-        max_completion_tokens: 50000,
-        reasoning_effort: 'high'
-    });
-
-    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-    const usage = response.usage;
-    const content = response.choices[0].message.content;
-
-    console.log(`  → 입력 토큰: ${usage?.prompt_tokens?.toLocaleString() || 'N/A'}`);
-    console.log(`  → 출력 토큰: ${usage?.completion_tokens?.toLocaleString() || 'N/A'}`);
-    console.log(`  → 처리 시간: ${elapsed}초`);
-
-    // 로그 파일에 기록
-    const logEntry = {
-        timestamp: new Date().toISOString(),
-        phase: phaseName,
-        model: MODEL,
-        provider: isCustomLLM ? 'custom' : 'openai',
-        url: isCustomLLM ? CUSTOM_LLM_URL : 'api.openai.com',
-        input_tokens: usage?.prompt_tokens || 0,
-        output_tokens: usage?.completion_tokens || 0,
-        elapsed_seconds: parseFloat(elapsed),
-        input_preview: userMessage.substring(0, 200) + '...',
-        output_preview: content?.substring(0, 200) + '...'
-    };
-
-    const logPath = path.join(OUTPUT_DIR, 'llm_calls.log');
-    await fs.appendFile(logPath, JSON.stringify(logEntry) + '\\n', 'utf-8');
-
-    return content;
+    const filepath = path.join(PROMPTS_DIR, filename);
+    return await fs.readFile(filepath, 'utf-8');
 }
 
 /**
@@ -180,7 +98,7 @@ async function saveResult(filename, content) {
 }
 
 /**
- * Run the 4-phase workflow
+ * Run the 3-phase workflow
  */
 async function runWorkflow(userRequest) {
     console.log('\n' + '='.repeat(60));
@@ -188,12 +106,13 @@ async function runWorkflow(userRequest) {
     console.log('='.repeat(60));
 
     // LLM 설정 정보 출력
-    if (isCustomLLM) {
-        console.log(`[LLM] Custom: ${CUSTOM_LLM_URL}`);
+    const config = getLLMConfig();
+    if (config.isCustomLLM) {
+        console.log(`[LLM] Custom: ${config.url}`);
     } else {
         console.log('[LLM] OpenAI');
     }
-    console.log(`[Model] ${MODEL}`);
+    console.log(`[Model] ${config.model}`);
     console.log(`\n입력: "${userRequest}"\n`);
 
     // Ensure output directory exists
@@ -210,7 +129,7 @@ async function runWorkflow(userRequest) {
         if (phase.name === 'research' && skipResearch) {
             console.log('  → research 단계 스킵 (기존 결과 파일 사용)');
             const inputFilePath = customInputPath
-                ? path.join(__dirname, customInputPath)
+                ? path.join(PROJECT_ROOT, customInputPath)
                 : path.join(OUTPUT_DIR, '1_research_result.md');
             const existingResult = await fs.readFile(inputFilePath, 'utf-8');
             console.log(`  → 입력 파일: ${inputFilePath}`);
@@ -258,7 +177,10 @@ async function runWorkflow(userRequest) {
 
         // Call LLM with error handling
         try {
-            const result = await callLLM(systemPrompt, userMessage, phase.name);
+            const result = await callLLM(systemPrompt, userMessage, {
+                phaseName: phase.name,
+                outputDir: OUTPUT_DIR
+            });
 
             // Validate response
             validateResponse(result, phase.name);
@@ -276,7 +198,6 @@ async function runWorkflow(userRequest) {
             console.error('워크플로우를 중단합니다.');
             process.exit(1);
         }
-
     }
 
     console.log('\n' + '='.repeat(60));
@@ -286,10 +207,11 @@ async function runWorkflow(userRequest) {
 
     return results;
 }
+
 // --help 옵션
 if (args.includes('--help')) {
     console.log(`
-사용법: node test_runner.js [옵션] [요청]
+사용법: node src/runner.js [옵션] [요청]
 
 옵션:
   --skip-research       research 단계 스킵 (기존 결과 사용)
@@ -300,10 +222,10 @@ if (args.includes('--help')) {
   --help                도움말 출력
 
 예시:
-  node test_runner.js --phase=html_gen "KODEX 분석"
-  node test_runner.js --phase=html_gen --prompt=info/3_html_gen.md
-  node test_runner.js --skip-research "나스닥 전망"
-  node test_runner.js --skip-research \\
+  node src/runner.js --phase=html_gen "KODEX 분석"
+  node src/runner.js --phase=html_gen --prompt=prompts/3_html_gen.md
+  node src/runner.js --skip-research "나스닥 전망"
+  node src/runner.js --skip-research \\
     --input=output/hr_report_gpt5.1_20260116/1_research_result.md \\
     --output-dir=output/hr_report_custom_20260119
 `);
