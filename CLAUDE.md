@@ -52,7 +52,7 @@ node test_api.js
 **주요 파일:**
 - `test_runner.js` - CLI 파싱을 포함한 메인 오케스트레이터
 - `prompts/` - 단계별 프롬프트 템플릿 (로컬 오버라이드)
-- `.agent/skills/html2slidehtml/resources/` - 기본 프롬프트 템플릿
+- `.agent/skills/text2slidehtml/resources/` - 기본 프롬프트 템플릿
 - `scripts/capture_slides.cjs` - Puppeteer 기반 슬라이드 캡처
 
 ## 설정

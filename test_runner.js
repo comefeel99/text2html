@@ -29,7 +29,7 @@ const outputDirArg = args.find(arg => arg.startsWith('--output-dir='));
 const customOutputDir = outputDirArg ? outputDirArg.split('=')[1] : null;
 
 // Configuration
-const SKILL_DIR = path.join(__dirname, '.agent/skills/html2slidehtml');
+const SKILL_DIR = path.join(__dirname, '.agent/skills/text2slidehtml');
 const OUTPUT_DIR = customOutputDir
     ? path.join(__dirname, customOutputDir)
     : path.join(__dirname, 'output');
@@ -184,7 +184,7 @@ async function saveResult(filename, content) {
  */
 async function runWorkflow(userRequest) {
     console.log('\n' + '='.repeat(60));
-    console.log('html2slidehtml Test Runner');
+    console.log('text2slidehtml Test Runner');
     console.log('='.repeat(60));
 
     // LLM 설정 정보 출력

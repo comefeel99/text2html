@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent 산업별 활용 사례 및 성과 분석 보고서</title>
+
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Global Reset & Body */
+        body {
+            background-color: #020c1b;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            color: #e6f1ff;
+        }
+
+        /* Slide Container */
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: #0A192F;
+            /* Deep Navy */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            border: 1px solid #1e293b;
+        }
+
+        /* Typography & Utilities */
+        .text-accent {
+            color: #64FFDA;
+        }
+
+        /* Electric Blue */
+        .text-navy-light {
+            color: #8892b0;
+        }
+
+        .bg-navy-card {
+            background: #112240;
+        }
+
+        .border-accent {
+            border-color: #64FFDA;
+        }
+
+        /* Hover Effects */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(100, 255, 218, 0.1);
+        }
+
+        /* Glassmorphism for Dark Mode */
+        .glass-panel {
+            background: rgba(17, 34, 64, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Scrollbar for tables if needed */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A192F;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #8892b0;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64FFDA;
+        }
+
+        /* Animation utilities */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Title & Executive Summary -->
+    <div class="slide flex flex-col p-12 relative">
+        <!-- Decorative BG Element -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-[#64FFDA] opacity-5 rounded-bl-full pointer-events-none"></div>
+
+        <!-- Header -->
+        <div class="mb-8 z-10 fade-in-up">
+            <div class="flex items-center gap-4 mb-4">
+                <i class="fas fa-robot text-4xl text-accent"></i>
+                <span class="text-accent font-bold tracking-widest uppercase">Industry Report 2024</span>
+            </div>
+            <h1 class="text-5xl font-black text-white leading-tight">
+                AI Agent 산업별<br />활용 사례 및 성과 분석
+            </h1>
+            <div class="h-1 w-24 bg-accent mt-6"></div>
+        </div>
+
+        <!-- Main Content: Cognitive Loop & Stats -->
+        <div class="flex-grow flex gap-12 z-10">
+            <!-- Left: Cognitive Loop -->
+            <div class="w-1/2 flex flex-col justify-center">
+                <h2 class="text-2xl font-bold text-white mb-6">AI Agent 인지 루프 (Cognitive Loop)</h2>
+                <!-- Process Flow -->
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex flex-col items-center text-center group">
+                        <div
+                            class="w-20 h-20 rounded-full border-2 border-accent flex items-center justify-center mb-2 bg-navy-card group-hover:bg-accent group-hover:text-navy-light transition-colors">
+                            <i class="fas fa-bullseye text-2xl"></i>
+                        </div>
+                        <span class="font-bold text-sm">Goal</span>
+                    </div>
+                    <i class="fas fa-arrow-right text-2xl text-[#8892b0]"></i>
+                    <div class="flex flex-col items-center text-center group">
+                        <div
+                            class="w-20 h-20 rounded-full border-2 border-accent flex items-center justify-center mb-2 bg-navy-card group-hover:bg-accent group-hover:text-navy-light transition-colors">
+                            <i class="fas fa-sitemap text-2xl"></i>
+                        </div>
+                        <span class="font-bold text-sm">Plan</span>
+                    </div>
+                    <i class="fas fa-arrow-right text-2xl text-[#8892b0]"></i>
+                    <div class="flex flex-col items-center text-center group">
+                        <div
+                            class="w-20 h-20 rounded-full border-2 border-accent flex items-center justify-center mb-2 bg-navy-card group-hover:bg-accent group-hover:text-navy-light transition-colors">
+                            <i class="fas fa-play text-2xl"></i>
+                        </div>
+                        <span class="font-bold text-sm">Act</span>
+                    </div>
+                    <i class="fas fa-arrow-right text-2xl text-[#8892b0]"></i>
+                    <div class="flex flex-col items-center text-center group">
+                        <div
+                            class="w-20 h-20 rounded-full border-2 border-accent flex items-center justify-center mb-2 bg-navy-card group-hover:bg-accent group-hover:text-navy-light transition-colors">
+                            <i class="fas fa-sync text-2xl"></i>
+                        </div>
+                        <span class="font-bold text-sm">Reflect</span>
+                    </div>
+                </div>
+                <p class="mt-4 text-[#8892b0] text-sm leading-relaxed">
+                    단순 자동화를 넘어 자율적인 의사결정 주체로 진화하며, 2026년 이후 전 산업의 핵심 인프라가 될 전망입니다.
+                </p>
+            </div>
+
+            <!-- Right: Key Stats Grid -->
+            <div class="w-1/2 grid grid-cols-2 gap-6 content-center">
+                <div class="glass-panel p-6 rounded-xl hover-lift">
+                    <i class="fas fa-building text-accent text-3xl mb-3"></i>
+                    <p class="text-[#8892b0] text-sm">도입 산업</p>
+                    <p class="text-4xl font-black text-white">10<span class="text-2xl">대</span></p>
+                    <p class="text-xs text-[#8892b0] mt-1">60여 건 상용·실증 사례</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl hover-lift">
+                    <i class="fas fa-chart-line text-green-400 text-3xl mb-3"></i>
+                    <p class="text-[#8892b0] text-sm">평균 비용 절감</p>
+                    <p class="text-4xl font-black text-white">25<span class="text-2xl">%</span></p>
+                    <p class="text-xs text-[#8892b0] mt-1">운영 효율성 증대</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl hover-lift">
+                    <i class="fas fa-coins text-yellow-400 text-3xl mb-3"></i>
+                    <p class="text-[#8892b0] text-sm">매출 증대 효과</p>
+                    <p class="text-4xl font-black text-white">40<span class="text-2xl">%</span></p>
+                    <p class="text-xs text-[#8892b0] mt-1">주요 산업 평균</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl hover-lift border-accent bg-opacity-100"
+                    style="background: rgba(100, 255, 218, 0.1);">
+                    <i class="fas fa-exclamation-triangle text-accent text-3xl mb-3"></i>
+                    <p class="text-[#8892b0] text-sm">핵심 성공 요인</p>
+                    <p class="text-lg font-bold text-white leading-tight mt-1">데이터 품질<br />프로세스 재설계<br />거버넌스 내재화</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-auto text-right text-xs text-[#8892b0] z-10">
+            <span class="bg-[#112240] px-3 py-1 rounded">Source: AI Agent Industry Analysis</span>
+        </div>
+    </div>
+
+    <!-- Slide 2: Section 1 - Smart Operation & Infra (Card Grid) -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-8 border-b border-[#1e293b] pb-4 flex justify-between items-end">
+            <div>
+                <span class="text-accent font-bold tracking-wider text-sm bg-[#112240] px-2 py-1 rounded">SECTION
+                    01</span>
+                <h1 class="text-4xl font-bold text-white mt-3">스마트 오퍼레이션 및 인프라</h1>
+            </div>
+            <p class="text-[#8892b0] text-sm">자율화(Autonomy) 달성을 위한 AI Agent 활용</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-8 flex-grow">
+            <!-- Manufacturing & Logistics -->
+            <div
+                class="glass-panel rounded-2xl p-8 border-l-4 border-blue-500 hover-lift flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 bg-blue-900 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-industry text-blue-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">제조·물류</h3>
+                    <p class="text-[#8892b0] text-sm leading-relaxed mb-6">
+                        글로벌 공급망 불확실성 대응 및 스마트팩토리 구축을 위한 예지보전 자동화.
+                    </p>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-[#0A192F] p-3 rounded">
+                        <span class="text-xs text-blue-400">LG전자 (비전AI)</span>
+                        <div class="text-xl font-bold text-white">가동률 <span class="text-blue-400">↑3%</span></div>
+                    </div>
+                    <div class="bg-[#0A192F] p-3 rounded">
+                        <span class="text-xs text-blue-400">Amazon Robotics</span>
+                        <div class="text-xl font-bold text-white">로봇 가동률 <span class="text-blue-400">↑20%</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Energy -->
+            <div
+                class="glass-panel rounded-2xl p-8 border-l-4 border-yellow-500 hover-lift flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 bg-yellow-900 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-yellow-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">에너지</h3>
+                    <p class="text-[#8892b0] text-sm leading-relaxed mb-6">
+                        탄소중립과 변동성 대응을 위한 스마트그리드 최적화 및 자동 트레이딩.
+                    </p>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-[#0A192F] p-3 rounded">
+                        <span class="text-xs text-yellow-400">한국남부발전 KEMI</span>
+                        <div class="text-xl font-bold text-white">운영 효율 <span class="text-yellow-400">UP</span></div>
+                    </div>
+                    <div class="bg-[#0A192F] p-3 rounded">
+                        <span class="text-xs text-yellow-400">Tesla Autobidder</span>
+                        <div class="text-xl font-bold text-white">수익 <span class="text-yellow-400">MAX</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agriculture -->
+            <div
+                class="glass-panel rounded-2xl p-8 border-l-4 border-green-500 hover-lift flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 bg-green-900 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-seedling text-green-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">농업</h3>
+                    <p class="text-[#8892b0] text-sm leading-relaxed mb-6">
+                        기후변화와 노동력 부족 해결을 위한 자율 농업 로봇 및 정밀 살포.
+                    </p>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-[#0A192F] p-3 rounded">
+                        <span class="text-xs text-green-400">John Deere</span>
+                        <div class="text-xl font-bold text-white">농약 사용량 <span class="text-green-400">↓50%</span></div>
+                    </div>
+                    <div class="bg-[#0A192F] p-3 rounded">
+                        <span class="text-xs text-green-400">Taranis</span>
+                        <div class="text-xl font-bold text-white">조기 탐지율 <span class="text-green-400">↑30%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Stats Footer -->
+        <div class="mt-6 flex gap-4 text-sm">
+            <div class="flex items-center gap-2 text-[#8892b0]">
+                <i class="fas fa-check-circle text-accent"></i> 생산 가동률 1.5~3% 향상
+            </div>
+            <div class="flex items-center gap-2 text-[#8892b0]">
+                <i class="fas fa-check-circle text-accent"></i> 물류비 10~15% 절감
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Section 2 - Customer & Market Innovation (Card Grid) -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-8 border-b border-[#1e293b] pb-4 flex justify-between items-end">
+            <div>
+                <span class="text-accent font-bold tracking-wider text-sm bg-[#112240] px-2 py-1 rounded">SECTION
+                    02</span>
+                <h1 class="text-4xl font-bold text-white mt-3">고객 및 시장 혁신</h1>
+            </div>
+            <p class="text-[#8892b0] text-sm">초개인화 경험과 매출 증대 실현</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-8 flex-grow">
+            <!-- Finance -->
+            <div class="glass-panel rounded-2xl p-6 border-t-4 border-indigo-500 hover-lift">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-12 h-12 bg-indigo-900 rounded-full flex items-center justify-center">
+                        <i class="fas fa-coins text-indigo-400 text-xl"></i>
+                    </div>
+                    <span class="text-3xl font-black text-white">15~30<span
+                            class="text-sm text-indigo-400">%</span></span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">금융·보험</h3>
+                <p class="text-xs text-[#8892b0] mb-4">비용 절감 및 리스크 관리</p>
+                <ul class="space-y-3">
+                    <li class="flex flex-col bg-[#0A192F] p-2 rounded border border-[#1e293b]">
+                        <span class="text-indigo-300 text-xs font-bold">Visa</span>
+                        <span class="text-white text-sm">사기 탐지 정확도 개선</span>
+                    </li>
+                    <li class="flex flex-col bg-[#0A192F] p-2 rounded border border-[#1e293b]">
+                        <span class="text-indigo-300 text-xs font-bold">Lemonade</span>
+                        <span class="text-white text-sm">청구 처리 시간 단축</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Retail -->
+            <div class="glass-panel rounded-2xl p-6 border-t-4 border-pink-500 hover-lift relative overflow-hidden">
+                <div class="absolute top-2 right-2 bg-pink-500 text-[#0A192F] font-bold text-xs px-2 py-1 rounded">BEST
+                    ROI</div>
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-12 h-12 bg-pink-900 rounded-full flex items-center justify-center">
+                        <i class="fas fa-shopping-bag text-pink-400 text-xl"></i>
+                    </div>
+                    <span class="text-3xl font-black text-white">20~40<span
+                            class="text-sm text-pink-400">%</span></span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">리테일</h3>
+                <p class="text-xs text-[#8892b0] mb-4">매출 증대 효과 핵심</p>
+                <ul class="space-y-3">
+                    <li class="flex flex-col bg-[#0A192F] p-2 rounded border border-[#1e293b]">
+                        <span class="text-pink-300 text-xs font-bold">Amazon Just Walk Out</span>
+                        <span class="text-white text-sm">매출 <span class="text-pink-400 font-bold">↑112%</span>, 처리량
+                            ↑60%</span>
+                    </li>
+                    <li class="flex flex-col bg-[#0A192F] p-2 rounded border border-[#1e293b]">
+                        <span class="text-pink-300 text-xs font-bold">무신사 MCM</span>
+                        <span class="text-white text-sm">일매출 <span class="text-pink-400 font-bold">↑42%</span></span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Media & Telco -->
+            <div class="glass-panel rounded-2xl p-6 border-t-4 border-cyan-500 hover-lift">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-12 h-12 bg-cyan-900 rounded-full flex items-center justify-center">
+                        <i class="fas fa-broadcast-tower text-cyan-400 text-xl"></i>
+                    </div>
+                    <span class="text-3xl font-black text-white">15~25<span
+                            class="text-sm text-cyan-400">%</span></span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">통신·미디어</h3>
+                <p class="text-xs text-[#8892b0] mb-4">콘텐츠 추천 및 QoS</p>
+                <ul class="space-y-3">
+                    <li class="flex flex-col bg-[#0A192F] p-2 rounded border border-[#1e293b]">
+                        <span class="text-cyan-300 text-xs font-bold">SKT ‘A.’</span>
+                        <span class="text-white text-sm">상담 시간 단축, ARPU 증대</span>
+                    </li>
+                    <li class="flex flex-col bg-[#0A192F] p-2 rounded border border-[#1e293b]">
+                        <span class="text-cyan-300 text-xs font-bold">Netflix</span>
+                        <span class="text-white text-sm">이탈률 감소, LTV 상승</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Section 3 - Social & Professional Services (Card Grid) -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-8 border-b border-[#1e293b] pb-4">
+            <span class="text-accent font-bold tracking-wider text-sm bg-[#112240] px-2 py-1 rounded">SECTION 03</span>
+            <h1 class="text-4xl font-bold text-white mt-3">사회 및 전문 서비스</h1>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 flex-grow">
+            <!-- Healthcare -->
+            <div class="glass-panel rounded-xl p-6 border border-[#1e293b] hover-lift flex items-start gap-4">
+                <div class="w-16 h-16 bg-red-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-heartbeat text-red-400 text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">헬스케어</h3>
+                    <p class="text-xs text-[#8892b0] mb-3">고령화·인력 부족 해결</p>
+                    <div class="flex gap-2 mb-2">
+                        <span class="bg-[#0A192F] text-red-300 text-xs px-2 py-1 rounded border border-red-900">Mayo
+                            Clinic</span>
+                        <span
+                            class="bg-[#0A192F] text-red-300 text-xs px-2 py-1 rounded border border-red-900">Recursion</span>
+                    </div>
+                    <p class="text-sm text-white">
+                        <i class="fas fa-clock text-accent mr-1"></i> 판독 시간 <span
+                            class="text-accent font-bold">40%</span> 단축<br>
+                        <i class="fas fa-check-circle text-accent mr-1"></i> 정확도 <span
+                            class="text-accent font-bold">15%</span> 향상
+                    </p>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="glass-panel rounded-xl p-6 border border-[#1e293b] hover-lift flex items-start gap-4">
+                <div class="w-16 h-16 bg-purple-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-graduation-cap text-purple-400 text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">교육</h3>
+                    <p class="text-xs text-[#8892b0] mb-3">맞춤형 학습 경로 제공</p>
+                    <div class="flex gap-2 mb-2">
+                        <span
+                            class="bg-[#0A192F] text-purple-300 text-xs px-2 py-1 rounded border border-purple-900">Duolingo</span>
+                        <span
+                            class="bg-[#0A192F] text-purple-300 text-xs px-2 py-1 rounded border border-purple-900">Coursera</span>
+                    </div>
+                    <p class="text-sm text-white">
+                        <i class="fas fa-chart-line text-accent mr-1"></i> 학습 효율 <span
+                            class="text-accent font-bold">15~25%</span> 개선<br>
+                        <i class="fas fa-pen text-accent mr-1"></i> 정확한 피드백 제공
+                    </p>
+                </div>
+            </div>
+
+            <!-- Public -->
+            <div class="glass-panel rounded-xl p-6 border border-[#1e293b] hover-lift flex items-start gap-4">
+                <div class="w-16 h-16 bg-orange-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-landmark text-orange-400 text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">공공</h3>
+                    <p class="text-xs text-[#8892b0] mb-3">시민 서비스 고도화</p>
+                    <div class="flex gap-2 mb-2">
+                        <span
+                            class="bg-[#0A192F] text-orange-300 text-xs px-2 py-1 rounded border border-orange-900">서울톡</span>
+                        <span
+                            class="bg-[#0A192F] text-orange-300 text-xs px-2 py-1 rounded border border-orange-900">Dubai
+                            RTA</span>
+                    </div>
+                    <p class="text-sm text-white">
+                        <i class="fas fa-handshake text-accent mr-1"></i> 민원 응답 속도 개선<br>
+                        <i class="fas fa-hourglass-half text-accent mr-1"></i> 대기 시간 <span
+                            class="text-accent font-bold">15~20%</span> 감소
+                    </p>
+                </div>
+            </div>
+
+            <!-- HR & Ops -->
+            <div class="glass-panel rounded-xl p-6 border border-[#1e293b] hover-lift flex items-start gap-4">
+                <div class="w-16 h-16 bg-teal-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-users-cog text-teal-400 text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">HR/기업운영</h3>
+                    <p class="text-xs text-[#8892b0] mb-3">채용 효율화 및 지원</p>
+                    <div class="flex gap-2 mb-2">
+                        <span
+                            class="bg-[#0A192F] text-teal-300 text-xs px-2 py-1 rounded border border-teal-900">유니레버</span>
+                        <span class="bg-[#0A192F] text-teal-300 text-xs px-2 py-1 rounded border border-teal-900">MS
+                            Copilot</span>
+                    </div>
+                    <p class="text-sm text-white">
+                        <i class="fas fa-user-check text-accent mr-1"></i> 채용 심사 시간 <span
+                            class="text-accent font-bold">50%</span> 단축<br>
+                        <i class="fas fa-tasks text-accent mr-1"></i> 반복 업무 자동화
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Section 4 - ROI Analysis (Table) -->
+    <div class="slide flex flex-col p-12 bg-[#0A192F]">
+        <div class="mb-6">
+            <span class="text-accent font-bold tracking-wider text-sm bg-[#112240] px-2 py-1 rounded">SECTION 04</span>
+            <h1 class="text-4xl font-bold text-white mt-2">산업별 투자 대비 효과(ROI) 분석</h1>
+            <p class="text-[#8892b0] mt-2">정량적 비교를 통한 최적의 투자 전략 수립</p>
+        </div>
+
+        <!-- Table Container -->
+        <div class="flex-1 glass-panel rounded-2xl p-0 overflow-hidden border border-[#1e293b]">
+            <table class="w-full text-left border-collapse" style="border-spacing: 0;">
+                <thead>
+                    <tr class="border-b border-accent bg-[#112240]">
+                        <th class="py-4 px-6 font-bold text-accent text-sm uppercase tracking-wider">산업 분야</th>
+                        <th class="py-4 px-6 font-bold text-[#8892b0] text-sm text-center">비용 절감</th>
+                        <th class="py-4 px-6 font-bold text-[#8892b0] text-sm text-center">매출/수익 증가</th>
+                        <th class="py-4 px-6 font-bold text-[#8892b0] text-sm text-center">생산성/효율</th>
+                        <th class="py-4 px-6 font-bold text-[#8892b0] text-sm text-center">고객만족</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+                    <!-- 일반 행 -->
+                    <tr class="border-b border-[#1e293b] hover:bg-[#0d2137] transition-colors">
+                        <td class="py-4 px-6 font-medium text-white">제조·물류</td>
+                        <td class="py-4 px-6 text-center text-[#8892b0]">10~25%</td>
+                        <td class="py-4 px-6 text-center text-[#8892b0]">5~10%</td>
+                        <td class="py-4 px-6 text-center text-white">가동률 1.5~3%</td>
+                        <td class="py-4 px-6 text-center text-accent"><i class="fas fa-arrow-up"></i></td>
+                    </tr>
+
+                    <!-- 강조 행 (리테일) -->
+                    <tr class="border-b border-[#1e293b] bg-[#64FFDA]/10">
+                        <td class="py-4 px-6 font-bold text-accent">리테일 <span
+                                class="ml-2 px-1.5 py-0.5 bg-accent text-[#0A192F] text-xs rounded">매출 성장</span></td>
+                        <td class="py-4 px-6 text-center text-white font-bold">10~20%</td>
+                        <td class="py-4 px-6 text-center text-white font-bold">20~40%</td>
+                        <td class="py-4 px-6 text-center text-[#8892b0]">-</td>
+                        <td class="py-4 px-6 text-center text-accent font-bold"><i class="fas fa-double-arrow-up"></i>
+                        </td>
+                    </tr>
+
+                    <tr class="border-b border-[#1e293b] hover:bg-[#0d2137] transition-colors">
+                        <td class="py-4 px-6 font-medium text-white">금융·보험</td>
+                        <td class="py-4 px-6 text-center text-white font-bold">15~30%</td>
+                        <td class="py-4 px-6 text-center text-[#8892b0]">3~8%</td>
+                        <td class="py-4 px-6 text-center text-[#8892b0]">10~20%</td>
+                        <td class="py-4 px-6 text-center text-accent"><i class="fas fa-arrow-up"></i></td>
+                    </tr>
+
+                    <!-- 강조 행 (농업) -->
+                    <tr class="border-b border-[#1e293b] bg-[#64FFDA]/10">
+                        <td class="py-4 px-6 font-bold text-accent">농업 <span
+                                class="ml-2 px-1.5 py-0.5 bg-accent text-[#0A192F] text-xs rounded">비용 절감</span></td>
+                        <td class="py-4 px-6 text-center text-white font-bold">20~50%</td>
+                        <td class="py-4 px-6 text-center text-white font-bold">10~25%</td>
+                        <td class="py-4 px-6 text-center text-[#8892b0]">생산성 10~25%</td>
+                        <td class="py-4 px-6 text-center text-[#8892b0]">-</td>
+                    </tr>
+
+                    <tr class="border-b border-[#1e293b] hover:bg-[#0d2137] transition-colors">
+                        <td class="py-4 px-6 font-medium text-white">HR/기업</td>
+                        <td class="py-4 px-6 text-center text-white">15~40%</td>
+                        <td class="py-4 px-6 text-center text-[#8892b0]">-</td>
+                        <td class="py-4 px-6 text-center text-white">업무속도 20~50%</td>
+                        <td class="py-4 px-6 text-center text-accent"><i class="fas fa-arrow-up"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4 flex justify-between items-center text-xs text-[#8892b0]">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-accent/20 border border-accent block"></span> Sweet Spot (높은 ROI 기대 분야)
+            </div>
+            <span>* Note: –는 정량 자료 미제공</span>
+        </div>
+    </div>
+
+    <!-- Slide 6: Section 5 - Strategy & Governance (Timeline) -->
+    <div class="slide flex flex-col p-12 relative">
+        <div class="mb-8">
+            <span class="text-accent font-bold tracking-wider text-sm bg-[#112240] px-2 py-1 rounded">SECTION 05</span>
+            <h1 class="text-4xl font-bold text-white mt-2">성공 전략 및 거버넌스 프레임워크</h1>
+        </div>
+
+        <!-- Timeline Container (D3) -->
+        <div class="flex-grow flex items-center justify-center relative" id="timeline-container">
+            <!-- D3 will render here -->
+        </div>
+
+        <!-- Failure Factors (Bottom) -->
+        <div class="mt-4 glass-panel p-4 rounded-xl border-red-900/50 border">
+            <h4 class="text-red-400 font-bold text-xs mb-2 uppercase"><i class="fas fa-exclamation-triangle mr-2"></i>주요
+                실패 요인</h4>
+            <div class="flex gap-6 text-sm text-[#8892b0]">
+                <span>• 데이터 결손 및 품질 불균형</span>
+                <span>• 조직 내부 저항</span>
+                <span>• 설명가능성 부족 (신뢰 리스크)</span>
+                <span>• 과도한 초기 투자 (ROI 미스매치)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Section 6 - Future Outlook (KPI Dashboard) -->
+    <div class="slide flex flex-col p-12 bg-[#0A192F]">
+        <div class="mb-6 border-b border-[#1e293b] pb-4 flex justify-between items-end">
+            <div>
+                <span class="text-accent font-bold tracking-wider text-sm bg-[#112240] px-2 py-1 rounded">SECTION
+                    06</span>
+                <h1 class="text-4xl font-bold text-white mt-2">미래 전망 및 전략 제언</h1>
+            </div>
+            <div class="text-right">
+                <p class="text-accent font-bold text-xl">2030 Agent Economy</p>
+            </div>
+        </div>
+
+        <div class="flex gap-8 flex-grow h-full">
+            <!-- Left: Market Growth Chart -->
+            <div class="w-2/3 glass-panel rounded-2xl p-6 flex flex-col" id="line-chart-container">
+                <h3 class="text-lg font-bold text-white mb-4">글로벌 AI Agent 시장 규모 전망</h3>
+                <!-- D3 Chart Target -->
+                <div class="flex-grow relative w-full h-full" id="chart-div"></div>
+            </div>
+
+            <!-- Right: Strategic KPIs -->
+            <div class="w-1/3 flex flex-col gap-4 justify-center">
+                <!-- KPI 1 -->
+                <div class="glass-panel p-5 rounded-xl border-l-4 border-accent">
+                    <div class="text-[#8892b0] text-xs uppercase tracking-wider font-bold mb-1">Market Size (2030)</div>
+                    <div class="text-4xl font-black text-white">
+                        $47.1<span class="text-lg text-accent ml-1">B</span>
+                    </div>
+                    <div class="text-sm text-green-400 mt-1">
+                        <i class="fas fa-arrow-trend-up mr-1"></i> CAGR 45%
+                    </div>
+                </div>
+
+                <!-- KPI 2 -->
+                <div class="glass-panel p-5 rounded-xl border-l-4 border-blue-500">
+                    <div class="text-[#8892b0] text-xs uppercase tracking-wider font-bold mb-1">ROI Range</div>
+                    <div class="text-4xl font-black text-white">
+                        2~5<span class="text-lg text-blue-400 ml-1">x</span>
+                    </div>
+                    <div class="text-sm text-[#8892b0] mt-1">
+                        주요 산업 실증 데이터
+                    </div>
+                </div>
+
+                <!-- Strategy Highlights -->
+                <div class="glass-panel p-5 rounded-xl bg-[#112240] border-none">
+                    <h4 class="text-white font-bold text-sm mb-3">전략 제언</h4>
+                    <ul class="space-y-2 text-xs text-[#8892b0]">
+                        <li class="flex items-start">
+                            <i class="fas fa-database text-accent mt-1 mr-2"></i>
+                            <span>도메인별 데이터 레이크 구축</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-accent mt-1 mr-2"></i>
+                            <span>Human-AI Co-Work 역할 설계</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-rocket text-accent mt-1 mr-2"></i>
+                            <span>신규 시장(Frontier) 조기 실증</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- D3 Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // --- 1. Timeline Chart (Slide 6) ---
+            (function () {
+                const container = document.getElementById("timeline-container");
+                if (!container) return;
+
+                const width = 1000, height = 250;
+                const svg = d3.select("#timeline-container").append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
+
+                const steps = [
+                    { year: "Step 1", title: "Data Ops & MLOps", detail: "고품질 학습·실행 데이터 확보", color: "#64FFDA" },
+                    { year: "Step 2", title: "BPR & Human-in-the-Loop", detail: "프로세스 최적화 및 신뢰 확보", color: "#5B9BD5" },
+                    { year: "Step 3", title: "거버넌스 내재화", detail: "규제 리스크 관리 및 윤리 준수", color: "#70AD47" }
+                ];
+
+                const xScale = d3.scaleBand()
+                    .domain(steps.map(d => d.year))
+                    .range([100, width - 100])
+                    .padding(0.2);
+
+                // Draw connecting line
+                svg.append("line")
+                    .attr("x1", xScale("Step 1") + xScale.bandwidth() / 2)
+                    .attr("y1", 100)
+                    .attr("x2", xScale("Step 3") + xScale.bandwidth() / 2)
+                    .attr("y2", 100)
+                    .attr("stroke", "#1e293b")
+                    .attr("stroke-width", 4);
+
+                // Draw Nodes
+                const groups = svg.selectAll("g.step")
+                    .data(steps)
+                    .enter()
+                    .append("g")
+                    .attr("class", "step")
+                    .attr("transform", d => `translate(${xScale(d.year)}, 100)`);
+
+                // Circle
+                groups.append("circle")
+                    .attr("r", 20)
+                    .attr("fill", "#0A192F")
+                    .attr("stroke", d => d.color)
+                    .attr("stroke-width", 4);
+
+                // Title
+                groups.append("text")
+                    .attr("y", -35)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "#e6f1ff")
+                    .attr("font-weight", "bold")
+                    .attr("font-size", "14px")
+                    .text(d => d.title);
+
+                // Detail Box
+                groups.append("foreignObject")
+                    .attr("x", -80)
+                    .attr("y", 30)
+                    .attr("width", 160)
+                    .attr("height", 80)
+                    .html(d => `
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="background:#112240; border:1px solid #1e293b; padding:10px; border-radius:8px; text-align:center; font-family:'Noto Sans KR', sans-serif;">
+                            <div style="color:${d.color}; font-weight:bold; font-size:12px; margin-bottom:4px;">${d.year}</div>
+                            <div style="color:#8892b0; font-size:11px; line-height:1.4;">${d.detail}</div>
+                        </div>
+                    `);
+            })();
+
+            // --- 2. Market Growth Line Chart (Slide 7) ---
+            (function () {
+                const containerDiv = document.getElementById("chart-div");
+                if (!containerDiv) return;
+
+                // Dimensions based on container
+                const marginTop = 20, marginRight = 30, marginBottom = 40, marginLeft = 50;
+                const width = containerDiv.clientWidth - marginLeft - marginRight;
+                const height = containerDiv.clientHeight - marginTop - marginBottom;
+
+                const svg = d3.select("#chart-div").append("svg")
+                    .attr("width", width + marginLeft + marginRight)
+                    .attr("height", height + marginTop + marginBottom)
+                    .append("g")
+                    .attr("transform", `translate(${marginLeft},${marginTop})`);
+
+                const data = [
+                    { year: "2024", value: 5.1 },
+                    { year: "2025", value: 9.2 },
+                    { year: "2026", value: 16.5 },
+                    { year: "2027", value: 25.8 },
+                    { year: "2028", value: 32.4 },
+                    { year: "2029", value: 39.1 },
+                    { year: "2030", value: 47.1 }
+                ];
+
+                // X Axis
+                const x = d3.scaleLinear()
+                    .domain([2024, 2030])
+                    .range([0, width]);
+
+                // Y Axis (in Billions)
+                const y = d3.scaleLinear()
+                    .domain([0, 50])
+                    .range([height, 0]);
+
+                // Gridlines
+                svg.append("g")
+                    .attr("class", "grid")
+                    .attr("transform", `translate(0,${height})`)
+                    .call(d3.axisBottom(x).tickSize(0).tickPadding(10))
+                    .attr("color", "#8892b0")
+                    .selectAll("text").attr("fill", "#8892b0").attr("font-size", "12px");
+
+                svg.append("g")
+                    .attr("class", "grid")
+                    .call(d3.axisLeft(y).ticks(5).tickFormat(d => d + "B").tickSize(-width))
+                    .attr("color", "#1e293b") // faint grid
+                    .selectAll("text").attr("fill", "#8892b0").attr("font-size", "12px");
+
+                // Line Generator
+                const line = d3.line()
+                    .x(d => x(d.year))
+                    .y(d => y(d.value))
+                    .curve(d3.curveMonotoneX);
+
+                // Gradient Area
+                const area = d3.area()
+                    .x(d => x(d.year))
+                    .y0(height)
+                    .y1(d => y(d.value))
+                    .curve(d3.curveMonotoneX);
+
+                svg.append("path")
+                    .datum(data)
+                    .attr("fill", "rgba(100, 255, 218, 0.1)")
+                    .attr("d", area);
+
+                // The Line
+                svg.append("path")
+                    .datum(data)
+                    .attr("fill", "none")
+                    .attr("stroke", "#64FFDA")
+                    .attr("stroke-width", 3)
+                    .attr("d", line);
+
+                // Dots
+                svg.selectAll(".dot")
+                    .data(data)
+                    .enter().append("circle")
+                    .attr("class", "dot")
+                    .attr("cx", d => x(d.year))
+                    .attr("cy", d => y(d.value))
+                    .attr("r", 4)
+                    .attr("fill", "#0A192F")
+                    .attr("stroke", "#64FFDA")
+                    .attr("stroke-width", 2);
+
+                // Annotation for 2030
+                svg.append("text")
+                    .attr("x", x(2030))
+                    .attr("y", y(47.1) - 15)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "#64FFDA")
+                    .attr("font-weight", "bold")
+                    .attr("font-size", "12px")
+                    .text("$47.1B (Goal)");
+            })();
+        });
+    </script>
+</body>
+
+</html>
