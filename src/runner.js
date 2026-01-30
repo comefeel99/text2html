@@ -6,11 +6,37 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 import { callLLM, getLLMConfig } from './llm-client.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.dirname(__dirname);
+
+/**
+ * 슬라이드 캡처 실행
+ */
+async function captureSlides(htmlFilePath, outputDir) {
+    const captureScript = path.join(PROJECT_ROOT, 'scripts', 'capture_slides.cjs');
+    const slidesDir = path.join(outputDir, 'slides');
+
+    console.log('\n[슬라이드 캡처]');
+    console.log('-'.repeat(40));
+    console.log(`  → HTML: ${htmlFilePath}`);
+    console.log(`  → 출력: ${slidesDir}`);
+
+    try {
+        execSync(`node "${captureScript}" "${htmlFilePath}" "${slidesDir}"`, {
+            cwd: PROJECT_ROOT,
+            stdio: 'inherit'
+        });
+        console.log('  ✓ 슬라이드 캡처 완료');
+        return true;
+    } catch (error) {
+        console.error(`  ❌ 슬라이드 캡처 실패: ${error.message}`);
+        return false;
+    }
+}
 
 // CLI arguments parsing
 const args = process.argv.slice(2);
@@ -32,6 +58,9 @@ const customInputPath = inputArg ? inputArg.split('=')[1] : null;
 // --output-dir 옵션: 출력 폴더 경로
 const outputDirArg = args.find(arg => arg.startsWith('--output-dir='));
 const customOutputDir = outputDirArg ? outputDirArg.split('=')[1] : null;
+
+// --no-capture 옵션: 슬라이드 캡처 비활성화
+const noCapture = args.includes('--no-capture');
 
 // Configuration
 const PROMPTS_DIR = path.join(PROJECT_ROOT, 'prompts');
@@ -205,6 +234,12 @@ async function runWorkflow(userRequest) {
     console.log(`최종 결과: ${path.join(OUTPUT_DIR, '3_html_result.html')}`);
     console.log('='.repeat(60) + '\n');
 
+    // 슬라이드 캡처 (--no-capture 옵션이 없을 때만)
+    if (!noCapture) {
+        const htmlFilePath = path.join(OUTPUT_DIR, '3_html_result.html');
+        await captureSlides(htmlFilePath, OUTPUT_DIR);
+    }
+
     return results;
 }
 
@@ -219,6 +254,7 @@ if (args.includes('--help')) {
   --prompt=<path>       html_gen 단계에서 커스텀 프롬프트 파일 사용
   --input=<path>        입력 파일 경로 (skip-research 시 사용)
   --output-dir=<path>   출력 폴더 경로
+  --no-capture          슬라이드 캡처 비활성화
   --help                도움말 출력
 
 예시:
