@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280">
+    <title>2025 엔터프라이즈 SaaS 보안 트렌드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        :root {
+            --bg-color: #f5f7fa;
+            --slide-bg: white;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-color: #007AFF;
+            --accent-light: #e0f2fe;
+            --font-heading: 'Noto Sans KR', sans-serif;
+            --font-body: 'Noto Sans KR', sans-serif;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: 1px solid rgba(255, 255, 255, 0.8);
+            --card-backdrop: blur(12px);
+        }
+
+        body {
+            background: var(--bg-color);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: var(--slide-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            font-family: var(--font-body);
+            color: var(--text-primary);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+        }
+
+        .liquid-glass {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+
+<body class="theme-corporate">
+
+    <!-- Slide 1: Title -->
+    <div class="slide flex">
+        <div class="w-2/5 relative">
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&h=720&fit=crop')">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white"></div>
+        </div>
+        <div class="w-3/5 p-16 flex flex-col justify-center">
+            <div class="mb-8">
+                <span class="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-medium mb-6">
+                    <i class="fas fa-shield-halved mr-2"></i>Enterprise Security Report 2025
+                </span>
+                <h1 class="text-5xl font-bold text-gray-900 leading-tight mb-4">
+                    엔터프라이즈<br>
+                    <span class="text-[#007AFF]">SaaS 보안</span> 트렌드
+                </h1>
+                <p class="text-xl text-gray-500 mt-4">AI 기반 위협의 진화와 Zero Trust 아키텍처의 필수화</p>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mt-8">
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+                    <p class="text-3xl font-bold text-[#007AFF]">63%</p>
+                    <p class="text-xs text-gray-500 mt-1">설정 오류 침해</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+                    <p class="text-3xl font-bold text-[#007AFF]">130+</p>
+                    <p class="text-xs text-gray-500 mt-1">평균 SaaS 앱 수</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+                    <p class="text-3xl font-bold text-[#007AFF]">20:1</p>
+                    <p class="text-xs text-gray-500 mt-1">비인간 ID 비율</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: AI 기반 위협과 방어 (CARD_GRID) -->
+    <div class="slide p-12 bg-gradient-to-br from-slate-50 to-blue-50 flex flex-col">
+        <div class="mb-6">
+            <h1 class="text-4xl font-bold text-gray-800">AI 기반 <span class="text-[#007AFF]">사이버 위협</span>의 진화</h1>
+            <p class="text-lg text-gray-500 mt-2">LLM 활용 피싱 공격 30-40% 정교화, 75% 기업 Shadow AI 정책 도입 예정</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-5 flex-grow">
+            <!-- Card 1 -->
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-red-500">
+                <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-fish text-xl text-red-500"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">AI 생성 피싱</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-3">LLM이 만드는 초개인화된 피싱 메일</p>
+                <div class="bg-red-50 rounded-lg p-3">
+                    <p class="text-2xl font-bold text-red-600">30-40%</p>
+                    <p class="text-xs text-gray-500">정교화 증가율</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-purple-500">
+                <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-robot text-xl text-purple-500"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Shadow AI 거버넌스</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-3">미승인 AI 도구 사용 정책 필요성 급증</p>
+                <div class="bg-purple-50 rounded-lg p-3">
+                    <p class="text-2xl font-bold text-purple-600">75%</p>
+                    <p class="text-xs text-gray-500">기업 정책 도입 예정</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-green-500">
+                <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-wand-magic-sparkles text-xl text-green-500"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">자동 복구 AI</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-3">설정 오류 자동 수정, 의심 권한 즉시 철회</p>
+                <div class="bg-green-50 rounded-lg p-3">
+                    <p class="text-2xl font-bold text-green-600">60%</p>
+                    <p class="text-xs text-gray-500">솔루션 통합률</p>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-orange-500">
+                <div class="w-12 h-12 bg-orange-50 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-user-secret text-xl text-orange-500"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">딥페이크 위협</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-3">음성/영상 기반 사회공학 공격 급증</p>
+                <div class="bg-orange-50 rounded-lg p-3">
+                    <p class="text-2xl font-bold text-orange-600">200%↑</p>
+                    <p class="text-xs text-gray-500">CEO 사칭 사기 증가</p>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-blue-500">
+                <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-shield-virus text-xl text-blue-500"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">AI 보안 비서</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-3">Microsoft Security Copilot, Google SCC 등</p>
+                <div class="bg-blue-50 rounded-lg p-3">
+                    <p class="text-lg font-bold text-blue-600">실시간</p>
+                    <p class="text-xs text-gray-500">위협 탐지 대응</p>
+                </div>
+            </div>
+
+            <!-- Card 6: Key Stat -->
+            <div
+                class="bg-gradient-to-br from-[#007AFF] to-blue-600 rounded-2xl p-5 shadow-lg text-white flex flex-col justify-center">
+                <div class="text-center">
+                    <p class="text-sm opacity-80 mb-2">SaaS 보안 지출 증가율</p>
+                    <p class="text-5xl font-black">12-15%</p>
+                    <p class="text-sm opacity-80 mt-3">2025년 예산 전망</p>
+                    <p class="text-xs opacity-60 mt-4">Source: Gartner, CSA</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: SSPM과 자동화 (KPI_DASHBOARD) -->
+    <div class="slide p-12 bg-white flex flex-col">
+        <div class="mb-6 border-b pb-4 border-gray-200">
+            <h1 class="text-4xl font-bold text-gray-900">SSPM과 <span class="text-[#007AFF]">SaaS 보안 자동화</span></h1>
+            <p class="text-gray-500 mt-2">설정 오류가 SaaS 침해의 63%를 차지, 자동화 솔루션 수요 급증</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 flex-grow content-center">
+            <!-- KPI 1 -->
+            <div class="flex items-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
+                <div
+                    class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-2xl text-red-500 mr-6">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">설정 오류 침해 비율</p>
+                    <p class="text-4xl font-black text-gray-700">63<span
+                            class="text-lg text-gray-400 font-normal">%</span></p>
+                    <p class="text-xs text-red-600 font-medium mt-1">정교한 해킹보다 단순 실수가 주원인</p>
+                </div>
+            </div>
+
+            <!-- KPI 2 -->
+            <div class="flex items-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
+                <div
+                    class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-2xl text-green-500 mr-6">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">SSPM 시장 성장률</p>
+                    <p class="text-4xl font-black text-gray-700">20+<span class="text-lg text-gray-400 font-normal">%
+                            CAGR</span></p>
+                    <p class="text-xs text-green-600 font-medium mt-1">2025년 보안 자동화 수요 급증</p>
+                </div>
+            </div>
+
+            <!-- KPI 3 -->
+            <div class="flex items-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
+                <div
+                    class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-2xl text-blue-500 mr-6">
+                    <i class="fas fa-boxes-stacked"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">평균 SaaS 앱 수</p>
+                    <p class="text-4xl font-black text-gray-700">130<span class="text-lg text-gray-400 font-normal">+
+                            개</span></p>
+                    <p class="text-xs text-blue-600 font-medium mt-1">기업당 관리해야 할 앱 폭발적 증가</p>
+                </div>
+            </div>
+
+            <!-- KPI 4 -->
+            <div class="flex items-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
+                <div
+                    class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-2xl text-purple-500 mr-6">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">자동화 우선순위 리더</p>
+                    <p class="text-4xl font-black text-gray-700">70<span
+                            class="text-lg text-gray-400 font-normal">%</span></p>
+                    <p class="text-xs text-purple-600 font-medium mt-1">보안 점검 자동화를 최우선 과제로 선정</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Tools -->
+        <div class="mt-4 flex gap-4">
+            <div class="flex-1 bg-gray-50 rounded-xl p-4 flex items-center">
+                <i class="fas fa-tools text-[#007AFF] mr-3"></i>
+                <div>
+                    <span class="font-medium text-gray-700">주요 SSPM 솔루션: </span>
+                    <span class="text-gray-500 text-sm">Obsidian Security, Adaptive Shield, AppOmni</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: API/제3자 리스크 (CARD_GRID) -->
+    <div class="slide p-12 bg-gradient-to-br from-slate-50 to-orange-50 flex flex-col">
+        <div class="mb-6">
+            <h1 class="text-4xl font-bold text-gray-800">제3자/제4자 리스크와 <span class="text-orange-500">API 보안</span></h1>
+            <p class="text-lg text-gray-500 mt-2">API 보안 사고가 2025년 #1 SaaS 침해 벡터로 부상</p>
+        </div>
+
+        <div class="flex gap-6 flex-grow">
+            <!-- Left: Big Stat -->
+            <div
+                class="w-1/3 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-8 text-white flex flex-col justify-center">
+                <div class="text-center">
+                    <i class="fas fa-plug text-5xl mb-4 opacity-80"></i>
+                    <p class="text-sm opacity-80 mb-2">평균 OAuth 연결 수</p>
+                    <p class="text-6xl font-black">2,000+</p>
+                    <p class="text-sm opacity-80 mt-4">기업당 앱 간 인테그레이션</p>
+                    <div class="mt-6 pt-4 border-t border-white/20">
+                        <p class="text-xs opacity-60">Enterprise Average, 2025</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Cards -->
+            <div class="w-2/3 grid grid-cols-2 gap-4">
+                <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-red-500">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-code text-red-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">API 취약점</h3>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-3">가장 빈번한 데이터 침해 경로</p>
+                    <div class="inline-block px-3 py-1 bg-red-100 text-red-600 rounded-full text-sm font-bold">
+                        #1 Attack Vector
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-orange-500">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-orange-50 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-link text-orange-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">제4자 리스크</h3>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-3">마이너 앱 침해가 핵심 시스템 백도어 역할</p>
+                    <div class="inline-block px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm font-bold">
+                        Salesforce, M365 위협
+                    </div>
+                </div>
+
+                <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-blue-500">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-key text-blue-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">API 거버넌스</h3>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-3">모든 API 호출에 인증/인가 필수</p>
+                    <div class="inline-block px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-bold">
+                        Zero Trust API
+                    </div>
+                </div>
+
+                <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm card-hover border-l-4 border-green-500">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-list-check text-green-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">OAuth 허용 목록</h3>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-3">승인된 앱만 연동 허용</p>
+                    <div class="inline-block px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm font-bold">
+                        Allow-listing 필수
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insight -->
+        <div class="mt-4 bg-orange-50 rounded-xl p-4 flex items-center">
+            <i class="fas fa-lightbulb text-orange-500 mr-3"></i>
+            <span class="text-gray-700 text-sm">
+                <strong>핵심 인사이트:</strong> 비인간 ID(서비스 계정, 봇)가 인간 사용자의 <span class="font-bold text-orange-600">20배</span>에
+                달하며, NHI 관리가 필수 보안 영역으로 부상
+            </span>
+        </div>
+    </div>
+
+    <!-- Slide 5: Zero Trust & IAM (PILLAR_CARD) -->
+    <div class="slide p-12 bg-white flex flex-col">
+        <div class="mb-6 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">Zero Trust와 <span class="text-[#007AFF]">IAM 진화</span></h1>
+            <p class="text-lg text-gray-500 mt-2">레거시 MFA의 종말 — 피싱 저항 MFA가 50% 이상 규제 환경에서 의무화</p>
+        </div>
+
+        <div class="flex gap-6 flex-grow items-center">
+            <!-- Pillar 1 -->
+            <div
+                class="flex-1 bg-gradient-to-b from-blue-50 to-white rounded-2xl p-6 border-t-4 border-[#007AFF] h-full flex flex-col">
+                <div class="w-14 h-14 bg-[#007AFF] rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-network-wired text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">ZTNA 전환</h3>
+                <p class="text-gray-500 text-sm mb-4 flex-grow">전통 VPN에서 Zero Trust Network Access로 전환, 모든 SaaS 접근에 적용
+                </p>
+                <div class="bg-white rounded-lg p-3 shadow-sm">
+                    <p class="text-xs text-gray-400">주요 솔루션</p>
+                    <p class="font-medium text-gray-700">Zscaler, Netskope</p>
+                </div>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div
+                class="flex-1 bg-gradient-to-b from-green-50 to-white rounded-2xl p-6 border-t-4 border-green-500 h-full flex flex-col">
+                <div class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-fingerprint text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">피싱 저항 MFA</h3>
+                <p class="text-gray-500 text-sm mb-4 flex-grow">FIDO2/Passkeys, YubiKey로 MFA 피로 공격 방지</p>
+                <div class="bg-green-500 text-white rounded-lg p-3">
+                    <p class="text-xs opacity-80">의무화 비율</p>
+                    <p class="text-2xl font-bold">50%+ 규제 환경</p>
+                </div>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div
+                class="flex-1 bg-gradient-to-b from-purple-50 to-white rounded-2xl p-6 border-t-4 border-purple-500 h-full flex flex-col">
+                <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-users-gear text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">비인간 ID 관리</h3>
+                <p class="text-gray-500 text-sm mb-4 flex-grow">서비스 계정, 봇이 인간의 20배, NHI Management 핵심</p>
+                <div class="bg-white rounded-lg p-3 shadow-sm">
+                    <p class="text-xs text-gray-400">관리 대상</p>
+                    <p class="font-medium text-gray-700">CyberArk, BeyondTrust</p>
+                </div>
+            </div>
+
+            <!-- Pillar 4 -->
+            <div
+                class="flex-1 bg-gradient-to-b from-amber-50 to-white rounded-2xl p-6 border-t-4 border-amber-500 h-full flex flex-col">
+                <div class="w-14 h-14 bg-amber-500 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-clock text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">JIT 접근</h3>
+                <p class="text-gray-500 text-sm mb-4 flex-grow">상시 권한 제거, 필요시만 부여하는 Privileged Access Management</p>
+                <div class="bg-white rounded-lg p-3 shadow-sm">
+                    <p class="text-xs text-gray-400">보안 원칙</p>
+                    <p class="font-medium text-gray-700">최소 권한 접근</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaway -->
+        <div class="mt-4 bg-blue-50 rounded-xl p-4 flex items-center justify-center">
+            <i class="fas fa-chart-simple text-[#007AFF] mr-3"></i>
+            <span class="text-gray-700">
+                <strong>침해 탐지 목표:</strong> 현재 <span class="line-through text-gray-400">200일+</span> →
+                <span class="text-2xl font-bold text-[#007AFF] ml-2">30일 이내</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Slide 6: 규제 및 데이터 주권 (BULLET_CARD) -->
+    <div class="slide p-12 bg-gradient-to-br from-gray-50 to-blue-50 flex flex-col">
+        <div class="mb-6">
+            <h1 class="text-4xl font-bold text-gray-800">데이터 중심 보안과 <span class="text-[#007AFF]">규제 대응</span></h1>
+            <p class="text-gray-500 mt-2">60%의 글로벌 기업이 데이터 레지던시 옵션을 우선시, SEC/NIS2 신속 공개 규정 강화</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 flex-grow">
+            <!-- Left Panel -->
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+                <h3 class="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                    <i class="fas fa-globe text-[#007AFF] mr-3"></i>데이터 주권 요구사항
+                </h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                            <i class="fas fa-building text-blue-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <strong class="text-gray-800">데이터 레지던시</strong>
+                            <p class="text-gray-500 text-sm mt-1">소버린 클라우드, 지역 데이터 센터 선호</p>
+                            <span
+                                class="inline-block mt-2 px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded font-medium">60%
+                                기업 우선순위</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                            <i class="fas fa-file-shield text-red-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <strong class="text-gray-800">신속 공개 규정</strong>
+                            <p class="text-gray-500 text-sm mt-1">SEC, EU NIS2 침해 보고 의무 강화</p>
+                            <span
+                                class="inline-block mt-2 px-2 py-1 bg-red-50 text-red-600 text-xs rounded font-medium">탐지~보고
+                                30일 이내</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                            <i class="fas fa-clock text-orange-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <strong class="text-gray-800">평균 탐지 시간</strong>
+                            <p class="text-gray-500 text-sm mt-1">현재 200일 이상 → 30일 목표로 단축 압박</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
+                <h3 class="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                    <i class="fas fa-lock text-green-500 mr-3"></i>데이터 보호 솔루션
+                </h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                            <i class="fas fa-tags text-green-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <strong class="text-gray-800">데이터 분류 자동화</strong>
+                            <p class="text-gray-500 text-sm mt-1">Microsoft Purview 등으로 민감 데이터 자동 태깅</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                            <i class="fas fa-shield-halved text-purple-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <strong class="text-gray-800">SaaS용 DLP</strong>
+                            <p class="text-gray-500 text-sm mt-1">다운로드/공유 제한 정책, 비관리 기기 차단</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                            <i class="fas fa-layer-group text-amber-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <strong class="text-gray-800">마이크로 세그멘테이션</strong>
+                            <p class="text-gray-500 text-sm mt-1">앱 레벨 분리로 침해 시 횡적 이동 차단</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Key Tools -->
+        <div class="mt-4 bg-white/80 backdrop-blur rounded-xl p-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <i class="fas fa-toolbox text-[#007AFF] mr-3"></i>
+                <span class="text-gray-700 text-sm"><strong>핵심 도구:</strong> Microsoft Purview, Symantec DLP,
+                    Varonis</span>
+            </div>
+            <div class="text-xs text-gray-400">Source: SEC, EU NIS2, Gartner</div>
+        </div>
+    </div>
+
+    <!-- Slide 7: 실행 로드맵 (TIMELINE) -->
+    <div class="slide p-0 bg-white flex flex-col">
+        <div class="h-20 bg-gradient-to-r from-[#007AFF] to-blue-600 flex items-center px-16 justify-between">
+            <h1 class="text-2xl font-bold text-white tracking-wide">2025 SaaS 보안 실행 로드맵</h1>
+            <span class="text-blue-200 text-sm font-semibold">Zero Trust 도입 5단계</span>
+        </div>
+
+        <div class="flex-grow relative flex items-center justify-center bg-slate-50 p-12" id="timeline-container"></div>
+    </div>
+
+    <!-- Slide 8: Conclusion -->
+    <div class="slide p-12 bg-gradient-to-br from-[#007AFF] to-blue-700 text-white flex flex-col justify-center">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-8">2025 SaaS 보안 핵심 요약</h1>
+
+            <div class="grid grid-cols-3 gap-6 my-12">
+                <div class="bg-white/10 backdrop-blur rounded-2xl p-6">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-robot text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">AI 양면성</h3>
+                    <p class="text-blue-100 text-sm">공격 30-40% 정교화<br>75% 기업 AI 정책 도입</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur rounded-2xl p-6">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-fingerprint text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Zero Trust 필수</h3>
+                    <p class="text-blue-100 text-sm">피싱 저항 MFA 의무화<br>비인간 ID 20:1 관리</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur rounded-2xl p-6">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-gears text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">자동화 혁신</h3>
+                    <p class="text-blue-100 text-sm">SSPM 시장 20%+ 성장<br>설정 오류 63% 자동 탐지</p>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-white/20">
+                <p class="text-xl text-blue-100">"Identity is the New Perimeter"</p>
+                <p class="text-sm text-blue-200 mt-4">Source: Gartner, Cloud Security Alliance, NIST, CISA | 2025</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Timeline Visualization
+            const container = document.getElementById("timeline-container");
+            if (!container) return;
+
+            const width = 1100;
+            const height = 420;
+
+            const svg = d3.select("#timeline-container").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            const steps = [
+                {
+                    step: "1단계",
+                    title: "ZTNA 전환",
+                    detail: "레거시 VPN 교체\nZscaler, Netskope",
+                    priority: "높음",
+                    color: "#007AFF",
+                    icon: "fa-network-wired"
+                },
+                {
+                    step: "2단계",
+                    title: "MFA 강화",
+                    detail: "피싱 저항 MFA 전사 배포\nFIDO2/Passkeys",
+                    priority: "높음",
+                    color: "#10b981",
+                    icon: "fa-fingerprint"
+                },
+                {
+                    step: "3단계",
+                    title: "SSPM 도입",
+                    detail: "SaaS 설정 오류 자동 탐지\nObsidian, AppOmni",
+                    priority: "중간",
+                    color: "#8b5cf6",
+                    icon: "fa-shield-halved"
+                },
+                {
+                    step: "4단계",
+                    title: "API 거버넌스",
+                    detail: "최소 권한 원칙 적용\nOAuth Allow-listing",
+                    priority: "중간",
+                    color: "#f59e0b",
+                    icon: "fa-key"
+                },
+                {
+                    step: "5단계",
+                    title: "Breach 시뮬레이션",
+                    detail: "정기적 침해 시뮬레이션\nAttackIQ, SafeBreach",
+                    priority: "지속",
+                    color: "#ef4444",
+                    icon: "fa-bug"
+                }
+            ];
+
+            const stepWidth = (width - 100) / steps.length;
+            const centerY = height / 2;
+
+            // Draw connecting line
+            svg.append("line")
+                .attr("x1", 60)
+                .attr("y1", centerY)
+                .attr("x2", width - 40)
+                .attr("y2", centerY)
+                .attr("stroke", "#e2e8f0")
+                .attr("stroke-width", 4);
+
+            // Draw progress line
+            svg.append("line")
+                .attr("x1", 60)
+                .attr("y1", centerY)
+                .attr("x2", width - 40)
+                .attr("y2", centerY)
+                .attr("stroke", "url(#gradient)")
+                .attr("stroke-width", 4);
+
+            // Define gradient
+            const gradient = svg.append("defs")
+                .append("linearGradient")
+                .attr("id", "gradient")
+                .attr("x1", "0%")
+                .attr("y1", "0%")
+                .attr("x2", "100%")
+                .attr("y2", "0%");
+
+            gradient.append("stop").attr("offset", "0%").attr("stop-color", "#007AFF");
+            gradient.append("stop").attr("offset", "50%").attr("stop-color", "#8b5cf6");
+            gradient.append("stop").attr("offset", "100%").attr("stop-color", "#ef4444");
+
+            steps.forEach((step, i) => {
+                const x = 80 + i * stepWidth;
+                const isTop = i % 2 === 0;
+
+                // Node circle
+                svg.append("circle")
+                    .attr("cx", x)
+                    .attr("cy", centerY)
+                    .attr("r", 24)
+                    .attr("fill", step.color)
+                    .attr("stroke", "white")
+                    .attr("stroke-width", 4);
+
+                // Step number
+                svg.append("text")
+                    .attr("x", x)
+                    .attr("y", centerY + 5)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "white")
+                    .attr("font-size", "14px")
+                    .attr("font-weight", "bold")
+                    .text(i + 1);
+
+                // Content card
+                const cardY = isTop ? centerY - 160 : centerY + 60;
+                const cardG = svg.append("g")
+                    .attr("transform", `translate(${x - 80}, ${cardY})`);
+
+                cardG.append("rect")
+                    .attr("width", 160)
+                    .attr("height", 110)
+                    .attr("rx", 12)
+                    .attr("fill", "white")
+                    .attr("stroke", step.color)
+                    .attr("stroke-width", 2)
+                    .attr("filter", "drop-shadow(0 4px 6px rgba(0,0,0,0.1))");
+
+                // Priority badge
+                const priorityColor = step.priority === "높음" ? "#ef4444" : step.priority === "중간" ? "#f59e0b" : "#64748b";
+                cardG.append("rect")
+                    .attr("x", 110)
+                    .attr("y", 8)
+                    .attr("width", 42)
+                    .attr("height", 18)
+                    .attr("rx", 9)
+                    .attr("fill", priorityColor);
+
+                cardG.append("text")
+                    .attr("x", 131)
+                    .attr("y", 20)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "white")
+                    .attr("font-size", "9px")
+                    .attr("font-weight", "bold")
+                    .text(step.priority);
+
+                // Title
+                cardG.append("text")
+                    .attr("x", 12)
+                    .attr("y", 28)
+                    .attr("fill", step.color)
+                    .attr("font-size", "10px")
+                    .attr("font-weight", "500")
+                    .text(step.step);
+
+                cardG.append("text")
+                    .attr("x", 12)
+                    .attr("y", 48)
+                    .attr("fill", "#1e293b")
+                    .attr("font-size", "14px")
+                    .attr("font-weight", "bold")
+                    .text(step.title);
+
+                // Detail
+                const details = step.detail.split("\n");
+                details.forEach((line, j) => {
+                    cardG.append("text")
+                        .attr("x", 12)
+                        .attr("y", 70 + j * 16)
+                        .attr("fill", "#64748b")
+                        .attr("font-size", "11px")
+                        .text(line);
+                });
+
+                // Connector line
+                svg.append("line")
+                    .attr("x1", x)
+                    .attr("y1", isTop ? centerY - 24 : centerY + 24)
+                    .attr("x2", x)
+                    .attr("y2", isTop ? cardY + 110 : cardY)
+                    .attr("stroke", step.color)
+                    .attr("stroke-width", 2)
+                    .attr("stroke-dasharray", "4,4");
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -510,6 +510,73 @@ document.addEventListener('DOMContentLoaded', function() {
 1. **Border**: 모든 카드/박스에 `border-2 border-gray-200` 적용 (그림자 대신 보더 강조)
 2. **Font**: 제목에 `font-black` (font-weight: 900) 적용
 
+## IMAGE USAGE GUIDELINES
+
+### 무료 이미지 소스
+- **Unsplash**: `https://source.unsplash.com/{width}x{height}/?{keyword}`
+- 예시: `https://source.unsplash.com/1280x720/?technology,office`
+
+### 이미지 사용 원칙
+| 규칙 | 설명 |
+|------|------|
+| **적용 범위** | 모든 슬라이드에 적용 가능 (Theme A, B, D 포함) |
+| **권장 비율** | 전체 슬라이드의 **10~30%**에 이미지 사용 권장 |
+| **과도한 사용 지양** | 모든 슬라이드에 이미지를 넣는 것은 피할 것 |
+| **키워드 선택** | 보고서 주제와 직접 연관된 2-3개 영문 키워드 사용 |
+| **오버레이 필수** | 배경 이미지 사용 시 텍스트 가독성을 위해 오버레이 적용 |
+
+### 테마별 적용 방식
+
+#### Theme A (Corporate Glass) - 분할 레이아웃
+```html
+<div class="slide flex">
+  <div class="w-2/5 relative">
+    <div class="absolute inset-0 bg-cover bg-center" 
+         style="background-image: url('https://source.unsplash.com/600x720/?{keyword}')"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/70"></div>
+  </div>
+  <div class="w-3/5 p-12 flex flex-col justify-center">
+    [콘텐츠]
+  </div>
+</div>
+```
+
+#### Theme B (Premium Warm) - 카드 내 이미지
+```html
+<div class="bg-white rounded-2xl overflow-hidden shadow-xl">
+  <div class="h-48 bg-cover bg-center relative"
+       style="background-image: url('https://source.unsplash.com/1200x400/?{keyword}')">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+    <h1 class="absolute bottom-6 left-8 text-3xl font-bold text-white">[제목]</h1>
+  </div>
+  <div class="p-8">[콘텐츠]</div>
+</div>
+```
+
+#### Theme D (Construct) - 상단 배너 이미지
+```html
+<div class="slide flex flex-col">
+  <div class="h-32 relative">
+    <div class="absolute inset-0 bg-cover bg-center"
+         style="background-image: url('https://source.unsplash.com/1280x200/?{keyword}')"></div>
+    <div class="absolute inset-0 bg-black/50"></div>
+    <h1 class="absolute bottom-4 left-12 text-3xl font-black text-white">[제목]</h1>
+  </div>
+  <div class="flex-1 p-12 bg-white">[콘텐츠]</div>
+</div>
+```
+
+### 키워드 예시
+| 보고서 주제 | 권장 키워드 |
+|------------|------------|
+| AI/기술 | `technology,ai,data` |
+| 비즈니스 | `business,strategy,office` |
+| 마케팅 | `marketing,creative,design` |
+| 금융/투자 | `finance,investment,stock` |
+| 커피/라이프스타일 | `coffee,cafe,lifestyle` |
+| 자동차 | `car,automotive,vehicle` |
+| 우주/비전 | `space,rocket,future` |
+
 ## ARTISTIC ASSETS (For Theme B Only)
 Theme B일 때 `.artistic-decoration` 컨테이너 안에 배치할 SVG 요소들:
 
@@ -1126,5 +1193,7 @@ document.addEventListener('DOMContentLoaded', function() {
 3. **레이아웃 통일성**: 모든 슬라이드가 동일한 테마(배경, 폰트)를 사용하는가?
 4. **오류 방지**: 닫히지 않은 태그나 깨진 JSON이 없는가?
 5. **정보 보존**: 핵심 수치(%, 연도, 금액)가 원본 보고서와 일치하는가?
+6. **이미지 사용 비율**: 이미지가 적용된 슬라이드가 전체의 30% 이하인가?
+7. **이미지 키워드**: 사용된 이미지 키워드가 보고서 주제와 관련 있는가?
 
 **Self-Correction**: 만약 누락된 섹션이 있다면, 즉시 추가 슬라이드를 생성하여 포함시키세요.

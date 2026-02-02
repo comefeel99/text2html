@@ -4,29 +4,6 @@
 <!-- 여기에 생각나는 대로 자유롭게 작성하세요 -->
 <!-- 예시: "테스트 자동화 개선하고 싶음", "에러 처리 로직 정리 필요" -->
 
-테마 테스트 
-
-1. Theme A: Corporate Glass
-주제: 2025 엔터프라이즈 SaaS 보안 트렌드
-특징: backdrop-filter: blur, Apple Blue 포인트 컬러, 깔끔한 글래스모피즘
-결과물: output/test_theme_a/3_html_result.html
-2. Theme B: Premium Warm
-주제: 2025 핸드드립 커피 시장 트렌드
-특징: 웜톤 배경(#fffdf7), Poppins 폰트, 유기적 SVG 장식
-결과물: output/test_theme_b/3_html_result.html
-3. Theme C: Cinematic
-주제: SpaceX 스타십: 화성 이주 비전
-특징: 전체 화면 배경 이미지, Dark Overlay, 웅장한 텍스트 배치
-결과물: output/test_theme_c/3_html_result.html
-4. Theme D: Construct
-주제: 테슬라 사이버트럭 vs 포드 F-150 라이트닝
-특징: 강렬한 대비(High Contrast), 직각 디자인, 굵은 폰트(Black Weight)
-결과물: output/test_theme_d/3_html_result.html
-
-
-
-무료 이미지를 활용한 슬라이드 디자인  품질 향상 방안
-
 
 ---
 
@@ -38,9 +15,9 @@
 - **사용자 결정**: 사용자가 직접 추가 예정
 - **상태**: ⏸️ 대기 (사용자 작업)
 
-### 2. Output 폴더 정리
-- **설명**: output 파일들을 `hr_report_gpt5.1_20260116` 형식의 폴더로 구조화
-- **상태**: ✅ 완료 (2026-01-29)
+### 2. 무료 이미지 활용 디자인 품질 향상
+- **설명**: 무료 이미지를 활용하여 슬라이드 디자인 품질을 높이는 방안 연구
+- **상태**: ⏸️ 대기 (아이디어 단계)
 
 
 ---
@@ -54,6 +31,18 @@
 
 ## 🚀 완료
 <!-- 수행 완료된 항목들 -->
+
+### 2026-01-30: 테마 시스템 확장 및 테스트 완료
+- 4가지 테마(Corporate, Warm, Cinematic, Construct) 구현 완료
+- 각 테마별 테스트 생성 완료:
+  - Theme A (SaaS Security): `output/2025_saas_security_v1_20260130`
+    2025 엔터프라이즈 SaaS 보안 트렌드
+  - Theme B (Coffee): `output/handdrip_coffee_trends_v1_20260130`
+    2025 핸드드립 커피 시장 트렌드
+  - Theme C (Starship): `output/spacex_starship_mars_v1_20260130`
+    SpaceX 스타십: 화성 이주 비전
+  - Theme D (Cybertruck): `output/cybertruck_vs_f150_v1_20260130`
+    테슬라 사이버트럭 vs 포드 F-150 라이트닝
 
 ### 2026-01-30: prompts 폴더 삭제
 - 루트의 `prompts/` 폴더 삭제 완료

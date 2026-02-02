@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테슬라 사이버트럭 vs 포드 F-150 라이트닝</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        :root {
+            --bg-color: #f0f0f5;
+            --slide-bg: white;
+            --text-primary: #111111;
+            --text-secondary: #333333;
+            --accent-color: #BB162B;
+            --accent-secondary: #002C5F;
+            --accent-light: #ffeeee;
+            --font-heading: 'Noto Sans KR', sans-serif;
+            --font-body: 'Noto Sans KR', sans-serif;
+            --card-bg: white;
+            --card-border: 2px solid #e5e5e5;
+        }
+
+        body {
+            background: var(--bg-color);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: var(--slide-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            border: 2px solid #e5e5e5;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+        }
+
+        .brand-tesla {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+            color: white;
+        }
+
+        .brand-ford {
+            background: linear-gradient(135deg, #002C5F 0%, #004990 100%);
+            color: white;
+        }
+
+        .card-construct {
+            background: white;
+            border: 2px solid #e5e5e5;
+            transition: all 0.3s ease;
+        }
+
+        .card-construct:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(187, 22, 43, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide flex">
+        <div class="w-1/2 brand-tesla flex flex-col justify-center items-center p-12 relative">
+            <div class="absolute top-8 left-8 text-sm font-bold opacity-60">TESLA</div>
+            <i class="fas fa-bolt text-6xl mb-6 text-red-500"></i>
+            <h2 class="text-3xl font-black text-center">CYBERTRUCK</h2>
+            <p class="text-gray-400 mt-2">미래를 달리다</p>
+        </div>
+        <div class="w-1/2 brand-ford flex flex-col justify-center items-center p-12 relative">
+            <div class="absolute top-8 right-8 text-sm font-bold opacity-60">FORD</div>
+            <i class="fas fa-truck text-6xl mb-6 text-blue-300"></i>
+            <h2 class="text-3xl font-black text-center">F-150 LIGHTNING</h2>
+            <p class="text-blue-200 mt-2">검증된 혁신</p>
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="bg-white text-black font-black text-4xl px-8 py-4 border-4 border-red-600 shadow-2xl">
+                VS
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-0 right-0 text-center">
+            <p class="text-gray-500 text-lg font-medium">전기 픽업트럭 양강 체제 완벽 비교 | 2025</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Core Specs Comparison -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-8">
+            <h1 class="text-4xl font-black">핵심 제원 <span class="text-red-600">비교</span></h1>
+            <p class="text-gray-500 mt-2">성능, 견인력, 적재 용량 종합 분석</p>
+        </div>
+
+        <div class="flex-1 grid grid-cols-2 gap-8">
+            <!-- Tesla Column -->
+            <div class="bg-gray-900 text-white rounded-none p-6 border-2 border-gray-800">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-red-600 flex items-center justify-center mr-4">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-xl">CYBERTRUCK</h3>
+                        <p class="text-gray-400 text-sm">Cyberbeast</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                        <span class="text-gray-400">0-60 mph</span>
+                        <span class="text-3xl font-black text-red-500">2.6초</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                        <span class="text-gray-400">최고 마력</span>
+                        <span class="text-3xl font-black">845 hp</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                        <span class="text-gray-400">최고 속도</span>
+                        <span class="text-2xl font-bold">130 mph</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                        <span class="text-gray-400">견인 용량</span>
+                        <span class="text-2xl font-bold text-green-400">11,000 lbs</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">적재 용량</span>
+                        <span class="text-2xl font-bold">2,500 lbs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ford Column -->
+            <div class="bg-blue-900 text-white rounded-none p-6 border-2 border-blue-800">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-blue-500 flex items-center justify-center mr-4">
+                        <i class="fas fa-truck text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-xl">F-150 LIGHTNING</h3>
+                        <p class="text-blue-300 text-sm">Extended Range</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-blue-700 pb-3">
+                        <span class="text-blue-300">0-60 mph</span>
+                        <span class="text-3xl font-black">3.8초</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-blue-700 pb-3">
+                        <span class="text-blue-300">최고 마력</span>
+                        <span class="text-3xl font-black">580 hp</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-blue-700 pb-3">
+                        <span class="text-blue-300">최고 속도</span>
+                        <span class="text-2xl font-bold">110 mph</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-blue-700 pb-3">
+                        <span class="text-blue-300">견인 용량</span>
+                        <span class="text-2xl font-bold">10,000 lbs</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-300">적재 용량</span>
+                        <span class="text-2xl font-bold">1,952 lbs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 bg-red-50 border-l-4 border-red-600 p-4">
+            <p class="text-gray-700"><i class="fas fa-trophy text-red-600 mr-2"></i><strong>성능 우위:</strong> 사이버트럭이 0-60
+                가속 <span class="font-black text-red-600">1.2초</span>, 마력 <span
+                    class="font-black text-red-600">265hp</span> 앞서</p>
+        </div>
+    </div>
+
+    <!-- Slide 3: Battery & Range -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-6">
+            <h1 class="text-4xl font-black">배터리 & <span class="text-red-600">주행거리</span></h1>
+            <p class="text-gray-500 mt-2">한 번 충전으로 얼마나 멀리 갈 수 있나</p>
+        </div>
+
+        <div class="flex-1 flex gap-8">
+            <div class="w-2/3 space-y-4">
+                <table class="w-full border-2 border-gray-200">
+                    <thead>
+                        <tr class="bg-gray-100 border-b-2 border-gray-300">
+                            <th class="text-left py-4 px-6 font-black">스펙</th>
+                            <th class="text-center py-4 px-6 font-black bg-gray-900 text-white">사이버트럭</th>
+                            <th class="text-center py-4 px-6 font-black bg-blue-900 text-white">F-150 라이트닝</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b-2 border-gray-200">
+                            <td class="py-4 px-6 font-semibold">배터리 용량</td>
+                            <td class="py-4 px-6 text-center text-xl font-bold">~123 kWh</td>
+                            <td class="py-4 px-6 text-center text-xl font-bold">98/131 kWh</td>
+                        </tr>
+                        <tr class="border-b-2 border-gray-200 bg-gray-50">
+                            <td class="py-4 px-6 font-semibold">기본 주행거리</td>
+                            <td class="py-4 px-6 text-center text-xl font-bold">320-340 mi</td>
+                            <td class="py-4 px-6 text-center text-xl font-bold">240-320 mi</td>
+                        </tr>
+                        <tr class="border-b-2 border-gray-200 bg-red-50 border-l-4 border-l-red-600">
+                            <td class="py-4 px-6 font-semibold flex items-center">
+                                최대 주행거리
+                                <span class="ml-2 px-2 py-0.5 bg-red-600 text-white text-xs font-bold">MAX</span>
+                            </td>
+                            <td class="py-4 px-6 text-center text-2xl font-black text-red-600">470+ mi</td>
+                            <td class="py-4 px-6 text-center text-xl font-bold">320 mi</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-semibold">고속도로 손실</td>
+                            <td class="py-4 px-6 text-center text-lg">-10~20%</td>
+                            <td class="py-4 px-6 text-center text-lg">-10~20%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="w-1/3 space-y-4">
+                <div class="bg-gray-900 text-white p-6 border-2 border-gray-800">
+                    <i class="fas fa-battery-full text-red-500 text-3xl mb-4"></i>
+                    <h3 class="font-black text-lg mb-2">레인지 익스텐더</h3>
+                    <p class="text-gray-400 text-sm mb-3">트럭 베드에 설치하는 보조 배터리팩</p>
+                    <p class="text-2xl font-black text-red-500">+150마일</p>
+                    <p class="text-xs text-gray-500 mt-2">*사이버트럭 전용 옵션</p>
+                </div>
+
+                <div class="bg-blue-900 text-white p-6 border-2 border-blue-800">
+                    <i class="fas fa-plug text-blue-300 text-3xl mb-4"></i>
+                    <h3 class="font-black text-lg mb-2">대용량 배터리</h3>
+                    <p class="text-blue-300 text-sm mb-3">Extended Range 패키지</p>
+                    <p class="text-2xl font-black">131 kWh</p>
+                    <p class="text-xs text-blue-400 mt-2">*시장 최대 용량 배터리</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-xs text-gray-400 mt-4">출처: Edmunds, Out of Spec Studios 실주행 테스트 (2024-2025)</div>
+    </div>
+
+    <!-- Slide 4: Charging & Infrastructure -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-6">
+            <h1 class="text-4xl font-black">충전 시스템 & <span class="text-red-600">인프라</span></h1>
+            <p class="text-gray-500 mt-2">800V vs 400V, 그리고 집으로 전력을 보내는 기술</p>
+        </div>
+
+        <div class="flex-1 grid grid-cols-2 gap-8">
+            <!-- Cybertruck -->
+            <div class="border-2 border-gray-200 p-6">
+                <div class="flex items-center mb-6">
+                    <div class="w-14 h-14 bg-gray-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-charging-station text-2xl text-red-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-2xl">사이버트럭</h3>
+                        <p class="text-gray-500">800V 아키텍처</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-gray-100 p-4 border-l-4 border-red-600">
+                        <p class="text-sm text-gray-500">최대 충전 속도</p>
+                        <p class="text-3xl font-black text-red-600">250kW+</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>NACS 네이티브 (슈퍼차저 무어댑터)</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>800V 고전압 → 초고속 충전</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>120V/240V 베드 아웃렛 내장</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- F-150 Lightning -->
+            <div class="border-2 border-gray-200 p-6">
+                <div class="flex items-center mb-6">
+                    <div class="w-14 h-14 bg-blue-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-home text-2xl text-blue-300"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-2xl">F-150 라이트닝</h3>
+                        <p class="text-gray-500">400V 아키텍처</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 border-l-4 border-blue-600">
+                        <p class="text-sm text-gray-500">Ford Intelligent Backup Power</p>
+                        <p class="text-3xl font-black text-blue-600">3일간 홈 전력</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>CCS 네이티브 (슈퍼차저 어댑터 제공)</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>최대 155kW 충전 속도</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span>정전 시 가정 비상 전력원</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-4 gap-4 text-center">
+            <div class="bg-gray-100 p-4 border-2 border-gray-200">
+                <p class="text-xs text-gray-500">사이버트럭 전압</p>
+                <p class="text-2xl font-black">800V</p>
+            </div>
+            <div class="bg-gray-100 p-4 border-2 border-gray-200">
+                <p class="text-xs text-gray-500">F-150 전압</p>
+                <p class="text-2xl font-black">400V</p>
+            </div>
+            <div class="bg-gray-100 p-4 border-2 border-gray-200">
+                <p class="text-xs text-gray-500">사이버트럭 충전</p>
+                <p class="text-2xl font-black text-red-600">250kW+</p>
+            </div>
+            <div class="bg-gray-100 p-4 border-2 border-gray-200">
+                <p class="text-xs text-gray-500">F-150 충전</p>
+                <p class="text-2xl font-black">155kW</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Design & Body -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-6">
+            <h1 class="text-4xl font-black">차체 & <span class="text-red-600">디자인</span></h1>
+            <p class="text-gray-500 mt-2">방탄 스테인리스 스틸 vs 밀리터리 그레이드 알루미늄</p>
+        </div>
+
+        <div class="flex-1 flex gap-8">
+            <div class="w-1/2 space-y-4">
+                <div class="bg-gray-900 text-white p-6 border-2 border-gray-800">
+                    <h3 class="font-black text-xl mb-4 flex items-center">
+                        <i class="fas fa-shield-halved text-red-500 mr-3"></i>
+                        사이버트럭 외골격
+                    </h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-red-500 mt-1"></i>
+                            <span><strong>30X 콜드-롤드 스테인리스 스틸</strong><br><span class="text-sm text-gray-500">찌그러짐/긁힘 방지,
+                                    특정 구경 총탄 방어</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-red-500 mt-1"></i>
+                            <span><strong>17.4인치 최저지상고</strong><br><span class="text-sm text-gray-500">12인치 서스펜션
+                                    트래블</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-red-500 mt-1"></i>
+                            <span><strong>스티어-바이-와이어</strong><br><span class="text-sm text-gray-500">속도별 조향비 자동
+                                    조절</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="w-1/2 space-y-4">
+                <div class="bg-blue-900 text-white p-6 border-2 border-blue-800">
+                    <h3 class="font-black text-xl mb-4 flex items-center">
+                        <i class="fas fa-truck-pickup text-blue-300 mr-3"></i>
+                        F-150 라이트닝 차체
+                    </h3>
+                    <ul class="space-y-3 text-blue-100">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-blue-400 mt-1"></i>
+                            <span><strong>밀리터리 그레이드 알루미늄</strong><br><span class="text-sm text-blue-300">가스 F-150과 동일한
+                                    내구성</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-blue-400 mt-1"></i>
+                            <span><strong>8.4인치 지상고</strong><br><span class="text-sm text-blue-300">독립 리어
+                                    서스펜션</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-blue-400 mt-1"></i>
+                            <span><strong>전동 파워 스티어링</strong><br><span class="text-sm text-blue-300">검증된 조향
+                                    시스템</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-4 gap-4">
+            <div class="text-center p-4 border-2 border-gray-200 bg-gray-50">
+                <p class="text-4xl font-black text-red-600">17.4"</p>
+                <p class="text-sm text-gray-500 mt-1">사이버트럭 지상고</p>
+            </div>
+            <div class="text-center p-4 border-2 border-gray-200 bg-gray-50">
+                <p class="text-4xl font-black text-blue-600">8.4"</p>
+                <p class="text-sm text-gray-500 mt-1">F-150 지상고</p>
+            </div>
+            <div class="text-center p-4 border-2 border-gray-200 bg-gray-50">
+                <p class="text-4xl font-black">12"</p>
+                <p class="text-sm text-gray-500 mt-1">사이버트럭 서스펜션</p>
+            </div>
+            <div class="text-center p-4 border-2 border-gray-200 bg-gray-50">
+                <p class="text-lg font-black">독립 리어</p>
+                <p class="text-sm text-gray-500 mt-1">F-150 서스펜션</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Interior & Tech -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-6">
+            <h1 class="text-4xl font-black">인테리어 & <span class="text-red-600">테크</span></h1>
+            <p class="text-gray-500 mt-2">미래지향 미니멀리즘 vs 전통적 트럭 실용성</p>
+        </div>
+
+        <div class="flex-1 flex gap-6">
+            <!-- Cybertruck Interior -->
+            <div class="w-1/2 border-2 border-gray-200 bg-gray-50 p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-gray-900 flex items-center justify-center mr-3">
+                        <i class="fas fa-display text-red-500"></i>
+                    </div>
+                    <h3 class="font-black text-lg">사이버트럭 인테리어</h3>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 border-2 border-gray-200 text-center">
+                        <p class="text-3xl font-black text-red-600">18.5"</p>
+                        <p class="text-xs text-gray-500">전면 디스플레이</p>
+                    </div>
+                    <div class="bg-white p-4 border-2 border-gray-200 text-center">
+                        <p class="text-3xl font-black">9.4"</p>
+                        <p class="text-xs text-gray-500">후석 스크린</p>
+                    </div>
+                    <div class="bg-white p-4 border-2 border-gray-200 text-center">
+                        <p class="text-2xl font-black">15</p>
+                        <p class="text-xs text-gray-500">스피커 + 서브우퍼</p>
+                    </div>
+                    <div class="bg-white p-4 border-2 border-gray-200 text-center">
+                        <p class="text-sm font-black">미니멀</p>
+                        <p class="text-xs text-gray-500">물리 버튼 최소화</p>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm text-gray-600 space-y-2">
+                    <p>• 요크 스타일 핸들 / 파노라믹 글래스 루프</p>
+                    <p>• 리사이클 패브릭, 얼룩 방지 표면</p>
+                </div>
+            </div>
+
+            <!-- F-150 Interior -->
+            <div class="w-1/2 border-2 border-gray-200 bg-blue-50 p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-blue-900 flex items-center justify-center mr-3">
+                        <i class="fas fa-couch text-blue-300"></i>
+                    </div>
+                    <h3 class="font-black text-lg">F-150 라이트닝 인테리어</h3>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 border-2 border-gray-200 text-center">
+                        <p class="text-3xl font-black text-blue-600">15.5"</p>
+                        <p class="text-xs text-gray-500">세로형 터치스크린</p>
+                    </div>
+                    <div class="bg-white p-4 border-2 border-gray-200 text-center">
+                        <p class="text-3xl font-black">14.1</p>
+                        <p class="text-xs text-gray-500">프렁크 (cu ft)</p>
+                    </div>
+                    <div class="bg-white p-4 border-2 border-gray-200 text-center">
+                        <p class="text-2xl font-black">18</p>
+                        <p class="text-xs text-gray-500">B&O 스피커</p>
+                    </div>
+                    <div class="bg-white p-4 border-2 border-gray-200 text-center">
+                        <p class="text-sm font-black">180°</p>
+                        <p class="text-xs text-gray-500">Max Recline</p>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm text-gray-600 space-y-2">
+                    <p>• Interior Work Surface (접이식 작업대)</p>
+                    <p>• 프리미엄 가죽, 리얼 우드 악센트</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 bg-gray-100 p-4 border-2 border-gray-200">
+            <p class="text-center text-gray-700"><i class="fas fa-lightbulb text-amber-500 mr-2"></i><strong>핵심
+                    차이:</strong> 사이버트럭 = 미래형 & 미니멀 | F-150 = 친숙함 & 실용성</p>
+        </div>
+    </div>
+
+    <!-- Slide 7: Autonomous Driving -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-6">
+            <h1 class="text-4xl font-black">자율주행 & <span class="text-red-600">운전자 보조</span></h1>
+            <p class="text-gray-500 mt-2">Tesla FSD vs Ford BlueCruise</p>
+        </div>
+
+        <div class="flex-1 flex gap-8">
+            <div class="w-1/2 bg-gray-900 text-white p-8 border-2 border-gray-800">
+                <div class="text-center mb-6">
+                    <i class="fas fa-robot text-5xl text-red-500 mb-4"></i>
+                    <h3 class="font-black text-2xl">Tesla FSD</h3>
+                    <p class="text-gray-400">Full Self-Driving</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 bg-gray-800 p-3">
+                        <i class="fas fa-eye text-red-500 w-6"></i>
+                        <span>Tesla Vision (카메라 기반)</span>
+                    </div>
+                    <div class="flex items-center gap-3 bg-gray-800 p-3">
+                        <i class="fas fa-wifi text-red-500 w-6"></i>
+                        <span>지속적 OTA 업데이트</span>
+                    </div>
+                    <div class="flex items-center gap-3 bg-gray-800 p-3">
+                        <i class="fas fa-microchip text-red-500 w-6"></i>
+                        <span>48V 차세대 전장 시스템</span>
+                    </div>
+                    <div class="flex items-center gap-3 bg-gray-800 p-3">
+                        <i class="fas fa-dollar-sign text-red-500 w-6"></i>
+                        <span>FSD 구독 옵션 (별도)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1/2 bg-blue-900 text-white p-8 border-2 border-blue-800">
+                <div class="text-center mb-6">
+                    <i class="fas fa-road text-5xl text-blue-300 mb-4"></i>
+                    <h3 class="font-black text-2xl">Ford BlueCruise</h3>
+                    <p class="text-blue-300">Hands-Free Highway Driving</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 bg-blue-800 p-3">
+                        <i class="fas fa-video text-blue-400 w-6"></i>
+                        <span>카메라 + 레이더 복합</span>
+                    </div>
+                    <div class="flex items-center gap-3 bg-blue-800 p-3">
+                        <i class="fas fa-user-check text-blue-400 w-6"></i>
+                        <span>운전자 모니터링 카메라</span>
+                    </div>
+                    <div class="flex items-center gap-3 bg-blue-800 p-3">
+                        <i class="fas fa-car text-blue-400 w-6"></i>
+                        <span>교통 체증 부드러운 대응</span>
+                    </div>
+                    <div class="flex items-center gap-3 bg-blue-800 p-3">
+                        <i class="fas fa-check-circle text-blue-400 w-6"></i>
+                        <span>핸즈프리 주행 표준 탑재</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 gap-4">
+            <div class="bg-gray-100 p-4 border-2 border-gray-200">
+                <p class="text-center"><strong class="text-red-600">Tesla:</strong> 완전 자율주행을 향한 적극적 접근</p>
+            </div>
+            <div class="bg-gray-100 p-4 border-2 border-gray-200">
+                <p class="text-center"><strong class="text-blue-600">Ford:</strong> 검증된 안정성과 소비자 신뢰</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Market Trends -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-6">
+            <h1 class="text-4xl font-black">시장 동향 & <span class="text-red-600">전망</span></h1>
+            <p class="text-gray-500 mt-2">2024-2025 전기 픽업트럭 시장 분석</p>
+        </div>
+
+        <div class="flex-1 flex gap-8">
+            <div class="w-2/3 space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-6 border-2 border-gray-700">
+                        <p class="text-gray-400 text-sm">2024 미국 전기 픽업 판매</p>
+                        <p class="text-4xl font-black mt-2">12-15만</p>
+                        <p class="text-gray-500 text-sm mt-1">대</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-600 to-red-700 text-white p-6 border-2 border-red-500">
+                        <p class="text-red-200 text-sm">2025 전망</p>
+                        <p class="text-4xl font-black mt-2">25-30만</p>
+                        <p class="text-red-200 text-sm mt-1">대 (+100% 성장)</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-100 p-4 border-2 border-gray-200">
+                        <p class="text-gray-500 text-sm">글로벌 전기 트럭 (2024)</p>
+                        <p class="text-2xl font-black">120-150만대</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 border-2 border-gray-200">
+                        <p class="text-gray-500 text-sm">글로벌 전기 트럭 (2025)</p>
+                        <p class="text-2xl font-black text-red-600">200만대+</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-4 border-l-4 border-blue-600">
+                    <p class="font-bold mb-2"><i class="fas fa-chart-line text-blue-600 mr-2"></i>성장 드라이버</p>
+                    <p class="text-sm text-gray-600">IRA(인플레이션 감축법) 세제 혜택: 상용 EV 최대 $40,000 세액공제</p>
+                </div>
+            </div>
+
+            <div class="w-1/3 space-y-4">
+                <h4 class="font-black text-lg border-b-2 border-gray-300 pb-2">주요 경쟁 모델</h4>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 p-3 bg-gray-100 border-l-4 border-red-600">
+                        <i class="fas fa-bolt text-red-600"></i>
+                        <span class="font-bold">Tesla Cybertruck</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-gray-100 border-l-4 border-blue-600">
+                        <i class="fas fa-truck text-blue-600"></i>
+                        <span class="font-bold">Ford F-150 Lightning</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-gray-100 border-l-4 border-green-600">
+                        <i class="fas fa-leaf text-green-600"></i>
+                        <span class="font-bold">Rivian R1T</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-gray-100 border-l-4 border-amber-600">
+                        <i class="fas fa-star text-amber-600"></i>
+                        <span class="font-bold">Chevrolet Silverado EV</span>
+                    </div>
+                </div>
+                <div class="bg-gray-900 text-white p-4 text-center">
+                    <p class="text-xs text-gray-400">연간 시장 성장률</p>
+                    <p class="text-3xl font-black text-green-400">25-30%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Buying Guide -->
+    <div class="slide flex flex-col p-12">
+        <div class="mb-6">
+            <h1 class="text-4xl font-black">구매 가이드: <span class="text-red-600">나에게 맞는 선택</span></h1>
+            <p class="text-gray-500 mt-2">성능 vs 실용성, 당신의 선택은?</p>
+        </div>
+
+        <div class="flex-1 flex gap-8">
+            <!-- Cybertruck 추천 -->
+            <div class="w-1/2 border-4 border-gray-900 p-6 flex flex-col">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gray-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-bolt text-3xl text-red-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-2xl">사이버트럭</h3>
+                        <p class="text-red-600 font-bold">~$80,000부터</p>
+                    </div>
+                </div>
+
+                <div class="flex-1 space-y-3">
+                    <div class="bg-gray-100 p-3 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700">✓ 이런 분께 추천</p>
+                        <p class="text-sm text-gray-600">미래지향적 디자인 선호, 극한 성능 추구, 오프로드 애호가</p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>장점:</strong> 압도적 성능, 장거리 주행, 독보적 디자인</p>
+                        <p><strong>단점:</strong> 높은 가격, 제한적 서비스 센터</p>
+                        <p><strong>타깃:</strong> 얼리어답터, 테슬라 충성 고객</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 bg-gray-900 text-white p-3 text-center">
+                    <span class="font-black">"미래를 지금 경험하세요"</span>
+                </div>
+            </div>
+
+            <!-- F-150 추천 -->
+            <div class="w-1/2 border-4 border-blue-900 p-6 flex flex-col">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-blue-900 flex items-center justify-center mr-4">
+                        <i class="fas fa-truck text-3xl text-blue-300"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-2xl">F-150 라이트닝</h3>
+                        <p class="text-blue-600 font-bold">~$50,000부터</p>
+                    </div>
+                </div>
+
+                <div class="flex-1 space-y-3">
+                    <div class="bg-blue-50 p-3 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700">✓ 이런 분께 추천</p>
+                        <p class="text-sm text-gray-600">전통 트럭 경험 선호, 풍부한 AS망, 가정 백업 전력 필요</p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>장점:</strong> 합리적 가격, 전국 딜러망, V2H 기능</p>
+                        <p><strong>단점:</strong> 짧은 주행거리, 상대적 낮은 성능</p>
+                        <p><strong>타깃:</strong> 기존 F-150 유저, 실용주의자</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 bg-blue-900 text-white p-3 text-center">
+                    <span class="font-black">"검증된 혁신을 신뢰하세요"</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 bg-gradient-to-r from-gray-900 to-blue-900 text-white p-4 text-center">
+            <p class="font-black text-lg">💡 핵심 결론: 혁신 = 사이버트럭 | 실용성 = F-150 라이트닝</p>
+        </div>
+    </div>
+
+    <!-- Slide 10: Conclusion -->
+    <div class="slide flex relative overflow-hidden">
+        <div class="w-1/2 brand-tesla flex flex-col justify-center items-center p-12">
+            <i class="fas fa-bolt text-6xl text-red-500 mb-6"></i>
+            <h2 class="text-3xl font-black mb-4">CYBERTRUCK</h2>
+            <div class="space-y-2 text-center text-gray-300">
+                <p><span class="text-2xl font-black text-red-500">2.6초</span> 제로백</p>
+                <p><span class="text-2xl font-black">470+마일</span> 최대 주행</p>
+                <p><span class="text-2xl font-black">800V</span> 초고속 충전</p>
+            </div>
+        </div>
+
+        <div class="w-1/2 brand-ford flex flex-col justify-center items-center p-12">
+            <i class="fas fa-truck text-6xl text-blue-300 mb-6"></i>
+            <h2 class="text-3xl font-black mb-4">F-150 LIGHTNING</h2>
+            <div class="space-y-2 text-center text-blue-100">
+                <p><span class="text-2xl font-black text-blue-300">$50K~</span> 시작 가격</p>
+                <p><span class="text-2xl font-black">3일</span> 홈 백업 전력</p>
+                <p><span class="text-2xl font-black">전국</span> 딜러 네트워크</p>
+            </div>
+        </div>
+
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="bg-white text-center px-12 py-8 border-4 border-red-600 shadow-2xl">
+                <p class="text-4xl font-black text-gray-800 mb-2">YOUR CHOICE</p>
+                <p class="text-lg text-gray-500">전기 픽업의 새 시대, 당신의 선택은?</p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 left-0 right-0 text-center">
+            <p class="text-gray-400 text-sm">출처: Tesla, Ford, Edmunds, Out of Spec Studios (2024-2025)</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
