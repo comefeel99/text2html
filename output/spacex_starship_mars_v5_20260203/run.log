@@ -1,0 +1,64 @@
+
+[옵션] --skip-research: research 단계를 건너뜁니다.
+
+============================================================
+text2slidehtml Test Runner
+============================================================
+[LLM] Custom: http://172.18.243.211:13100/api/v1/compatible/openai
+[Model] 125320
+
+입력: "SpaceX 스타십: 화성 이주 비전"
+
+
+[Research Phase - 자료 수집]
+----------------------------------------
+  → research 단계 스킵 (기존 결과 파일 사용)
+  → 입력 파일: /Users/1110846/Test/text2html/output/spacex_starship_mars_v2_20260130/1_research.md
+  ✓ research 스킵 완료
+
+[Report Phase - 보고서 구조화]
+----------------------------------------
+  → API 호출 중...
+  → 입력 토큰: 4,597
+  → 출력 토큰: 7,261
+  → 처리 시간: 87.0초
+  → 저장됨: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/2_report_result.md
+  ✓ report 완료
+
+[HTML Generation Phase - 슬라이드 생성]
+----------------------------------------
+  → API 호출 중...
+  → 입력 토큰: 26,261
+  → 출력 토큰: 13,474
+  → 처리 시간: 189.0초
+  → 저장됨: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/3_html_result.html
+  ✓ html_gen 완료
+
+============================================================
+✅ 워크플로우 완료!
+최종 결과: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/3_html_result.html
+============================================================
+
+
+[슬라이드 캡처]
+----------------------------------------
+  → HTML: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/3_html_result.html
+  → 출력: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides
+📄 HTML 파일: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/3_html_result.html
+📁 출력 디렉토리: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides
+🎨 기본 테두리(검은색) 적용 중...
+🎯 발견된 슬라이드 수: 10
+✅ 슬라이드 1 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_01.png
+✅ 슬라이드 2 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_02.png
+✅ 슬라이드 3 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_03.png
+✅ 슬라이드 4 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_04.png
+✅ 슬라이드 5 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_05.png
+✅ 슬라이드 6 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_06.png
+✅ 슬라이드 7 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_07.png
+✅ 슬라이드 8 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_08.png
+✅ 슬라이드 9 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_09.png
+✅ 슬라이드 10 저장: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides/slide_10.png
+
+🎉 완료! 10개의 슬라이드가 이미지로 저장되었습니다.
+📁 저장 위치: /Users/1110846/Test/text2html/output/spacex_starship_mars_v5_20260203/slides
+  ✓ 슬라이드 캡처 완료

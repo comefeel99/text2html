@@ -1,0 +1,898 @@
+ ```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025 핸드드립 커피 시장 트렌드 리포트</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+    
+    :root {
+      --bg-color: #e8e6e1;
+      --slide-bg: #fffdf7;
+      --text-primary: #2f1800;
+      --text-secondary: #5d4037;
+      --accent-color: #f98049;
+      --accent-light: #fff3e0;
+      --font-heading: 'Poppins', sans-serif;
+      --font-body: 'Roboto Condensed', sans-serif;
+      --card-bg: #ffffff;
+    }
+
+    .theme-warm {
+      --bg-color: #e8e6e1;
+      --slide-bg: #fffdf7;
+      --text-primary: #2f1800;
+      --text-secondary: #5d4037;
+      --accent-color: #f98049;
+      --accent-light: #fff3e0;
+      --font-heading: 'Poppins', sans-serif;
+      --font-body: 'Roboto Condensed', sans-serif;
+      --card-bg: #ffffff;
+    }
+    
+    body {
+      background: var(--bg-color);
+      font-family: var(--font-body);
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+    
+    .slide {
+      width: 1280px;
+      height: 720px;
+      background: var(--slide-bg);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+      font-family: var(--font-body);
+      color: var(--text-primary);
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+    }
+
+    .artistic-decoration {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+<body class="theme-warm">
+
+  <!-- Slide 1: Title Slide -->
+  <div class="slide">
+    <div class="artistic-decoration top-[-100px] right-[-50px] w-[400px] h-[400px] opacity-10">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#f98049" d="M100,10 Q150,50 180,100 Q150,150 100,190 Q50,150 20,100 Q50,50 100,10 Z" />
+      </svg>
+    </div>
+    <div class="artistic-decoration bottom-[-50px] left-[-50px] w-[300px] h-[300px] opacity-10">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#2f1800" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.3,82.2,22.9,71.3,35.1C60.4,47.3,49.9,58.1,37.6,65.8C25.3,73.5,11.2,78.1,-1.9,81.4C-15,84.7,-28.9,86.7,-41.2,80.7C-53.5,74.7,-64.2,60.7,-72.3,46.5C-80.4,32.3,-85.9,17.9,-83.4,4.9C-80.9,-8.1,-70.4,-19.7,-60.1,-29.3C-49.8,-38.9,-39.7,-46.5,-29,-55.8C-18.3,-65.1,-7,-76.1,6.3,-87C19.6,-97.9,30.5,-108.7,44.7,-76.4Z" transform="translate(100 100)" />
+      </svg>
+    </div>
+    
+    <div class="slide-content p-16 flex flex-col justify-center items-center text-center">
+      <div class="inline-block px-6 py-2 bg-orange-100 rounded-full mb-6">
+        <span class="text-orange-600 font-bold tracking-widest text-sm">2025 MARKET REPORT</span>
+      </div>
+      <h1 class="text-6xl font-bold mb-4" style="color: var(--text-primary);">2025 핸드드립 커피</h1>
+      <h2 class="text-5xl font-bold mb-8" style="color: var(--accent-color);">시장 트렌드 리포트</h2>
+      <p class="text-xl text-gray-600 max-w-2xl leading-relaxed">
+        글로벌 스페셜티 커피 $12.3B 시장 분석과<br>핸드드립의 대중화, 그리고 미래 성장 동력
+      </p>
+      <div class="mt-12 flex gap-8 text-sm text-gray-500">
+        <span><i class="fas fa-calendar mr-2"></i>2025 EDITION</span>
+        <span><i class="fas fa-chart-line mr-2"></i>8.5% CAGR</span>
+        <span><i class="fas fa-coffee mr-2"></i>$12.3B Market</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Global Market Size & Growth (Section 1 - KPI Dashboard) -->
+  <div class="slide">
+    <div class="slide-content p-12">
+      <div class="mb-6">
+        <h1 class="text-4xl font-bold mb-2" style="color: var(--text-primary);">Global Market Size <span style="color: var(--accent-color);">& Growth</span></h1>
+        <p class="text-lg" style="color: var(--text-secondary);">에스프레소 중심에서 필터커피로의 패러다임 전환</p>
+      </div>
+      
+      <div class="grid grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-orange-400 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <i class="fas fa-globe text-3xl text-orange-400"></i>
+            <span class="text-xs text-gray-400">2025 기준</span>
+          </div>
+          <p class="text-sm text-gray-500 mb-1">글로벌 스페셜티 커피 시장</p>
+          <p class="text-4xl font-bold" style="color: var(--text-primary);">$12.3B</p>
+          <p class="text-xs text-gray-400 mt-2">Statista, 2025</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-amber-600 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <i class="fas fa-chart-line text-3xl text-amber-600"></i>
+            <span class="text-xs text-gray-400">2024-2030</span>
+          </div>
+          <p class="text-sm text-gray-500 mb-1">연평균 성장률 (CAGR)</p>
+          <p class="text-4xl font-bold" style="color: var(--text-primary);">8.5%</p>
+          <p class="text-xs text-gray-400 mt-2">Allied Market Research</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-red-500 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <i class="fas fa-filter text-3xl text-red-500"></i>
+            <span class="text-xs text-gray-400">2020→2025</span>
+          </div>
+          <p class="text-sm text-gray-500 mb-1">필터커피 비중 변화</p>
+          <p class="text-4xl font-bold" style="color: var(--text-primary);">8%→15%</p>
+          <p class="text-xs text-gray-400 mt-2">2배 증가, 유로모니터</p>
+        </div>
+      </div>
+
+      <div class="flex gap-6 flex-grow">
+        <div class="w-2/3 bg-white rounded-2xl p-6 shadow-sm">
+          <h3 class="text-lg font-bold mb-4" style="color: var(--text-primary);">추출 방식별 비중 변화 (2020 vs 2025)</h3>
+          <div id="bar-chart-1" class="h-64"></div>
+        </div>
+        <div class="w-1/3 space-y-4">
+          <div class="bg-orange-50 rounded-xl p-5 border-l-4 border-orange-400">
+            <h4 class="font-bold text-orange-700 mb-2">카페 핸드드립 가격대</h4>
+            <p class="text-3xl font-bold text-gray-800">$4.5~8</p>
+            <p class="text-sm text-gray-600 mt-1">프리미엄 허용 범위 확대</p>
+          </div>
+          <div class="bg-amber-50 rounded-xl p-5 border-l-4 border-amber-600">
+            <h4 class="font-bold text-amber-700 mb-2">평균 추출 시간</h4>
+            <p class="text-3xl font-bold text-gray-800">15분</p>
+            <p class="text-sm text-gray-600 mt-1">준비~완성까지<br>경험적 소비의 시간적 투자</p>
+            <p class="text-xs text-gray-400 mt-2">Specialty Coffee Association</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Consumer Behavior (Section 2 - Card Grid) -->
+  <div class="slide">
+    <div class="slide-content p-12">
+      <div class="mb-6 text-center">
+        <h1 class="text-4xl font-bold mb-2" style="color: var(--text-primary);">Consumer Behavior <span style="color: var(--accent-color);">& Segments</span></h1>
+        <p class="text-lg" style="color: var(--text-secondary);">MZ세대 중심의 '홈카페 2.0' 트렌드 확산</p>
+      </div>
+      
+      <div class="grid grid-cols-3 gap-6 flex-grow">
+        <div class="bg-white rounded-2xl p-6 shadow-sm card-hover border-t-4 border-orange-400">
+          <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-users text-xl text-orange-600"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">MZ세대 침투율</h3>
+          <p class="text-4xl font-bold text-orange-600 mb-2">67%</p>
+          <p class="text-sm text-gray-600">10명 중 6-7명이 핸드드립 직접 경험<br>추출 행위 자체를 문화로 수용</p>
+          <p class="text-xs text-gray-400 mt-2">대한커피협회, 2024</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm card-hover border-t-4 border-amber-600">
+          <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-home text-xl text-amber-600"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">홈카페 기구 수요</h3>
+          <p class="text-4xl font-bold text-amber-600 mb-2">+42%</p>
+          <p class="text-sm text-gray-600">고급 드리퍼, 전동 그라인더 등<br>장비 중심 소비 확대 (YoY)</p>
+          <p class="text-xs text-gray-400 mt-2">쿠팡 리서치, 2024</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm card-hover border-t-4 border-red-500">
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-leaf text-xl text-red-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">싱글오리진 선호</h3>
+          <p class="text-4xl font-bold text-red-500 mb-2">+35%</p>
+          <p class="text-sm text-gray-600">인스턴트→원두/기구 전환<br>품질 중심 소비 강화</p>
+          <p class="text-xs text-gray-400 mt-2">SCA Annual Report, 2025</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm card-hover border-t-4 border-orange-400">
+          <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-mobile-alt text-xl text-orange-600"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">SNS 공유 문화</h3>
+          <p class="text-sm text-gray-600 mb-2">TikTok/Instagram POV, ASMR<br>핸드드립 과정 영상 인기</p>
+          <p class="text-xs text-gray-400">대한커피협회, 2024</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm card-hover border-t-4 border-amber-600">
+          <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-box-open text-xl text-amber-600"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">구독 경제 수용</h3>
+          <p class="text-lg font-bold text-amber-600 mb-2">월 2-4만원</p>
+          <p class="text-sm text-gray-600">원두 정기 구독 서비스 활성화<br>개인화된 로스팅 선호 증가</p>
+          <p class="text-xs text-gray-400 mt-2">Industry Data</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm card-hover border-t-4 border-red-500">
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-video text-xl text-red-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">James Hoffmann</h3>
+          <p class="text-4xl font-bold text-red-500 mb-2">1.8M</p>
+          <p class="text-sm text-gray-600">유튜브 구독자<br>교육 콘텐츠로 진입 장벽 완화</p>
+          <p class="text-xs text-gray-400 mt-2">YouTube Analytics</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Product Trends (Section 3 - Table) -->
+  <div class="slide">
+    <div class="slide-content p-12">
+      <div class="mb-6">
+        <h1 class="text-4xl font-bold mb-2" style="color: var(--text-primary);">Product Trends <span style="color: var(--accent-color);">2025</span></h1>
+        <p class="text-lg" style="color: var(--text-secondary);">싱글오리진에서 드립백까지, 편의성과 퀄리티의 공존</p>
+      </div>
+      
+      <div class="flex-1 bg-white rounded-2xl p-6 shadow-sm overflow-hidden">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-orange-200">
+              <th class="text-left py-4 px-4 font-bold text-gray-600 uppercase text-sm tracking-wider">항목</th>
+              <th class="text-left py-4 px-4 font-bold text-gray-600 uppercase text-sm tracking-wider">수치</th>
+              <th class="text-left py-4 px-4 font-bold text-gray-600 uppercase text-sm tracking-wider">출처/비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100 hover:bg-orange-50 transition-colors">
+              <td class="py-4 px-4">
+                <div class="flex items-center">
+                  <i class="fas fa-seedling text-green-500 mr-3"></i>
+                  <span class="font-semibold">싱글오리진 선호도 증가율</span>
+                </div>
+              </td>
+              <td class="py-4 px-4 font-bold text-2xl text-green-600">35%</td>
+              <td class="py-4 px-4 text-gray-500 text-sm">SCA Annual Report, 2025</td>
+            </tr>
+            
+            <!-- 강조 행 (Sweet Spot) -->
+            <tr class="bg-orange-50 border-l-4 border-orange-500 border-b border-gray-100">
+              <td class="py-4 px-4">
+                <div class="flex items-center">
+                  <i class="fas fa-filter text-orange-600 mr-3"></i>
+                  <span class="font-bold text-orange-700">드립백 판매량 증가</span>
+                  <span class="ml-2 px-2 py-0.5 bg-orange-500 text-white text-xs rounded-full">Sweet Spot</span>
+                </div>
+              </td>
+              <td class="py-4 px-4 font-bold text-2xl text-orange-600">3.2배</td>
+              <td class="py-4 px-4 text-gray-500 text-sm">2022년 대비, 네이버 커머스 데이터</td>
+            </tr>
+            
+            <tr class="border-b border-gray-100 hover:bg-orange-50 transition-colors">
+              <td class="py-4 px-4">
+                <div class="flex items-center">
+                  <i class="fas fa-recycle text-emerald-500 mr-3"></i>
+                  <span class="font-semibold">친환경 프리미엄 의향</span>
+                </div>
+              </td>
+              <td class="py-4 px-4 font-bold text-2xl text-emerald-600">28%</td>
+              <td class="py-4 px-4 text-gray-500 text-sm">Nielsen, 2024</td>
+            </tr>
+            
+            <tr class="bg-blue-50 border-l-4 border-blue-500 border-b border-gray-100">
+              <td class="py-4 px-4">
+                <div class="flex items-center">
+                  <i class="fas fa-chart-line text-blue-600 mr-3"></i>
+                  <span class="font-bold text-blue-700">드립백 시장 성장률</span>
+                  <span class="ml-2 px-2 py-0.5 bg-blue-500 text-white text-xs rounded-full">지속 전망</span>
+                </div>
+              </td>
+              <td class="py-4 px-4 font-bold text-2xl text-blue-600">연 15%+</td>
+              <td class="py-4 px-4 text-gray-500 text-sm">유로모니터, 2025</td>
+            </tr>
+            
+            <tr class="border-b border-gray-100 hover:bg-orange-50 transition-colors">
+              <td class="py-4 px-4">
+                <div class="flex items-center">
+                  <i class="fas fa-crown text-amber-500 mr-3"></i>
+                  <span class="font-semibold">동서식품 드립백 점유율</span>
+                </div>
+              </td>
+              <td class="py-4 px-4 font-bold text-2xl text-amber-600">35%</td>
+              <td class="py-4 px-4 text-gray-500 text-sm">카누 시그니처 출시 후</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="mt-4 flex gap-4">
+        <div class="bg-white rounded-xl p-4 flex items-center shadow-sm">
+          <i class="fas fa-lightbulb text-orange-500 mr-3"></i>
+          <span class="text-gray-700 text-sm"><strong>Maxim(동서식품):</strong> 카누 시그니처로 대중 시장에서 고급화 성공</span>
+        </div>
+        <div class="bg-white rounded-xl p-4 flex items-center shadow-sm">
+          <i class="fas fa-store text-amber-600 mr-3"></i>
+          <span class="text-gray-700 text-sm"><strong>폴 바셋:</strong> 로스팅+클래스로 리텐션 강화</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Equipment Ecosystem (Section 4 - Feature Comparison) -->
+  <div class="slide">
+    <div class="slide-content p-12">
+      <div class="mb-6">
+        <h1 class="text-4xl font-bold mb-2" style="color: var(--text-primary);">Equipment <span style="color: var(--accent-color);">& Tech Ecosystem</span></h1>
+        <p class="text-lg" style="color: var(--text-secondary);">2027년까지 $2.8B 규모 성장 예상, 클래식부터 스마트까지</p>
+      </div>
+      
+      <div class="flex-1 bg-white rounded-2xl p-6 shadow-sm overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-gray-200">
+              <th class="text-left py-3 px-4 font-bold text-gray-600">도구/브랜드</th>
+              <th class="text-left py-3 px-4 font-bold text-gray-600">특징</th>
+              <th class="text-left py-3 px-4 font-bold text-gray-600">가격대</th>
+              <th class="text-left py-3 px-4 font-bold text-gray-600">타겟</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100 hover:bg-gray-50">
+              <td class="py-3 px-4 font-semibold flex items-center">
+                <i class="fas fa-tint text-blue-500 mr-2"></i>Hario V60
+              </td>
+              <td class="py-3 px-4">나선형 리브, 빠른 추출</td>
+              <td class="py-3 px-4 font-bold text-blue-600">$20-35</td>
+              <td class="py-3 px-4 text-gray-600">입문자~전문가</td>
+            </tr>
+            <tr class="border-b border-gray-100 hover:bg-gray-50">
+              <td class="py-3 px-4 font-semibold flex items-center">
+                <i class="fas fa-wave-square text-indigo-500 mr-2"></i>Kalita Wave
+              </td>
+              <td class="py-3 px-4">평평한 바닥, 일관된 추출</td>
+              <td class="py-3 px-4 font-bold text-indigo-600">$25-40</td>
+              <td class="py-3 px-4 text-gray-600">초보자 중심</td>
+            </tr>
+            <tr class="border-b border-gray-100 hover:bg-gray-50">
+              <td class="py-3 px-4 font-semibold flex items-center">
+                <i class="fas fa-flask text-amber-600 mr-2"></i>Chemex
+              </td>
+              <td class="py-3 px-4">두꺼운 필터, 깔끔한 맛</td>
+              <td class="py-3 px-4 font-bold text-amber-600">$45-55</td>
+              <td class="py-3 px-4 text-gray-600">디자인 중시</td>
+            </tr>
+            <tr class="bg-orange-50 border-l-4 border-orange-500">
+              <td class="py-3 px-4 font-bold text-orange-700 flex items-center">
+                <i class="fas fa-thermometer-half text-orange-600 mr-2"></i>Fellow Stagg EKG
+                <span class="ml-2 px-2 py-0.5 bg-orange-500 text-white text-xs rounded-full">Pro</span>
+              </td>
+              <td class="py-3 px-4 font-semibold">정밀 온도 조절, 구스넥</td>
+              <td class="py-3 px-4 font-bold text-orange-600">$165-195</td>
+              <td class="py-3 px-4 text-gray-800">프로슈머/카페</td>
+            </tr>
+            <tr class="bg-blue-50 border-l-4 border-blue-500">
+              <td class="py-3 px-4 font-bold text-blue-700 flex items-center">
+                <i class="fas fa-balance-scale text-blue-600 mr-2"></i>Acaia Pearl
+                <span class="ml-2 px-2 py-0.5 bg-blue-500 text-white text-xs rounded-full">Precision</span>
+              </td>
+              <td class="py-3 px-4 font-semibold">0.1g 정밀 스케일, 앱 연동</td>
+              <td class="py-3 px-4 font-bold text-blue-600">$150-200</td>
+              <td class="py-3 px-4 text-gray-800">데이터 중시 사용자</td>
+            </tr>
+            <tr class="bg-purple-50 border-l-4 border-purple-500">
+              <td class="py-3 px-4 font-bold text-purple-700 flex items-center">
+                <i class="fas fa-robot text-purple-600 mr-2"></i>스마트 드리퍼
+                <span class="ml-2 px-2 py-0.5 bg-purple-500 text-white text-xs rounded-full">IoT</span>
+              </td>
+              <td class="py-3 px-4 font-semibold">IoT 연동, 자동 제어</td>
+              <td class="py-3 px-4 font-bold text-purple-600">$300+</td>
+              <td class="py-3 px-4 text-gray-800">하이테크 사용자</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="mt-4 bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl p-4 border-l-4 border-orange-400">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-bold text-gray-800">2027년 핸드드립 기구 시장 전망</p>
+            <p class="text-sm text-gray-600">고급화 + 스마트화 동시 진행</p>
+          </div>
+          <p class="text-4xl font-bold text-orange-600">$2.8B</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Business Strategy (Section 5 - Card Grid) -->
+  <div class="slide">
+    <div class="slide-content p-12">
+      <div class="mb-6">
+        <h1 class="text-4xl font-bold mb-2" style="color: var(--text-primary);">Business Strategy <span style="color: var(--accent-color);">Innovation</span></h1>
+        <p class="text-lg" style="color: var(--text-secondary);">글로벌과 로컬의 성공 전략 사례 분석</p>
+      </div>
+      
+      <div class="grid grid-cols-5 gap-4 flex-grow">
+        <div class="bg-white rounded-2xl p-5 shadow-sm card-hover border-t-4 border-blue-500 flex flex-col">
+          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-bottle-water text-blue-600"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-1 text-blue-900">Blue Bottle</h3>
+          <p class="text-xs text-gray-500 mb-3">미국</p>
+          <div class="mt-auto">
+            <p class="text-2xl font-bold text-blue-600 mb-1">$120M</p>
+            <p class="text-xs text-gray-600 mb-2">2024년 매출</p>
+            <p class="text-sm text-gray-700">싱글오리진 + 미니멀 브랜딩</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 shadow-sm card-hover border-t-4 border-red-500 flex flex-col">
+          <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-industry text-red-600"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-1 text-red-900">Fritz Coffee</h3>
+          <p class="text-xs text-gray-500 mb-3">한국</p>
+          <div class="mt-auto">
+            <p class="text-2xl font-bold text-red-600 mb-1">40%</p>
+            <p class="text-xs text-gray-600 mb-2">연 성장률</p>
+            <p class="text-sm text-gray-700">B2B 로스팅 확장</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 shadow-sm card-hover border-t-4 border-green-600 flex flex-col">
+          <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-star text-green-600"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-1 text-green-900">스타벅스 Reserve</h3>
+          <p class="text-xs text-gray-500 mb-3">글로벌</p>
+          <div class="mt-auto">
+            <p class="text-2xl font-bold text-green-600 mb-1">+25%</p>
+            <p class="text-xs text-gray-600 mb-2">매출 증가</p>
+            <p class="text-sm text-gray-700">핸드드립 바 공간 확대</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 shadow-sm card-hover border-t-4 border-orange-500 flex flex-col">
+          <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-shopping-cart text-orange-600"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-1 text-orange-900">쿠팡</h3>
+          <p class="text-xs text-gray-500 mb-3">한국</p>
+          <div class="mt-auto">
+            <p class="text-lg font-bold text-orange-600 mb-1">1위</p>
+            <p class="text-xs text-gray-600 mb-2">카테고리 점유율</p>
+            <p class="text-sm text-gray-700">PB 드립백 런칭</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 shadow-sm card-hover border-t-4 border-amber-600 flex flex-col">
+          <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-coffee text-amber-600"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-1 text-amber-900">Maxim</h3>
+          <p class="text-xs text-gray-500 mb-3">한국</p>
+          <div class="mt-auto">
+            <p class="text-2xl font-bold text-amber-600 mb-1">35%</p>
+            <p class="text-xs text-gray-600 mb-2">시장 점유율</p>
+            <p class="text-sm text-gray-700">카누 시그니처 고급화</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-4 flex gap-4">
+        <div class="flex-1 bg-blue-50 rounded-xl p-4 text-center">
+          <p class="text-sm text-gray-600">Blue Bottle</p>
+          <p class="font-bold text-blue-900">미니멀 프리미엄</p>
+        </div>
+        <div class="flex-1 bg-red-50 rounded-xl p-4 text-center">
+          <p class="text-sm text-gray-600">Fritz Coffee</p>
+          <p class="font-bold text-red-900">B2B 확장</p>
+        </div>
+        <div class="flex-1 bg-green-50 rounded-xl p-4 text-center">
+          <p class="text-sm text-gray-600">스타벅스</p>
+          <p class="font-bold text-green-900">오프라인 체험</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Regional Analysis (Section 6 - Table) -->
+  <div class="slide">
+    <div class="slide-content p-12">
+      <div class="mb-6">
+        <h1 class="text-4xl font-bold mb-2" style="color: var(--text-primary);">Regional Market <span style="color: var(--accent-color);">Characteristics</span></h1>
+        <p class="text-lg" style="color: var(--text-secondary);">한국의 아시아 최고 성장률과 지역별 특화 전략</p>
+      </div>
+      
+      <div class="flex-1 bg-white rounded-2xl p-6 shadow-sm overflow-hidden">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-orange-200">
+              <th class="text-left py-4 px-4 font-bold text-gray-600 uppercase text-sm">지역</th>
+              <th class="text-left py-4 px-4 font-bold text-gray-600 uppercase text-sm">핵심 특징</th>
+              <th class="text-left py-4 px-4 font-bold text-gray-600 uppercase text-sm">시장 규모/성장률</th>
+              <th class="text-left py-4 px-4 font-bold text-gray-600 uppercase text-sm">주요 특이사항</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-red-50 border-l-4 border-red-500 border-b border-gray-100">
+              <td class="py-4 px-4">
+                <div class="flex items-center">
+                  <i class="fas fa-flag text-red-500 mr-2"></i>
+                  <span class="font-bold text-red-700">한국</span>
+                  <span class="ml-2 px-2 py-0.5 bg-red-500 text-white text-xs rounded-full">Driving</span>
+                </div>
+              </td>
+              <td class="py-4 px-4">빠른 트렌드 도입, 로컬 로스터리 증가</td>
+              <td class="py-4 px-4 font-bold text-red-600">아시아 최고 성장</td>
+              <td class="py-4 px-4 text-gray-700">드립백 시장 급성장</td>
+            </tr>
+            <tr class="border-b border-gray-100 hover:bg-gray-50">
+              <td class="py-4 px-4 font-semibold">
+                <i class="fas fa-torii-gate text-orange-600 mr-2"></i>일본
+              </td>
+              <td class="py-4 px-4">키사텐(喫茶店) 전통, 정교한 추출 기법</td>
+              <td class="py-4 px-4 text-gray-600">성숙 시장</td>
+              <td class="py-4 px-4 text-gray-700">장인 문화 보존</td>
+            </tr>
+            <tr class="border-b border-gray-100 hover:bg-gray-50">
+              <td class="py-4 px-4 font-semibold">
+                <i class="fas fa-flag-usa text-blue-600 mr-2"></i>미국
+              </td>
+              <td class="py-4 px-4">서드웨이브 발생지, 글로벌 트렌드 리더</td>
+              <td class="py-4 px-4 font-bold text-blue-600">$120M+</td>
+              <td class="py-4 px-4 text-gray-700">Blue Bottle 기준</td>
+            </tr>
+            <tr class="border-b border-gray-100 hover:bg-gray-50">
+              <td class="py-4 px-4 font-semibold">
+                <i class="fas fa-globe-europe text-green-600 mr-2"></i>유럽
+              </td>
+              <td class="py-4 px-4">북유럽 필터커피 전통</td>
+              <td class="py-4 px-4 text-gray-600">안정적 성장</td>
+              <td class="py-4 px-4 text-gray-700">친환경 중시</td>
+            </tr>
+            <tr class="border-b border-gray-100 hover:bg-gray-50">
+              <td class="py-4 px-4 font-semibold">
+                <i class="fas fa-dragon text-red-600 mr-2"></i>중국
+              </td>
+              <td class="py-4 px-4">신흥 시장, 스페셜티 확대</td>
+              <td class="py-4 px-4 font-bold text-red-600">$50B+</td>
+              <td class="py-4 px-4 text-gray-700">성장 잠재력</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="mt-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl p-5 text-white">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <i class="fas fa-trophy text-2xl mr-4"></i>
+            <div>
+              <p class="font-bold text-lg">한국: 아시아 스페셜티 시장 성장 선도국</p>
+              <p class="text-sm opacity-90">Fritz Coffee 연 40% 성장, 드립백 시장 폭발적 증가</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-xs opacity-75">SCA Asia Report 2024</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Future Outlook (Section 7 - Pillar Card) -->
+  <div class="slide">
+    <div class="slide-content p-12">
+      <div class="mb-6 text-center">
+        <h1 class="text-4xl font-bold mb-2" style="color: var(--text-primary);">Future Outlook <span style="color: var(--accent-color);">2025-2027</span></h1>
+        <p class="text-lg" style="color: var(--text-secondary);">James Hoffmann이 선언한 "필터커피의 해"와 시장 전망</p>
+      </div>
+      
+      <div class="grid grid-cols-5 gap-4 mb-6">
+        <div class="bg-white rounded-xl p-5 shadow-sm border-t-4 border-orange-500 card-hover">
+          <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-quote-left text-orange-600"></i>
+          </div>
+          <h4 class="font-bold text-gray-800 mb-2 text-sm">"필터커피의 해"</h4>
+          <p class="text-xs text-gray-600">James Hoffmann 선언<br>에스프레소 중심에서 다양성으로</p>
+          <p class="text-xs text-gray-400 mt-2">2024</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-sm border-t-4 border-red-500 card-hover">
+          <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-globe-asia text-red-600"></i>
+          </div>
+          <h4 class="font-bold text-gray-800 mb-2 text-sm">아시아 시장 전망</h4>
+          <p class="text-xs text-gray-600">한국 중심 아시아 최고 성장 지속</p>
+          <p class="text-xs text-gray-400 mt-2">SCA Asia Report 2024</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-sm border-t-4 border-amber-500 card-hover">
+          <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-user-graduate text-amber-600"></i>
+          </div>
+          <h4 class="font-bold text-gray-800 mb-2 text-sm">Z세대 경험 소비</h4>
+          <p class="text-xs text-gray-600">커피를 '마시는 것'이 아닌 '경험'으로 인식</p>
+          <p class="text-xs text-gray-400 mt-2">교육 콘텐츠 수요 증가</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-sm border-t-4 border-blue-500 card-hover">
+          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-tools text-blue-600"></i>
+          </div>
+          <h4 class="font-bold text-gray-800 mb-2 text-sm">기구 시장 성장</h4>
+          <p class="text-2xl font-bold text-blue-600">$2.8B</p>
+          <p class="text-xs text-gray-600">2027년 전망<br>고급화+스마트화</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-sm border-t-4 border-green-500 card-hover">
+          <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mb-3">
+            <i class="fas fa-box text-green-600"></i>
+          </div>
+          <h4 class="font-bold text-gray-800 mb-2 text-sm">드립백 성장</h4>
+          <p class="text-2xl font-bold text-green-600">15%+</p>
+          <p class="text-xs text-gray-600">연 성장률 지속<br>편의성+퀄리티</p>
+        </div>
+      </div>
+      
+      <div class="flex-grow bg-white rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-bold mb-4" style="color: var(--text-primary);">시장 전망 추이 (2024-2027)</h3>
+        <div id="line-chart-forecast" class="h-48"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Key Insights (Conclusion) -->
+  <div class="slide">
+    <div class="artistic-decoration top-[-50px] right-[-50px] w-[300px] h-[300px] opacity-10">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#f98049" d="M100,10 Q150,50 180,100 Q150,150 100,190 Q50,150 20,100 Q50,50 100,10 Z" />
+      </svg>
+    </div>
+    <div class="artistic-decoration bottom-[-50px] left-[-50px] w-[250px] h-[250px] opacity-10">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="80" fill="#2f1800" />
+      </svg>
+    </div>
+    
+    <div class="slide-content p-16 flex flex-col justify-center">
+      <h1 class="text-5xl font-bold mb-8 text-center" style="color: var(--text-primary);">Key <span style="color: var(--accent-color);">Insights</span></h1>
+      
+      <div class="grid grid-cols-2 gap-8 max-w-5xl mx-auto w-full">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-orange-500">
+          <div class="flex items-start">
+            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+              <span class="text-2xl font-bold text-orange-600">1</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">패러다임 전환</h3>
+              <p class="text-gray-600">에스프레소 중심(92%)에서 필터커피(15%)로의 구조적 변화가 가속화되며 2025년은 '필터커피의 해'로 자리잡을 것</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-amber-600">
+          <div class="flex items-start">
+            <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+              <span class="text-2xl font-bold text-amber-600">2</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">장비 중심 소비</h3>
+              <p class="text-gray-600">MZ세대 67% 참여율과 홈카페 기구 42% 증가로 '취미 소비자'층이 시장을 주도하며 고급화 트렌드 지속</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-red-500">
+          <div class="flex items-start">
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+              <span class="text-2xl font-bold text-red-600">3</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">편의성의 승리</h3>
+              <p class="text-gray-600">드립백 시장 3.2배 성과(2022 대비)와 연 15% 성장률로 편의성과 퀄리티의 조합이 대중화의 핵심 동력</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-500">
+          <div class="flex items-start">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+              <span class="text-2xl font-bold text-blue-600">4</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">한국의 기회</h3>
+              <p class="text-gray-600">아시아 최고 성장률을 기록하며 Fritz Coffee(40% 성장) 등 로컬 브랜드가 글로벌 트렌드를 선도하는 중심지로 부상</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <p class="text-gray-500 text-sm">2025 Handdrip Coffee Market Trend Report</p>
+        <p class="text-gray-400 text-xs mt-1">Data from Statista, 유로모니터, SCA, 대한커피협회, 쿠팡 리서치</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Bar Chart for Slide 2 (Extraction Method Comparison)
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.getElementById("bar-chart-1");
+      const width = container.clientWidth || 500;
+      const height = 256;
+      const margin = {top: 20, right: 30, bottom: 40, left: 60};
+      
+      const svg = d3.select("#bar-chart-1").append("svg")
+        .attr("width", width).attr("height", height);
+      
+      const data = [
+        { method: "Espresso 2020", value: 92, color: "#94a3b8", year: "2020" },
+        { method: "Filter 2020", value: 8, color: "#f98049", year: "2020" },
+        { method: "Espresso 2025", value: 85, color: "#64748b", year: "2025" },
+        { method: "Filter 2025", value: 15, color: "#ea580c", year: "2025" }
+      ];
+      
+      const xScale = d3.scaleBand()
+        .domain(data.map(d => d.method))
+        .range([margin.left, width - margin.right])
+        .padding(0.3);
+        
+      const yScale = d3.scaleLinear()
+        .domain([0, 100])
+        .range([height - margin.bottom, margin.top]);
+      
+      // Bars
+      svg.selectAll("rect")
+        .data(data)
+        .enter().append("rect")
+        .attr("x", d => xScale(d.method))
+        .attr("y", d => yScale(d.value))
+        .attr("width", xScale.bandwidth())
+        .attr("height", d => height - margin.bottom - yScale(d.value))
+        .attr("fill", d => d.color)
+        .attr("rx", 6);
+      
+      // Value Labels
+      svg.selectAll("text.value")
+        .data(data)
+        .enter().append("text")
+        .attr("class", "value")
+        .attr("x", d => xScale(d.method) + xScale.bandwidth() / 2)
+        .attr("y", d => yScale(d.value) - 8)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .attr("fill", d => d.color)
+        .text(d => d.value + "%");
+      
+      // Axis
+      svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(xScale).tickFormat(d => d.includes("Espresso") ? "Espresso" : "Filter"))
+        .selectAll("text")
+        .attr("font-size", "12px")
+        .attr("font-family", "Roboto Condensed");
+        
+      svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(yScale).ticks(5))
+        .selectAll("text")
+        .attr("font-size", "11px");
+      
+      // Year labels inside bars
+      svg.selectAll("text.year")
+        .data(data.filter(d => d.value > 20))
+        .enter().append("text")
+        .attr("class", "year")
+        .attr("x", d => xScale(d.method) + xScale.bandwidth() / 2)
+        .attr("y", height - margin.bottom - 10)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .attr("fill", "white")
+        .text(d => d.year);
+    });
+
+    // Line Chart for Slide 8 (Forecast)
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.getElementById("line-chart-forecast");
+      const width = container.clientWidth || 800;
+      const height = 192;
+      const margin = {top: 20, right: 30, bottom: 30, left: 50};
+      
+      const svg = d3.select("#line-chart-forecast").append("svg")
+        .attr("width", width).attr("height", height);
+      
+      const data = [
+        { year: 2024, equipment: 1.8, dripbag: 100, market: 12.3 },
+        { year: 2025, equipment: 2.1, dripbag: 115, market: 13.3 },
+        { year: 2026, equipment: 2.4, dripbag: 132, market: 14.4 },
+        { year: 2027, equipment: 2.8, dripbag: 152, market: 15.6 }
+      ];
+      
+      const xScale = d3.scaleLinear()
+        .domain([2024, 2027])
+        .range([margin.left, width - margin.right]);
+      
+      const yScale = d3.scaleLinear()
+        .domain([0, 160])
+        .range([height - margin.bottom, margin.top]);
+      
+      // Lines
+      const line = d3.line()
+        .x(d => xScale(d.year))
+        .y(d => yScale(d.dripbag));
+      
+      svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "#10b981")
+        .attr("stroke-width", 3)
+        .attr("d", line);
+      
+      // Dripbag growth points
+      svg.selectAll("circle")
+        .data(data)
+        .enter().append("circle")
+        .attr("cx", d => xScale(d.year))
+        .attr("cy", d => yScale(d.dripbag))
+        .attr("r", 5)
+        .attr("fill", "#10b981")
+        .attr("stroke", "white")
+        .attr("stroke-width", 2);
+      
+      // Labels
+      svg.selectAll("text.label")
+        .data(data)
+        .enter().append("text")
+        .attr("x", d => xScale(d.year))
+        .attr("y", d => yScale(d.dripbag) - 10)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "11px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#059669")
+        .text(d => d.dripbag + "%");
+      
+      // Axis
+      svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")))
+        .selectAll("text")
+        .attr("font-size", "12px");
+      
+      // Legend
+      const legend = svg.append("g").attr("transform", `translate(${width - 150}, 20)`);
+      legend.append("circle").attr("r", 5).attr("fill", "#10b981");
+      legend.append("text").attr("x", 10).attr("y", 4).attr("font-size", "12px").text("드립백 시장 성장률(지수)");
+      legend.append("text").attr("x", 10).attr("y", 18).attr("font-size", "10px").attr("fill", "#666").text("2024=100 기준");
+    });
+  </script>
+</body>
+</html>
+```

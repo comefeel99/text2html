@@ -512,27 +512,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## IMAGE USAGE GUIDELINES
 
-### 무료 이미지 소스
-- **Unsplash**: `https://source.unsplash.com/{width}x{height}/?{keyword}`
-- 예시: `https://source.unsplash.com/1280x720/?technology,office`
+### ⚠️ 중요 변경 사항 (Important)
+`source.unsplash.com`은 **더 이상 지원되지 않습니다.**
+무작위 이미지 URL 생성(`https://source.unsplash.com/...`)을 **절대 사용하지 마세요.**
 
-### 이미지 사용 원칙
-| 규칙 | 설명 |
-|------|------|
-| **적용 범위** | 모든 슬라이드에 적용 가능 (Theme A, B, D 포함) |
-| **권장 비율** | 전체 슬라이드의 **10~30%**에 이미지 사용 권장 |
-| **과도한 사용 지양** | 모든 슬라이드에 이미지를 넣는 것은 피할 것 |
-| **키워드 선택** | 보고서 주제와 직접 연관된 2-3개 영문 키워드 사용 |
-| **오버레이 필수** | 배경 이미지 사용 시 텍스트 가독성을 위해 오버레이 적용 |
+### 이미지 사용 전략 (Priority)
+이미지를 사용할 때는 반드시 아래 우선순위 규칙을 따르세요:
 
-### 테마별 적용 방식
+1.  **우선순위 1: 확실한 Unsplash ID를 아는 경우**
+    - 모델이 특정 주제에 맞는 고품질 이미지의 **정확한 Photo ID**를 알고 있다면 아래 포맷 사용:
+    - 포맷: `https://images.unsplash.com/photo-{ID}?w=1280&h=720&fit=crop`
+    - 예시: `https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=1280&h=720&fit=crop` (Space/Rocket)
+
+2.  **우선순위 2: ID를 모르는 경우 (Fallback)**
+    - **절대** 불확실한 ID를 추측하지 마세요. (404 오류 발생)
+    - 이미지 태그(`<img>` 또는 `bg-image`) 대신 **세련된 그라디언트 배경 + 아이콘** 조합을 사용하세요.
+    - `picsum.photos` 등 저품질 랜덤 이미지 서비스는 **사용하지 않습니다.**
+
+### 테마별 적용 가이드
 
 #### Theme A (Corporate Glass) - 분할 레이아웃
+**Case 1: ID를 아는 경우**
 ```html
 <div class="slide flex">
   <div class="w-2/5 relative">
     <div class="absolute inset-0 bg-cover bg-center" 
-         style="background-image: url('https://source.unsplash.com/600x720/?{keyword}')"></div>
+         style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=720&fit=crop')"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/70"></div>
   </div>
   <div class="w-3/5 p-12 flex flex-col justify-center">
@@ -541,11 +546,26 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 ```
 
-#### Theme B (Premium Warm) - 카드 내 이미지
+**Case 2: ID를 모르는 경우 (Fallback)**
+```html
+<div class="slide flex">
+  <!-- 이미지 대신 세련된 패턴/그라디언트 사용 -->
+  <div class="w-2/5 relative bg-gradient-to-br from-blue-600 to-indigo-900 flex items-center justify-center overflow-hidden">
+    <i class="fas fa-building text-9xl text-white/10 absolute -bottom-10 -left-10 transform rotate-12"></i>
+    <i class="fas fa-chart-line text-6xl text-white/20"></i>
+  </div>
+  <div class="w-3/5 p-12 flex flex-col justify-center">
+    [콘텐츠]
+  </div>
+</div>
+```
+
+#### Theme B (Premium Warm) - 카드 헤더
+**Case 1: ID를 아는 경우**
 ```html
 <div class="bg-white rounded-2xl overflow-hidden shadow-xl">
   <div class="h-48 bg-cover bg-center relative"
-       style="background-image: url('https://source.unsplash.com/1200x400/?{keyword}')">
+       style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1200&h=400&fit=crop')">
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
     <h1 class="absolute bottom-6 left-8 text-3xl font-bold text-white">[제목]</h1>
   </div>
@@ -553,12 +573,27 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 ```
 
-#### Theme D (Construct) - 상단 배너 이미지
+**Case 2: ID를 모르는 경우 (Fallback)**
+```html
+<div class="bg-white rounded-2xl overflow-hidden shadow-xl">
+  <!-- 따뜻한 톤의 그라디언트 -->
+  <div class="h-48 bg-gradient-to-r from-orange-400 to-rose-400 relative flex items-center px-8">
+     <div class="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-20">
+        <i class="fas fa-coffee text-8xl text-white"></i>
+     </div>
+     <h1 class="text-3xl font-bold text-white relative z-10">[제목]</h1>
+  </div>
+  <div class="p-8">[콘텐츠]</div>
+</div>
+```
+
+#### Theme D (Construct) - 상단 배너
+**Case 1: ID를 아는 경우**
 ```html
 <div class="slide flex flex-col">
   <div class="h-32 relative">
     <div class="absolute inset-0 bg-cover bg-center"
-         style="background-image: url('https://source.unsplash.com/1280x200/?{keyword}')"></div>
+         style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1280&h=200&fit=crop')"></div>
     <div class="absolute inset-0 bg-black/50"></div>
     <h1 class="absolute bottom-4 left-12 text-3xl font-black text-white">[제목]</h1>
   </div>
@@ -566,16 +601,29 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 ```
 
-### 키워드 예시
-| 보고서 주제 | 권장 키워드 |
-|------------|------------|
-| AI/기술 | `technology,ai,data` |
-| 비즈니스 | `business,strategy,office` |
-| 마케팅 | `marketing,creative,design` |
-| 금융/투자 | `finance,investment,stock` |
-| 커피/라이프스타일 | `coffee,cafe,lifestyle` |
-| 자동차 | `car,automotive,vehicle` |
-| 우주/비전 | `space,rocket,future` |
+**Case 2: ID를 모르는 경우 (Fallback)**
+```html
+<div class="slide flex flex-col">
+  <div class="h-32 bg-[#BB162B] relative flex items-center px-12 overflow-hidden">
+    <!-- 기하학적 패턴 -->
+    <div class="absolute inset-0 opacity-10" 
+         style="background-image: radial-gradient(#fff 2px, transparent 2px); background-size: 20px 20px;"></div>
+    <h1 class="text-3xl font-black text-white relative z-10">[제목]</h1>
+  </div>
+  <div class="flex-1 p-12 bg-white">[콘텐츠]</div>
+</div>
+```
+
+### 키워드별 추천 Unsplash ID (참고용)
+모델이 아래 ID를 기억하여 사용할 수 있습니다.
+| 카테고리 | ID | 설명 |
+|---------|----|------|
+| Tech/Office | `1497366216548-37526070297c` | Modern Office |
+| Space | `1541185933-ef5d8ed016c2` | Rocket/Space |
+| Coffee | `1447933601403-0c6688de566e` | Coffee Beans |
+| Business | `1507679799938-d99fb1807699` | Teamwork/Hands |
+| City | `1477959858617-67f85cf4f1df` | Urban Skyline |
+
 
 ## ARTISTIC ASSETS (For Theme B Only)
 Theme B일 때 `.artistic-decoration` 컨테이너 안에 배치할 SVG 요소들:
@@ -589,15 +637,6 @@ Theme B일 때 `.artistic-decoration` 컨테이너 안에 배치할 SVG 요소�
 </div>
 ```
 
-### 2. Geometric Accent (Bottom Left)
-```html
-<div class="artistic-decoration bottom-[20px] left-[20px] w-[150px] h-[150px] opacity-10">
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <rect x="10" y="10" width="80" height="80" stroke="#2f1800" stroke-width="2" fill="none" />
-    <circle cx="50" cy="50" r="30" fill="#f98049" opacity="0.5" />
-  </svg>
-</div>
-```
 
 ## ICONS (Font Awesome)
 - 성장/증가: `fa-arrow-up-right-dots`, `fa-chart-line`

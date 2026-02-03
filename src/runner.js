@@ -63,7 +63,7 @@ const customOutputDir = outputDirArg ? outputDirArg.split('=')[1] : null;
 const noCapture = args.includes('--no-capture');
 
 // Configuration
-const PROMPTS_DIR = path.join(PROJECT_ROOT, 'prompts');
+const PROMPTS_DIR = path.join(PROJECT_ROOT, '.agent/skills/text2slidehtml/resources');
 const OUTPUT_DIR = customOutputDir
     ? path.join(PROJECT_ROOT, customOutputDir)
     : path.join(PROJECT_ROOT, 'output');

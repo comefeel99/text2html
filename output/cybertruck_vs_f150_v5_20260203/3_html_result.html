@@ -1,0 +1,939 @@
+ ```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테슬라 사이버트럭 vs 포드 F-150 라이트닝 비교 분석</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        
+        :root {
+            --bg-color: #f0f0f5;
+            --slide-bg: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #333333;
+            --accent-color: #BB162B;
+            --accent-navy: #002C5F;
+            --accent-light: #ffeeee;
+            --font-heading: 'Noto Sans KR', sans-serif;
+            --font-body: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: var(--slide-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            font-family: var(--font-body);
+            color: var(--text-primary);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 900;
+        }
+
+        .construct-border {
+            border: 2px solid #e5e5e5;
+        }
+
+        .construct-accent-border {
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .construct-navy-border {
+            border-left: 4px solid var(--accent-navy);
+        }
+
+        .text-red-construct { color: #BB162B; }
+        .text-navy-construct { color: #002C5F; }
+        .bg-red-construct { background-color: #BB162B; }
+        .bg-navy-construct { background-color: #002C5F; }
+
+        .kpi-card {
+            border: 2px solid #e5e5e5;
+            transition: all 0.3s ease;
+        }
+        .kpi-card:hover {
+            border-color: #BB162B;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(187, 22, 43, 0.1);
+        }
+
+        .comparison-card {
+            border: 2px solid #e5e5e5;
+            background: white;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table.data-table th {
+            background: #f5f5f5;
+            border-bottom: 2px solid #111;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        table.data-table td {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 12px;
+            font-size: 0.9rem;
+        }
+        table.data-table tr:hover {
+            background: #fafafa;
+        }
+        .highlight-row {
+            background: #ffeeee !important;
+            font-weight: 700;
+        }
+
+        .chart-container {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide bg-gray-900 flex items-center justify-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-red-900 opacity-90"></div>
+    <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px);"></div>
+    <div class="relative z-10 text-center px-16">
+        <div class="flex justify-center gap-8 mb-8">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center border-4 border-red-600">
+                <i class="fas fa-truck-pickup text-4xl text-gray-900"></i>
+            </div>
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center border-4 border-blue-800">
+                <i class="fas fa-bolt text-4xl text-gray-900"></i>
+            </div>
+        </div>
+        <h1 class="text-6xl font-black text-white mb-6 tracking-tight leading-tight">
+            테슬라 사이버트럭 vs 포드 F-150 라이트닝<br>
+            <span class="text-4xl text-red-400 font-bold">전기 픽업 시장의 양대 축 비교 분석</span>
+        </h1>
+        <div class="mt-12 flex justify-center gap-6 text-white/80 text-lg">
+            <span><i class="fas fa-calendar-alt mr-2"></i>2024-2025 시장 분석</span>
+            <span class="text-white/40">|</span>
+            <span><i class="fas fa-industry mr-2"></i>제조업 비교 보고서</span>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 2: Section 1 - Market Share (KPI Dashboard + Bar Chart) -->
+<div class="slide p-12 flex flex-col">
+    <div class="flex items-center mb-6">
+        <div class="w-12 h-2 bg-red-construct mr-4"></div>
+        <h1 class="text-4xl font-black text-gray-900">시장 점유율 및 판매 동향</h1>
+    </div>
+    <p class="text-lg text-gray-600 mb-6 ml-16">2024년 사이버트럭이 1위를 차지했으나 2025년 포드가 역전하며 시장의 실용적 판단이 반영되고 있음</p>
+    
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-4 gap-4 mb-8">
+        <div class="kpi-card p-5 rounded-none bg-white">
+            <div class="text-sm text-gray-500 font-bold mb-1">2024년 사이버트럭</div>
+            <div class="text-3xl font-black text-red-construct">39,000<span class="text-lg text-gray-400 ml-1">대</span></div>
+            <div class="text-xs text-gray-400 mt-1">미국 전기 픽업 1위 [CarBuzz]</div>
+        </div>
+        <div class="kpi-card p-5 rounded-none bg-white">
+            <div class="text-sm text-gray-500 font-bold mb-1">2024년 F-150 라이트닝</div>
+            <div class="text-3xl font-black text-navy-construct">33,510<span class="text-lg text-gray-400 ml-1">대</span></div>
+            <div class="text-xs text-gray-400 mt-1">미국 전기 픽업 2위 [CarBuzz]</div>
+        </div>
+        <div class="kpi-card p-5 rounded-none bg-white construct-accent-border">
+            <div class="text-sm text-gray-500 font-bold mb-1">2025년 포드 추정</div>
+            <div class="text-3xl font-black text-navy-construct">27,000+<span class="text-lg text-gray-400 ml-1">대</span></div>
+            <div class="text-xs text-green-600 mt-1 font-bold"><i class="fas fa-arrow-up mr-1"></i>증가 추세 [Finviz]</div>
+        </div>
+        <div class="kpi-card p-5 rounded-none bg-white border-l-4 border-gray-400">
+            <div class="text-sm text-gray-500 font-bold mb-1">2025년 테슬라 추정</div>
+            <div class="text-3xl font-black text-gray-700">20,000<span class="text-lg text-gray-400 ml-1">대</span></div>
+            <div class="text-xs text-red-500 mt-1 font-bold"><i class="fas fa-arrow-down mr-1"></i>감소 추세 [Finviz]</div>
+        </div>
+    </div>
+
+    <!-- Chart Area -->
+    <div class="flex gap-6 flex-grow">
+        <div class="flex-1 construct-border bg-white p-4 chart-container" id="market-chart">
+            <!-- D3 Chart will be rendered here -->
+        </div>
+        <div class="w-1/3 space-y-3">
+            <div class="bg-gray-50 p-4 construct-border">
+                <h3 class="font-bold text-sm text-gray-800 mb-2"><i class="fas fa-building text-red-construct mr-2"></i>기업 차량 선호도 변화</h3>
+                <p class="text-xs text-gray-600 leading-relaxed">공사 현장 및 유틸리티 기업들의 F-150 라이트닝 Pro 모델 선호. 기존 F-150 액세서리 호환성 중시.</p>
+            </div>
+            <div class="bg-gray-50 p-4 construct-border">
+                <h3 class="font-bold text-sm text-gray-800 mb-2"><i class="fas fa-car text-navy-construct mr-2"></i>렌터카 기업 후퇴</h3>
+                <p class="text-xs text-gray-600 leading-relaxed">Hertz 초기 공격적 전기차 도입 후 테슬라 비중 축소. 유지보수 비용 및 감가상각 문제.</p>
+            </div>
+            <div class="bg-red-50 p-4 construct-accent-border">
+                <h3 class="font-bold text-sm text-red-800 mb-2"><i class="fas fa-lightbulb mr-2"></i>Key Takeaway</h3>
+                <p class="text-xs text-gray-700 leading-relaxed font-bold">2025년 판매 추이 역전: 포드 27,000대+ vs 테슬라 20,000대 수준</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Section 2 - Performance (Table + Mini Chart) -->
+<div class="slide p-12 flex flex-col">
+    <div class="flex items-center mb-6">
+        <div class="w-12 h-2 bg-red-construct mr-4"></div>
+        <h1 class="text-4xl font-black text-gray-900">주행 성능 및 실거리 신뢰성</h1>
+    </div>
+    <p class="text-lg text-gray-600 mb-6 ml-16">EPA 공인거리는 유사하나 실제 고속 주행에서는 F-150 라이트닝이 오히려 우수한 신뢰성을 보임</p>
+
+    <div class="flex gap-8 flex-grow">
+        <!-- Table -->
+        <div class="w-3/5 construct-border bg-white p-6">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th class="text-center">사이버트럭</th>
+                        <th class="text-center">F-150 라이트닝</th>
+                        <th>출처</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold">EPA 주행거리</td>
+                        <td class="text-center">340마일 (547km)</td>
+                        <td class="text-center">320마일 (515km)</td>
+                        <td class="text-xs text-gray-500">Tesla, Ford</td>
+                    </tr>
+                    <tr class="highlight-row text-red-construct">
+                        <td class="font-bold">실제 고속 주행 거리</td>
+                        <td class="text-center font-black">254마일</td>
+                        <td class="text-center font-black text-navy-construct">332마일</td>
+                        <td class="text-xs">Edmunds, Car and Driver</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">EPA 대비 실제 성능</td>
+                        <td class="text-center text-red-600 font-bold">-25.3%</td>
+                        <td class="text-center text-green-600 font-bold">+3.75%</td>
+                        <td class="text-xs text-gray-500">테스트 기준</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">0-60mph 가속</td>
+                        <td class="text-center font-bold">2.6초 (사이버비스트)</td>
+                        <td class="text-center font-bold">&lt;4.0초</td>
+                        <td class="text-xs text-gray-500">공식 스펙</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="mt-6 bg-gray-50 p-4 construct-border">
+                <div class="flex items-start">
+                    <i class="fas fa-exclamation-triangle text-amber-500 mt-1 mr-3"></i>
+                    <div>
+                        <p class="font-bold text-sm text-gray-800">얼리어답터 피드백 [CarBuzz, 2024]</p>
+                        <p class="text-sm text-gray-600 mt-1">사이버트럭 소유주들의 "실제 주행거리 부족" 및 "타이어 마모" 불만 제기. EPA 340마일 기준 실제 254마일 달성.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Bar Chart -->
+        <div class="w-2/5 flex flex-col gap-4">
+            <div class="construct-border bg-white p-4 flex-1" id="range-chart"></div>
+            <div class="construct-border bg-white p-4">
+                <h3 class="font-bold text-gray-800 mb-3">가속 성능 비교</h3>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-bold">사이버비스트</span>
+                            <span class="text-red-construct font-black">2.6초</span>
+                        </div>
+                        <div class="h-4 bg-gray-200"><div class="h-full bg-red-construct" style="width: 100%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-bold">F-150 라이트닝</span>
+                            <span class="text-navy-construct font-black">&lt;4.0초</span>
+                        </div>
+                        <div class="h-4 bg-gray-200"><div class="h-full bg-navy-construct" style="width: 65%"></div></div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">* 0-60mph 기준, 슈퍼카급 vs 전통적 트럭 대비 2배 이상 우수</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Section 3 - Utility (Table) -->
+<div class="slide p-12 flex flex-col">
+    <div class="flex items-center mb-6">
+        <div class="w-12 h-2 bg-red-construct mr-4"></div>
+        <h1 class="text-4xl font-black text-gray-900">상용 유틸리티 및 프랙티컬 기능</h1>
+    </div>
+    <p class="text-lg text-gray-600 mb-6 ml-16">작업 현장 실용성에서는 F-150 라이트닝의 생태계 호환성과 수납공간에서 압도적 우위</p>
+
+    <div class="flex gap-8 flex-grow">
+        <div class="w-2/3 construct-border bg-white p-6">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th class="text-center">사이버트럭</th>
+                        <th class="text-center">F-150 라이트닝</th>
+                        <th>사례/비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold"><i class="fas fa-plug text-blue-500 mr-2"></i>외부 전력 출력 (V2L)</td>
+                        <td class="text-center">9.6kW (Powershare)</td>
+                        <td class="text-center">9.6kW (Pro Power)</td>
+                        <td class="text-xs">동일 사양 [Tesla, Ford]</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td class="font-bold"><i class="fas fa-box text-navy-construct mr-2"></i>프렁크(Mega Power Frunk) 용량</td>
+                        <td class="text-center">~200리터</td>
+                        <td class="text-center font-black text-navy-construct">400리터</td>
+                        <td class="text-xs">실용적 수납 공간 2배 차이</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold"><i class="fas fa-tools text-gray-600 mr-2"></i>상용 액세서리 호환</td>
+                        <td class="text-center"><span class="px-2 py-1 bg-gray-200 text-xs rounded">제한적</span></td>
+                        <td class="text-center"><span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">기존 F-150 완전 호환</span></td>
+                        <td class="text-xs">공사 현장 사례</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold"><i class="fas fa-building text-gray-600 mr-2"></i>기업 Fleet 채택률</td>
+                        <td class="text-center text-gray-500">저조</td>
+                        <td class="text-center text-navy-construct font-bold">높음 (Pro 모델 중심)</td>
+                        <td class="text-xs">유틸리티 기업 선호</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="w-1/3 space-y-4">
+            <div class="construct-border bg-white p-5 h-full flex flex-col justify-center">
+                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <i class="fas fa-truck-loading text-3xl text-blue-600"></i>
+                </div>
+                <h3 class="text-xl font-black text-center mb-4">프렁크 용량 비교</h3>
+                <div class="flex items-end justify-center gap-8 h-48 mb-4">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 bg-gray-300" style="height: 100px;"></div>
+                        <span class="mt-2 font-bold text-gray-700">200L</span>
+                        <span class="text-xs text-gray-500">사이버트럭</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 bg-navy-construct" style="height: 200px;"></div>
+                        <span class="mt-2 font-black text-navy-construct">400L</span>
+                        <span class="text-xs text-gray-500">F-150</span>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 text-center leading-relaxed">공구 및 장비 대용량 수납 가능</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Section 4 - Technology (Feature Comparison) -->
+<div class="slide p-12 flex flex-col">
+    <div class="flex items-center mb-6">
+        <div class="w-12 h-2 bg-red-construct mr-4"></div>
+        <h1 class="text-4xl font-black text-gray-900">첨단 기술 및 아키텍처 혁신</h1>
+    </div>
+    <p class="text-lg text-gray-600 mb-6 ml-16">테슬라는 48V 아키텍처와 Steer-by-Wire로 혁신을, 포드는 안정성 중심의 BlueCruise로 차별화</p>
+
+    <div class="construct-border bg-white p-6 flex-grow">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th class="w-1/4">기술 항목</th>
+                    <th class="w-1/3 text-center">테슬라 사이버트럭</th>
+                    <th class="w-1/3 text-center">포드 F-150 라이트닝</th>
+                    <th class="w-1/6">특징</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="font-bold"><i class="fas fa-shield-alt mr-2 text-gray-600"></i>차체 소재</td>
+                    <td class="text-center">스테인리스 Exoskeleton</td>
+                    <td class="text-center">알루미늄/강철</td>
+                    <td class="text-xs">내구성 vs 수리성</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td class="font-bold"><i class="fas fa-bolt mr-2 text-yellow-500"></i>전장 아키텍처</td>
+                    <td class="text-center font-black text-red-construct">48V (혁신)</td>
+                    <td class="text-center">12V (기존)</td>
+                    <td class="text-xs">배선 간소화 및 체중 감소</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td class="font-bold"><i class="fas fa-steering-wheel mr-2 text-gray-600"></i>조향 방식</td>
+                    <td class="text-center font-black text-red-construct">Steer-by-Wire</td>
+                    <td class="text-center">기계식 + 전자보조</td>
+                    <td class="text-xs">혁신 vs 신뢰성</td>
+                </tr>
+                <tr>
+                    <td class="font-bold"><i class="fas fa-robot mr-2 text-blue-500"></i>자율주행 레벨</td>
+                    <td class="text-center">FSD Supervised (베타)</td>
+                    <td class="text-center">BlueCruise 1.2</td>
+                    <td class="text-xs">범용성 vs 안정성</td>
+                </tr>
+                <tr>
+                    <td class="font-bold"><i class="fas fa-industry mr-2 text-gray-600"></i>생산 공법</td>
+                    <td class="text-center">Giga Casting</td>
+                    <td class="text-center">전통적 프레임</td>
+                    <td class="text-xs">부품 수 70% 감소</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="mt-6 grid grid-cols-2 gap-4">
+            <div class="bg-red-50 p-4 construct-accent-border">
+                <h4 class="font-bold text-red-800 mb-2">Tesla Giga Casting</h4>
+                <p class="text-sm text-gray-700">대형 일체형 주조 공법으로 차체 조립 공정 혁신. 부품 수 획기적 단축.</p>
+            </div>
+            <div class="bg-blue-50 p-4 construct-navy-border">
+                <h4 class="font-bold text-blue-800 mb-2">Ford BlueCruise</h4>
+                <p class="text-sm text-gray-700">고속도로 변선 및 핸즈프리 주행에서 테슬라 대비 보수적 안정성 추구.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Section 5 - Towing (Table + Cards) -->
+<div class="slide p-12 flex flex-col">
+    <div class="flex items-center mb-6">
+        <div class="w-12 h-2 bg-red-construct mr-4"></div>
+        <h1 class="text-4xl font-black text-gray-900">견인 및 적재 능력 비교</h1>
+    </div>
+    <p class="text-lg text-gray-600 mb-6 ml-16">사이버트럭이 견인 및 적재 스펙에서 소폭 우위하나 실용적 차이는 미미</p>
+
+    <div class="flex gap-6 flex-grow">
+        <div class="w-1/3 space-y-4">
+            <div class="construct-border bg-white p-6 h-48 flex flex-col justify-center items-center text-center">
+                <i class="fas fa-weight-hanging text-4xl text-red-construct mb-3"></i>
+                <div class="text-sm text-gray-500 mb-1">사이버트럭 최대 견인</div>
+                <div class="text-4xl font-black text-gray-900">11,000<span class="text-xl text-gray-500">lbs</span></div>
+                <div class="text-sm text-gray-600 mt-1">4,990kg</div>
+            </div>
+            <div class="construct-border bg-white p-6 h-48 flex flex-col justify-center items-center text-center">
+                <i class="fas fa-weight-hanging text-4xl text-navy-construct mb-3"></i>
+                <div class="text-sm text-gray-500 mb-1">F-150 라이트닝 최대 견인</div>
+                <div class="text-4xl font-black text-gray-900">10,000<span class="text-xl text-gray-500">lbs</span></div>
+                <div class="text-sm text-gray-600 mt-1">4,535kg</div>
+            </div>
+        </div>
+
+        <div class="flex-1 construct-border bg-white p-6">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th class="text-center">사이버트럭</th>
+                        <th class="text-center">F-150 라이트닝</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold">최대 견인 중량</td>
+                        <td class="text-center font-bold">11,000lbs (4,990kg)</td>
+                        <td class="text-center font-bold">10,000lbs (4,535kg)</td>
+                        <td class="text-xs">10% 스펙 우위</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">최대 적재 중량 (Payload)</td>
+                        <td class="text-center font-bold">2,500lbs (1,134kg)</td>
+                        <td class="text-center font-bold">2,235lbs (1,014kg)</td>
+                        <td class="text-xs">12% 스펙 우위</td>
+                    </tr>
+                    <tr class="bg-red-50">
+                        <td class="font-bold text-red-800">견인 시 실제 주행거리</td>
+                        <td class="text-center text-red-600 font-bold">급감 (-50% 수준)</td>
+                        <td class="text-center text-green-600 font-bold">안정적 유지</td>
+                        <td class="text-xs">실사용 테스트 기준</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">트레일러 호환성</td>
+                        <td class="text-center"><span class="text-red-500"><i class="fas fa-times-circle"></i> 제한적</span></td>
+                        <td class="text-center"><span class="text-green-600"><i class="fas fa-check-circle"></i> 표준 F-150 호환</span></td>
+                        <td class="text-xs">상용 인프라</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4">
+                <div class="flex items-start">
+                    <i class="fas fa-exclamation-circle text-amber-500 text-xl mr-3 mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">실제 상용 활용 시 차이</p>
+                        <p class="text-sm text-gray-700 mt-1">공사 현장에서 F-150 라이트닝의 검증된 트레일러 호환성 선호. 히치 및 전기 연결 표준화로 인한 실용성 우위.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Section 6 - Cost Analysis (Bar Chart + Table) -->
+<div class="slide p-12 flex flex-col">
+    <div class="flex items-center mb-6">
+        <div class="w-12 h-2 bg-red-construct mr-4"></div>
+        <h1 class="text-4xl font-black text-gray-900">소유 비용 및 경제성 분석</h1>
+    </div>
+    <p class="text-lg text-gray-600 mb-6 ml-16">초기 구매가격과 보험료에서 F-150 라이트닝이 압도적 우위 — <span class="text-red-construct font-bold">$29,990 가격 차이</span></p>
+
+    <div class="flex gap-6 flex-grow">
+        <div class="w-1/2 construct-border bg-white p-6 flex flex-col">
+            <h3 class="text-xl font-bold mb-6 text-center">시작 가격 비교</h3>
+            <div class="flex-grow flex items-end justify-center gap-12 pb-8" id="price-chart">
+                <!-- D3 Price Chart -->
+            </div>
+            <div class="text-center text-3xl font-black text-red-construct mt-4">
+                $29,990 차이
+            </div>
+        </div>
+
+        <div class="w-1/2 construct-border bg-white p-6">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>비용 항목</th>
+                        <th class="text-center">F-150 라이트닝</th>
+                        <th class="text-center">사이버트럭</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight-row">
+                        <td class="font-bold">시작 가격 (Pro/AWD)</td>
+                        <td class="text-center font-black text-navy-construct text-xl">~$50,000</td>
+                        <td class="text-center font-black text-red-construct text-xl">~$79,990</td>
+                        <td class="text-xs">$29,990 차이</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">예상 보험료 (연간)</td>
+                        <td class="text-center">기존 픽업 수준</td>
+                        <td class="text-center text-red-600 font-bold">높음 (수리비↑)</td>
+                        <td class="text-xs">스테인리스 패널 특성</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">수리 접근성</td>
+                        <td class="text-center text-green-600">전국 3,000+ 딜러</td>
+                        <td class="text-center text-red-500">제한적 (전문 인력)</td>
+                        <td class="text-xs">서비스 인프라 격차</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">생산 원가 경쟁력</td>
+                        <td class="text-center">지속적 인하 가능</td>
+                        <td class="text-center">인하 여력 적음</td>
+                        <td class="text-xs">공정 효율성 차이</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">렌터카 적합성</td>
+                        <td class="text-center text-green-600"><i class="fas fa-check"></i> 높음</td>
+                        <td class="text-center text-red-500"><i class="fas fa-times"></i> 낮음</td>
+                        <td class="text-xs">Hertz 사례 [CarBuzz]</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-4 bg-red-50 p-3 construct-accent-border text-sm">
+                <span class="font-bold text-red-800">감가상각 위험:</span> Hertz 사례에서 테슬라 전기차의 높은 감가상각율로 2차 시장 가격 하락 및 Fleet 운용 부적합
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Section 7 - Strategic Philosophy (Comparison Diagram) -->
+<div class="slide p-12 flex flex-col">
+    <div class="flex items-center mb-6">
+        <div class="w-12 h-2 bg-red-construct mr-4"></div>
+        <h1 class="text-4xl font-black text-gray-900">전략적 철학 및 시장 포지셔닝</h1>
+    </div>
+    <p class="text-lg text-gray-600 mb-8 ml-16">"더 나은 트럭"을 지향하는 포드와 "다른 무언가"를 지향하는 테슬라의 근본적 철학 차이 — <span class="text-xs text-gray-400">[The Kevin Report]</span></p>
+
+    <div class="flex gap-0 flex-grow relative">
+        <!-- VS Badge -->
+        <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <div class="w-16 h-16 rounded-full bg-gray-900 border-4 border-white shadow-2xl flex items-center justify-center text-white font-black text-xl italic">VS</div>
+        </div>
+
+        <!-- Ford Side -->
+        <div class="flex-1 bg-blue-50 p-8 construct-navy-border mr-4 flex flex-col">
+            <div class="flex items-center mb-6">
+                <div class="w-16 h-16 bg-navy-construct rounded-lg flex items-center justify-center text-white mr-4">
+                    <i class="fas fa-truck text-3xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-black text-navy-construct">F-150 라이트닝</h2>
+                    <span class="text-blue-600 font-bold">"Better Truck"</span>
+                </div>
+            </div>
+            
+            <div class="space-y-4 flex-grow">
+                <div class="bg-white p-4 construct-border">
+                    <h4 class="font-bold text-navy-construct mb-2">핵심 가치</h4>
+                    <p class="text-sm text-gray-700">기존 트럭 사용자의 전동화 전환 유도. 실용성 및 신뢰성 우선.</p>
+                </div>
+                <div class="bg-white p-4 construct-border">
+                    <h4 class="font-bold text-navy-construct mb-2">목표 고객층</h4>
+                    <p class="text-sm text-gray-700">기존 트럭 오너 (35~55세)</p>
+                </div>
+                <div class="bg-white p-4 construct-border">
+                    <h4 class="font-bold text-navy-construct mb-2">검증된 신뢰성</h4>
+                    <p class="text-sm text-gray-700">우수 (상용 검증) - Edmunds 및 Car and Driver 테스트에서 주행 거리 신뢰도 우위</p>
+                </div>
+                <div class="bg-blue-100 p-4 border-2 border-blue-400">
+                    <h4 class="font-bold text-blue-800 mb-2">장기 시장 전망</h4>
+                    <p class="text-sm text-blue-900 font-bold">상용 대중화</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tesla Side -->
+        <div class="flex-1 bg-red-50 p-8 construct-accent-border ml-4 flex flex-col">
+            <div class="flex items-center mb-6">
+                <div class="w-16 h-16 bg-red-construct rounded-lg flex items-center justify-center text-white mr-4">
+                    <i class="fas fa-bolt text-3xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-black text-red-construct">사이버트럭</h2>
+                    <span class="text-red-500 font-bold">"Something Different"</span>
+                </div>
+            </div>
+            
+            <div class="space-y-4 flex-grow">
+                <div class="bg-white p-4 construct-border">
+                    <h4 class="font-bold text-red-construct mb-2">핵심 가치</h4>
+                    <p class="text-sm text-gray-700">새로운 마니아층 및 얼리어답터 형성. 혁신 및 디자인 우선.</p>
+                </div>
+                <div class="bg-white p-4 construct-border">
+                    <h4 class="font-bold text-red-construct mb-2">목표 고객층</h4>
+                    <p class="text-sm text-gray-700">테슬라 마니아/얼리어답터 (25~40세)</p>
+                </div>
+                <div class="bg-white p-4 construct-border">
+                    <h4 class="font-bold text-red-construct mb-2">주요 불만사항</h4>
+                    <p class="text-sm text-gray-700">실거리 부족, 타이어 마모 [CarBuzz, 2024]</p>
+                </div>
+                <div class="bg-red-100 p-4 border-2 border-red-400">
+                    <h4 class="font-bold text-red-800 mb-2">장기 시장 전망</h4>
+                    <p class="text-sm text-red-900 font-bold">니치 프리미엄</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Conclusion -->
+<div class="slide bg-gray-900 p-16 flex flex-col justify-center relative overflow-hidden">
+    <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.03) 35px, rgba(255,255,255,.03) 70px);"></div>
+    
+    <div class="relative z-10">
+        <h1 class="text-5xl font-black text-white mb-10">Executive Summary</h1>
+        
+        <div class="grid grid-cols-2 gap-8 mb-12">
+            <div class="bg-white/10 backdrop-blur p-6 border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-400 mb-3">시장 역전의 신호</h3>
+                <p class="text-white/90 leading-relaxed">2024년 1위였던 테슬라가 2025년 포드에게 역전당하며, 상용 시장에서는 <span class="text-blue-300 font-bold">실용성과 가격 경쟁력</span>이 중요한 판단 기준임이 재확인되었다.</p>
+            </div>
+            
+            <div class="bg-white/10 backdrop-blur p-6 border-l-4 border-red-500">
+                <h3 class="text-xl font-bold text-red-400 mb-3">세그먼트 분리 현상</h3>
+                <p class="text-white/90 leading-relaxed">포드는 기존 트럭 사용자(35~55세)의 전동화를, 테슬라는 새로운 마니아층(25~40세)을 공략하며 <span class="text-red-300 font-bold">서로 다른 세그먼트</span>에서 공존하는 구도가 형성되고 있다.</p>
+            </div>
+        </div>
+
+        <div class="bg-white/5 p-8 border border-white/20">
+            <h3 class="text-2xl font-bold text-white mb-6">핵심 비교 요약</h3>
+            <div class="grid grid-cols-4 gap-6 text-center">
+                <div>
+                    <div class="text-3xl font-black text-white mb-2">$29,990</div>
+                    <div class="text-sm text-gray-400">가격 차이 (포드 우위)</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-black text-white mb-2">78마일</div>
+                    <div class="text-sm text-gray-400">실제 주행거리 차이 (포드 우위)</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-black text-white mb-2">200L</div>
+                    <div class="text-sm text-gray-400">프렁크 용량 차이 (포드 우위)</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-black text-white mb-2">2.6초</div>
+                    <div class="text-sm text-gray-400">제로백 (테슬라 우위)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Chart 1: Market Share Trend (Slide 2)
+    const marketContainer = document.getElementById('market-chart');
+    if (marketContainer) {
+        const width = marketContainer.clientWidth - 40;
+        const height = 280;
+        const margin = {top: 20, right: 30, bottom: 40, left: 50};
+        
+        const svg = d3.select("#market-chart").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        const data = [
+            {year: 2024, tesla: 39000, ford: 33510},
+            {year: 2025, tesla: 20000, ford: 27000}
+        ];
+
+        const x0 = d3.scaleBand()
+            .domain(data.map(d => d.year))
+            .rangeRound([margin.left, width - margin.right])
+            .paddingInner(0.3);
+
+        const x1 = d3.scaleBand()
+            .domain(['tesla', 'ford'])
+            .rangeRound([0, x0.bandwidth()])
+            .padding(0.1);
+
+        const y = d3.scaleLinear()
+            .domain([0, 45000])
+            .range([height - margin.bottom, margin.top]);
+
+        const colors = {tesla: '#BB162B', ford: '#002C5F'};
+
+        // Axis
+        svg.append("g")
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(d3.axisBottom(x0).tickFormat(d => d + "년"));
+        
+        svg.append("g")
+            .attr("transform", `translate(${margin.left},0)`)
+            .call(d3.axisLeft(y).ticks(5));
+
+        // Bars
+        const yearGroups = svg.selectAll(".year-group")
+            .data(data)
+            .enter().append("g")
+            .attr("class", "year-group")
+            .attr("transform", d => `translate(${x0(d.year)},0)`);
+
+        yearGroups.selectAll("rect")
+            .data(d => ['tesla', 'ford'].map(key => ({key, value: d[key]})))
+            .enter().append("rect")
+            .attr("x", d => x1(d.key))
+            .attr("y", d => y(d.value))
+            .attr("width", x1.bandwidth())
+            .attr("height", d => height - margin.bottom - y(d.value))
+            .attr("fill", d => colors[d.key]);
+
+        // Labels
+        yearGroups.selectAll("text")
+            .data(d => ['tesla', 'ford'].map(key => ({key, value: d[key]})))
+            .enter().append("text")
+            .attr("x", d => x1(d.key) + x1.bandwidth()/2)
+            .attr("y", d => y(d.value) - 5)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "12px")
+            .attr("font-weight", "bold")
+            .attr("fill", d => colors[d.key])
+            .text(d => d.value.toLocaleString());
+
+        // Legend
+        const legend = svg.append("g")
+            .attr("transform", `translate(${width - 120}, 20)`);
+        
+        ['tesla', 'ford'].forEach((key, i) => {
+            legend.append("rect")
+                .attr("x", 0)
+                .attr("y", i * 20)
+                .attr("width", 15)
+                .attr("height", 15)
+                .attr("fill", colors[key]);
+            legend.append("text")
+                .attr("x", 20)
+                .attr("y", i * 20 + 12)
+                .text(key === 'tesla' ? '사이버트럭' : 'F-150 라이트닝')
+                .attr("font-size", "12px")
+                .attr("fill", "#333");
+        });
+
+        // Highlight 2025
+        svg.append("rect")
+            .attr("x", x0(2025))
+            .attr("y", margin.top)
+            .attr("width", x0.bandwidth())
+            .attr("height", height - margin.bottom - margin.top)
+            .attr("fill", "none")
+            .attr("stroke", "#002C5F")
+            .attr("stroke-width", 2)
+            .attr("stroke-dasharray", "5,5");
+    }
+
+    // Chart 2: Range Comparison (Slide 3)
+    const rangeContainer = document.getElementById('range-chart');
+    if (rangeContainer) {
+        const containerWidth = rangeContainer.clientWidth || 350;
+        const width = Math.min(containerWidth - 40, 320);
+        const height = 200;
+        const margin = {top: 20, right: 30, bottom: 30, left: 60};
+        
+        const svg = d3.select("#range-chart").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        const data = [
+            {label: "사이버트럭", epa: 340, real: 254, diff: -25.3},
+            {label: "F-150", epa: 320, real: 332, diff: 3.75}
+        ];
+
+        const x = d3.scaleBand()
+            .domain(data.map(d => d.label))
+            .range([margin.left, width - margin.right])
+            .padding(0.3);
+
+        const y = d3.scaleLinear()
+            .domain([0, 400])
+            .range([height - margin.bottom, margin.top]);
+
+        // EPA Bars (light)
+        svg.selectAll(".bar-epa")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar-epa")
+            .attr("x", d => x(d.label))
+            .attr("y", d => y(d.epa))
+            .attr("width", x.bandwidth() / 2)
+            .attr("height", d => height - margin.bottom - y(d.epa))
+            .attr("fill", "#e5e7eb");
+
+        // Real Bars (dark)
+        svg.selectAll(".bar-real")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar-real")
+            .attr("x", d => x(d.label) + x.bandwidth()/2)
+            .attr("y", d => y(d.real))
+            .attr("width", x.bandwidth() / 2)
+            .attr("height", d => height - margin.bottom - y(d.real))
+            .attr("fill", (d, i) => i === 0 ? '#BB162B' : '#002C5F');
+
+        // Labels
+        svg.selectAll(".label")
+            .data(data)
+            .enter().append("text")
+            .attr("x", d => x(d.label) + x.bandwidth()/2)
+            .attr("y", d => y(Math.max(d.epa, d.real)) - 5)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "11px")
+            .attr("font-weight", "bold")
+            .text(d => (d.diff > 0 ? "+" : "") + d.diff + "%");
+
+        // Axis
+        svg.append("g")
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(d3.axisBottom(x));
+        
+        svg.append("g")
+            .attr("transform", `translate(${margin.left},0)`)
+            .call(d3.axisLeft(y).ticks(5));
+    }
+
+    // Chart 3: Price Comparison (Slide 7)
+    const priceContainer = document.getElementById('price-chart');
+    if (priceContainer) {
+        const containerWidth = priceContainer.clientWidth || 400;
+        const width = Math.min(containerWidth - 40, 360);
+        const height = 250;
+        
+        const svg = d3.select("#price-chart").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        const data = [
+            {label: "F-150\n라이트닝", value: 50000, color: "#002C5F"},
+            {label: "사이버트럭", value: 79990, color: "#BB162B"}
+        ];
+
+        const x = d3.scaleBand()
+            .domain(data.map(d => d.label))
+            .range([50, width - 50])
+            .padding(0.4);
+
+        const y = d3.scaleLinear()
+            .domain([0, 90000])
+            .range([height - 50, 50]);
+
+        // Bars
+        svg.selectAll("rect")
+            .data(data)
+            .enter().append("rect")
+            .attr("x", d => x(d.label))
+            .attr("y", d => y(d.value))
+            .attr("width", x.bandwidth())
+            .attr("height", d => height - 50 - y(d.value))
+            .attr("fill", d => d.color);
+
+        // Value labels
+        svg.selectAll("text.value")
+            .data(data)
+            .enter().append("text")
+            .attr("class", "value")
+            .attr("x", d => x(d.label) + x.bandwidth()/2)
+            .attr("y", d => y(d.value) - 10)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "18px")
+            .attr("font-weight", "900")
+            .attr("fill", d => d.color)
+            .text(d => "$" + d.value.toLocaleString());
+
+        // Category labels
+        svg.selectAll("text.label")
+            .data(data)
+            .enter().append("text")
+            .attr("class", "label")
+            .attr("x", d => x(d.label) + x.bandwidth()/2)
+            .attr("y", height - 20)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "14px")
+            .attr("font-weight", "bold")
+            .attr("fill", "#333")
+            .each(function(d) {
+                const lines = d.label.split('\n');
+                lines.forEach((line, i) => {
+                    d3.select(this.parentNode).append("text")
+                        .attr("x", x(d.label) + x.bandwidth()/2)
+                        .attr("y", height - 20 + (i * 16))
+                        .attr("text-anchor", "middle")
+                        .attr("font-size", "13px")
+                        .attr("font-weight", "bold")
+                        .attr("fill", "#333")
+                        .text(line);
+                });
+            });
+        
+        svg.selectAll("text.label").remove();
+    }
+});
+</script>
+
+</body>
+</html>
+```

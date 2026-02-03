@@ -1,0 +1,916 @@
+ ```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceX 스타십: 화성 이주 비전</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        
+        :root {
+            --bg-color: #0a0a0a;
+            --slide-bg: #000000;
+            --text-primary: #ffffff;
+            --text-secondary: #e5e5e5;
+            --accent-color: #E50914;
+            --accent-light: rgba(255, 255, 255, 0.2);
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Noto Sans KR', sans-serif;
+            --card-bg: rgba(0, 0, 0, 0.6);
+            --card-border: 1px solid rgba(255, 255, 255, 0.2);
+            --card-backdrop: blur(8px);
+        }
+        
+        body {
+            background: var(--bg-color);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: var(--slide-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            font-family: var(--font-body);
+            color: var(--text-primary);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cinematic-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .cinematic-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%);
+        }
+        
+        .glass-panel {
+            background: var(--card-bg);
+            backdrop-filter: var(--card-backdrop);
+            border: var(--card-border);
+        }
+        
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .accent-text {
+            color: var(--accent-color);
+        }
+        
+        .kpi-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+            border-color: var(--accent-color);
+        }
+        
+        .timeline-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        th {
+            background: rgba(229, 9, 20, 0.2);
+            color: white;
+            font-weight: 700;
+            padding: 16px;
+            text-align: left;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #e5e5e5;
+        }
+        
+        tr:hover td {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .highlight-row td {
+            background: rgba(229, 9, 20, 0.1);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .pillar-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-top: 4px solid var(--accent-color);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1614728853911-006395542329?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content flex items-center justify-center p-16">
+            <div class="text-center max-w-4xl">
+                <div class="mb-6">
+                    <span class="px-4 py-2 bg-red-600 text-white text-sm font-bold tracking-widest rounded">SPACEX STARSHIP</span>
+                </div>
+                <h1 class="text-7xl font-black text-white mb-6 text-shadow leading-tight">
+                    화성 이주 비전
+                </h1>
+                <p class="text-2xl text-gray-300 mb-8 text-shadow">
+                    완전 재사용 가능한 스타십 시스템을 통해<br>
+                    <span class="text-red-500 font-bold">20년 내 100만 명</span> 자립형 화성 도시 건설
+                </p>
+                <div class="flex justify-center gap-8 mt-12">
+                    <div class="glass-panel px-6 py-4 rounded-lg">
+                        <div class="text-3xl font-bold text-white">2026</div>
+                        <div class="text-sm text-gray-400">첫 화성 착륙</div>
+                    </div>
+                    <div class="glass-panel px-6 py-4 rounded-lg">
+                        <div class="text-3xl font-bold text-white">100%</div>
+                        <div class="text-sm text-gray-400">재사용 설계</div>
+                    </div>
+                    <div class="glass-panel px-6 py-4 rounded-lg">
+                        <div class="text-3xl font-bold text-white">1,000+</div>
+                        <div class="text-sm text-gray-400">함대 규모</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Development Roadmap (Timeline) -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content p-12">
+            <div class="mb-8">
+                <h2 class="text-4xl font-bold text-white mb-2 text-shadow">개발 로드맵 및 비행 현황</h2>
+                <p class="text-gray-300 text-shadow">2024년 5회 시험 비행 성공에서 2026년 화성 착륙까지</p>
+            </div>
+            <div class="flex-grow relative" id="timeline-chart"></div>
+            <div class="mt-4 flex justify-between text-sm text-gray-400">
+                <span>출처: SpaceX, NASA</span>
+                <span>* 2026년 화성/달 이중 마일스톤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Propulsion & Recovery (KPI Dashboard) -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content p-12">
+            <div class="mb-8">
+                <h2 class="text-4xl font-bold text-white mb-2 text-shadow">혁신적 추진 및 회수 시스템</h2>
+                <p class="text-gray-300 text-shadow">Raptor 3 & Mechazilla를 통한 100% 재사용 경제성</p>
+            </div>
+            <div class="grid grid-cols-2 gap-6 flex-grow content-center">
+                <div class="kpi-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-14 h-14 rounded-full bg-red-600/30 flex items-center justify-center mr-4">
+                            <i class="fas fa-fire text-2xl text-red-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Raptor 3 엔진</h3>
+                            <p class="text-sm text-gray-400">외부 배관 제거 일체형 설계</p>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-black text-white">제조 공정 <span class="text-red-500">대폭 단순화</span></p>
+                </div>
+                
+                <div class="kpi-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-14 h-14 rounded-full bg-blue-600/30 flex items-center justify-center mr-4">
+                            <i class="fas fa-recycle text-2xl text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">100% 재사용</h3>
+                            <p class="text-sm text-gray-400">전례 없는 경제성 확보</p>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-black text-white">슈퍼 헤비 + 스타십 <span class="text-blue-400">완전 회수</span></p>
+                </div>
+                
+                <div class="kpi-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-14 h-14 rounded-full bg-yellow-600/30 flex items-center justify-center mr-4">
+                            <i class="fas fa-hand-paper text-2xl text-yellow-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Mechazilla 시스템</h3>
+                            <p class="text-sm text-gray-400">젓가락 팔 부스터 캐치</p>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-black text-white">IFT-5 <span class="text-yellow-500">초도 성공</span></p>
+                </div>
+                
+                <div class="kpi-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-14 h-14 rounded-full bg-green-600/30 flex items-center justify-center mr-4">
+                            <i class="fas fa-rocket text-2xl text-green-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Starship V2</h3>
+                            <p class="text-sm text-gray-400">건조 질량 감소</p>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-black text-white">유효 탑재 중량 <span class="text-green-500">확보</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: ISRU Technology (Card Grid) -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1541873676-a18131494184?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content p-12">
+            <div class="mb-6">
+                <h2 class="text-4xl font-bold text-white mb-2 text-shadow">ISRU 기술 생태계</h2>
+                <p class="text-gray-300 text-shadow">화성 대기 95% CO₂ 활용한 자립형 기지 건설</p>
+            </div>
+            <div class="grid grid-cols-3 gap-6 flex-grow">
+                <div class="glass-panel p-6 rounded-xl hover:border-red-500 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-4">
+                        <i class="fas fa-wind text-2xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">MOXIE</h3>
+                    <p class="text-sm text-gray-300 mb-3">대기 CO₂ → O₂ 전환</p>
+                    <ul class="text-xs text-gray-400 space-y-1">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>퍼시비어런스 탑재 검증</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>JPL 기술 검증 완료</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-panel p-6 rounded-xl hover:border-red-500 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">CO₂ 전기분해</h3>
+                    <p class="text-sm text-gray-300 mb-3">추진제/산소 생산</p>
+                    <ul class="text-xs text-gray-400 space-y-1">
+                        <li><i class="fas fa-arrow-right text-red-500 mr-2"></i>화성 대기 95% 활용</li>
+                        <li><i class="fas fa-arrow-right text-red-500 mr-2"></i>로켓 연료 생산</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-panel p-6 rounded-xl hover:border-red-500 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center mb-4">
+                        <i class="fas fa-cubes text-2xl text-orange-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">레골리스 3D 프린팅</h3>
+                    <p class="text-sm text-gray-300 mb-3">화성 토양 건축 자재화</p>
+                    <ul class="text-xs text-gray-400 space-y-1">
+                        <li><i class="fas fa-shield-alt text-orange-500 mr-2"></i>방사선 차폐 거주지</li>
+                        <li><i class="fas fa-shield-alt text-orange-500 mr-2"></i>현지 자원 100% 활용</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-panel p-6 rounded-xl hover:border-red-500 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
+                        <i class="fas fa-globe-americas text-2xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">ISRU 포괄 전략</h3>
+                    <p class="text-sm text-gray-300 mb-3">지구 보급 의존도 최소화</p>
+                    <ul class="text-xs text-gray-400 space-y-1">
+                        <li><i class="fas fa-level-up-alt text-green-500 mr-2"></i>자원 자립 목표</li>
+                        <li><i class="fas fa-level-up-alt text-green-500 mr-2"></i>초기 단계부터 적용</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-panel p-6 rounded-xl hover:border-red-500 transition-colors col-span-2">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-tint text-2xl text-cyan-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">수자원 확보</h3>
+                            <p class="text-sm text-gray-300 mb-2">극지방 드라이아이스 및 지하 얼음 시추</p>
+                            <div class="flex gap-4 mt-3">
+                                <span class="px-3 py-1 bg-cyan-500/20 rounded text-cyan-300 text-xs">전기분해 H₂ 생산</span>
+                                <span class="px-3 py-1 bg-cyan-500/20 rounded text-cyan-300 text-xs">생명유지/추진제</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Life Support & Terraforming (Table) -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content p-12">
+            <div class="mb-6">
+                <h2 class="text-4xl font-bold text-white mb-2 text-shadow">생명유지 및 테라포밍 인프라</h2>
+                <p class="text-gray-300 text-shadow">폐쇄 루프 시스템부터 장기 대기 개조까지</p>
+            </div>
+            <div class="glass-panel rounded-2xl p-6 flex-grow overflow-hidden flex flex-col">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="rounded-tl-lg">인프라 분야</th>
+                            <th>핵심 기술</th>
+                            <th>현재 상태/목표</th>
+                            <th class="rounded-tr-lg">비고</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight-row">
+                            <td class="font-bold text-white">생명유지</td>
+                            <td>ECLSS</td>
+                            <td>ISS 운용 중 <span class="text-green-400 text-xs ml-2">●</span></td>
+                            <td>폐쇄 루프 시스템 (공기/수 재활용)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">에너지</td>
+                            <td>태양광 + Kilopower</td>
+                            <td>개발 진행 중</td>
+                            <td>화성 태양광 43% 수준 대비 원자력 보조</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">대기 개조</td>
+                            <td>드라이아이스 융해</td>
+                            <td>이론적 연구 단계</td>
+                            <td>현재 대기압 1% 미만 → 상승 목표</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">통신</td>
+                            <td>레이저 통신망</td>
+                            <td>구축 계획 중</td>
+                            <td>지구-화성 고속 데이터 전송 (26분~수시간 지연)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">생태계</td>
+                            <td>남조류/이끼 포괄</td>
+                            <td>단계적 적용 계획</td>
+                            <td>산소 농도 증대 및 토양 개량</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-4 bg-red-900/30 border border-red-500/30 rounded-lg p-4 flex items-center">
+                    <i class="fas fa-exclamation-circle text-red-500 mr-3 text-xl"></i>
+                    <p class="text-sm text-gray-300"><strong class="text-white">핵심 목표:</strong> 지구 의존도 90% 이상 감축 및 자립형 생태계 구축</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Economy of Scale (KPI Dashboard) -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content p-12">
+            <div class="mb-8">
+                <h2 class="text-4xl font-bold text-white mb-2 text-shadow">규모의 경제: 100만 명 도시 계획</h2>
+                <p class="text-gray-300 text-shadow">26개월 발사 창을 활용한 대규모 물류 전략</p>
+            </div>
+            <div class="flex gap-8 flex-grow items-center">
+                <div class="w-1/2 space-y-6">
+                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-red-600">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-300">목표 인구</h3>
+                            <i class="fas fa-users text-3xl text-red-500"></i>
+                        </div>
+                        <p class="text-6xl font-black text-white mb-2">100만 명</p>
+                        <p class="text-sm text-gray-400">20년 내 자립형 도시 완성</p>
+                    </div>
+                    
+                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-blue-600">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-300">필요 함대</h3>
+                            <i class="fas fa-space-shuttle text-3xl text-blue-500"></i>
+                        </div>
+                        <p class="text-6xl font-black text-white mb-2">1,000대+</p>
+                        <p class="text-sm text-gray-400">누적 생산 목표 (화물/인력/귀환)</p>
+                    </div>
+                </div>
+                
+                <div class="w-1/2 space-y-6">
+                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-yellow-600">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-300">발사 창</h3>
+                            <i class="fas fa-clock text-3xl text-yellow-500"></i>
+                        </div>
+                        <p class="text-6xl font-black text-white mb-2">26개월</p>
+                        <p class="text-sm text-gray-400">지구-화성 궤도 정렬 주기</p>
+                    </div>
+                    
+                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-green-600">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-gray-300">2024년 발사</h3>
+                            <i class="fas fa-chart-line text-3xl text-green-500"></i>
+                        </div>
+                        <p class="text-6xl font-black text-white mb-2">6~9회</p>
+                        <p class="text-sm text-gray-400">연간 목표 Flight Volume</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 glass-panel p-4 rounded-lg flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-lightbulb text-yellow-400 mr-3"></i>
+                    <span class="text-gray-300">ISRU 기술 의존도 <strong class="text-white">90% 이상</strong> 목표</span>
+                </div>
+                <span class="text-xs text-gray-500">출처: Elon Musk, SpaceX</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: NASA Collaboration (Comparison) -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content p-12">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold text-white mb-2 text-shadow">NASA Artemis 프로그램과 협업</h2>
+                <p class="text-gray-300 text-shadow">달 착륙 기술 검증을 통한 화성 탐사 브릿지 전략</p>
+            </div>
+            
+            <div class="flex gap-8 flex-grow items-center relative">
+                <!-- SpaceX Side -->
+                <div class="flex-1 glass-panel rounded-2xl p-8 border-t-4 border-red-600">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-rocket text-3xl text-red-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">SpaceX</h3>
+                            <span class="text-sm text-red-400">민간 우주 기업</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block">HLS (Human Landing System)</strong>
+                                <span class="text-sm">2026년 9월 달 착륙선 제공</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block">발사체 개발</strong>
+                                <span class="text-sm">스타십 시스템 고도화</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block">운용 효율성</strong>
+                                <span class="text-sm">상용화 및 비용 절감 주도</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- VS Badge -->
+                <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-br from-red-600 to-blue-600 border-4 border-white/20 shadow-2xl flex items-center justify-center">
+                        <i class="fas fa-handshake text-3xl text-white"></i>
+                    </div>
+                </div>
+                
+                <!-- NASA Side -->
+                <div class="flex-1 glass-panel rounded-2xl p-8 border-t-4 border-blue-600">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-blue-600/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-flag-usa text-3xl text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">NASA</h3>
+                            <span class="text-sm text-blue-400">정부 우주 기관</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block">우주비행사 및 임무 운영</strong>
+                                <span class="text-sm">Artemis III 임무 수행</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block">과학 장비 지원</strong>
+                                <span class="text-sm">달/화성 탐사 장비 개발</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block">기술 개발 지원</strong>
+                                <span class="text-sm">MOXIE 등 JPL 기술 이전</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-6 glass-panel p-4 rounded-lg text-center">
+                <p class="text-gray-300">
+                    <span class="text-red-400 font-bold">2026년 9월</span> Artemis III - 화성 탐사 기술의 결정적 검증 기회
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: 20-Year Vision (Timeline) -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content p-12">
+            <div class="mb-6">
+                <h2 class="text-4xl font-bold text-white mb-2 text-shadow">20년 비전과 로드맵</h2>
+                <p class="text-gray-300 text-shadow">Multi-planetary Species 실현을 향한 여정</p>
+            </div>
+            <div class="flex-grow" id="vision-timeline"></div>
+            <div class="grid grid-cols-4 gap-4 mt-6">
+                <div class="glass-panel p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-red-500">2024</div>
+                    <div class="text-xs text-gray-400 mt-1">5회 비행, 부스터 캐치</div>
+                </div>
+                <div class="glass-panel p-4 rounded-lg text-center border-2 border-red-500">
+                    <div class="text-2xl font-bold text-red-500">2026</div>
+                    <div class="text-xs text-gray-400 mt-1">화성+달 동시 진출</div>
+                </div>
+                <div class="glass-panel p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-white">2030</div>
+                    <div class="text-xs text-gray-400 mt-1">유인 화성 탐사</div>
+                </div>
+                <div class="glass-panel p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-white">2044</div>
+                    <div class="text-xs text-gray-400 mt-1">100만 명 도시</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Core Infrastructure (Pillar Cards) -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content p-12">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold text-white mb-2 text-shadow">핵심 기술 인프라 요약</h2>
+                <p class="text-gray-300 text-shadow">4대 축으로 구성되는 화성 이주 기술 생태계</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-6 flex-grow">
+                <div class="pillar-card p-6 rounded-xl flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-fire-alt text-2xl text-red-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">추진 시스템</h3>
+                            <span class="text-xs text-red-400">TRL 9</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4 flex-grow">Raptor 3 + Mechazilla 완전 재사용 구조로 발사 비용 1/100 수준 감축</p>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 bg-red-600/20 rounded text-red-300 text-xs">100% 재사용</span>
+                        <span class="px-3 py-1 bg-red-600/20 rounded text-red-300 text-xs">비용 절감</span>
+                    </div>
+                </div>
+                
+                <div class="pillar-card p-6 rounded-xl flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-heartbeat text-2xl text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">생명유지</h3>
+                            <span class="text-xs text-blue-400">TRL 9 (ISS) / 6 (화성)</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4 flex-grow">ECLSS + MOXIE 폐쇄 루프 산소-수-식량 순환 구축</p>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 bg-blue-600/20 rounded text-blue-300 text-xs">폐쇄 루프</span>
+                        <span class="px-3 py-1 bg-blue-600/20 rounded text-blue-300 text-xs">CO₂ 활용</span>
+                    </div>
+                </div>
+                
+                <div class="pillar-card p-6 rounded-xl flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-orange-600/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-hard-hat text-2xl text-orange-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">건설 기술</h3>
+                            <span class="text-xs text-orange-400">TRL 4-5</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4 flex-grow">레골리스 3D 프린팅으로 방사선 차폐 거주지 및 인프라 현지 건설</p>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 bg-orange-600/20 rounded text-orange-300 text-xs">현지 자원</span>
+                        <span class="px-3 py-1 bg-orange-600/20 rounded text-orange-300 text-xs">방사선 차폐</span>
+                    </div>
+                </div>
+                
+                <div class="pillar-card p-6 rounded-xl flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-yellow-600/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-battery-full text-2xl text-yellow-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">에너지 그리드</h3>
+                            <span class="text-xs text-yellow-400">TRL 5</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4 flex-grow">태양광 + Kilopower 원자력 하이브리드로 24시간 에너지 공급</p>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 bg-yellow-600/20 rounded text-yellow-300 text-xs">원자력</span>
+                        <span class="px-3 py-1 bg-yellow-600/20 rounded text-yellow-300 text-xs">이중 안전망</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Closing -->
+    <div class="slide">
+        <div class="cinematic-bg" style="background-image: url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=1280&h=720&fit=crop');"></div>
+        <div class="cinematic-overlay"></div>
+        <div class="slide-content flex items-center justify-center p-16">
+            <div class="text-center max-w-4xl">
+                <h1 class="text-6xl font-black text-white mb-8 text-shadow leading-tight">
+                    인류의 다음 장<br>
+                    <span class="text-red-600">화성에서</span> 시작됩니다
+                </h1>
+                <div class="glass-panel inline-block px-12 py-8 rounded-2xl mb-8">
+                    <p class="text-2xl text-gray-300 mb-4">"Making Life Multi-planetary"</p>
+                    <div class="flex justify-center gap-8 text-left mt-6">
+                        <div>
+                            <div class="text-3xl font-bold text-white">2026</div>
+                            <div class="text-sm text-gray-400">첫 발걸음</div>
+                        </div>
+                        <div class="w-px bg-gray-600"></div>
+                        <div>
+                            <div class="text-3xl font-bold text-white">1,000,000</div>
+                            <div class="text-sm text-gray-400">시민</div>
+                        </div>
+                        <div class="w-px bg-gray-600"></div>
+                        <div>
+                            <div class="text-3xl font-bold text-white">20년</div>
+                            <div class="text-sm text-gray-400">목표 달성</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <p class="text-gray-400 text-sm">SpaceX Starship Program</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timeline Chart for Slide 2
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('timeline-chart');
+            const width = container.clientWidth || 1000;
+            const height = 350;
+            const margin = {top: 40, right: 50, bottom: 50, left: 50};
+            
+            const svg = d3.select("#timeline-chart").append("svg")
+                .attr("width", width).attr("height", height);
+            
+            const data = [
+                { year: 2024, title: "기술 검증", detail: "5회 비행\nMechazilla 캐치", color: "#3b82f6", y: 0 },
+                { year: 2025, title: "궤도 보급", detail: "선박 간 연료 이송", color: "#60a5fa", y: 0 },
+                { year: 2026, title: "이중 마일스톤", detail: "화성 무인 착륙\nArtemis III 달 착륙", color: "#E50914", y: 0, highlight: true },
+                { year: 2028, title: "유인 탐사", detail: "첫 인류 화성 도달", color: "#f59e0b", y: 0 },
+                { year: 2030, title: "거주 기지", detail: "장기 체제 시작", color: "#10b981", y: 0 },
+                { year: 2044, title: "자립 도시", detail: "100만 명\n인프라 완성", color: "#8b5cf6", y: 0 }
+            ];
+            
+            const xScale = d3.scaleLinear()
+                .domain([2024, 2044])
+                .range([margin.left, width - margin.right]);
+            
+            const yScale = d3.scalePoint()
+                .domain([0])
+                .range([height/2, height/2])
+                .padding(0.5);
+            
+            // Timeline line
+            svg.append("line")
+                .attr("x1", margin.left)
+                .attr("x2", width - margin.right)
+                .attr("y1", height/2)
+                .attr("y2", height/2)
+                .attr("stroke", "rgba(255,255,255,0.3)")
+                .attr("stroke-width", 4);
+            
+            // Nodes
+            const nodes = svg.selectAll(".node")
+                .data(data)
+                .enter().append("g")
+                .attr("class", "node")
+                .attr("transform", d => `translate(${xScale(d.year)}, ${height/2})`);
+            
+            // Circles
+            nodes.append("circle")
+                .attr("r", d => d.highlight ? 25 : 18)
+                .attr("fill", d => d.color)
+                .attr("stroke", "white")
+                .attr("stroke-width", d => d.highlight ? 4 : 2)
+                .style("filter", d => d.highlight ? "drop-shadow(0 0 10px rgba(229,9,20,0.8))" : "none");
+            
+            // Year labels
+            nodes.append("text")
+                .attr("y", 45)
+                .attr("text-anchor", "middle")
+                .attr("fill", d => d.highlight ? "#E50914" : "white")
+                .attr("font-size", d => d.highlight ? "18px" : "14px")
+                .attr("font-weight", "bold")
+                .text(d => d.year);
+            
+            // Title labels (above)
+            nodes.append("text")
+                .attr("y", -35)
+                .attr("text-anchor", "middle")
+                .attr("fill", "white")
+                .attr("font-size", "14px")
+                .attr("font-weight", "bold")
+                .text(d => d.title);
+            
+            // Detail labels
+            nodes.append("text")
+                .attr("y", -50)
+                .attr("text-anchor", "middle")
+                .attr("fill", "rgba(255,255,255,0.7)")
+                .attr("font-size", "11px")
+                .each(function(d) {
+                    const lines = d.detail.split('\n');
+                    lines.forEach((line, i) => {
+                        d3.select(this.parentNode).append("text")
+                            .attr("y", -55 + (i * 14))
+                            .attr("text-anchor", "middle")
+                            .attr("fill", "rgba(255,255,255,0.6)")
+                            .attr("font-size", "11px")
+                            .text(line);
+                    });
+                });
+            
+            // Highlight annotation for 2026
+            const highlightNode = nodes.filter(d => d.highlight);
+            highlightNode.append("rect")
+                .attr("x", -60)
+                .attr("y", -90)
+                .attr("width", 120)
+                .attr("height", 25)
+                .attr("rx", 12)
+                .attr("fill", "#E50914")
+                .attr("opacity", 0.9);
+            
+            highlightNode.append("text")
+                .attr("y", -73)
+                .attr("text-anchor", "middle")
+                .attr("fill", "white")
+                .attr("font-size", "12px")
+                .attr("font-weight", "bold")
+                .text("CRITICAL MILESTONE");
+        });
+
+        // Vision Timeline for Slide 8
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('vision-timeline');
+            const width = container.clientWidth || 1000;
+            const height = 300;
+            const margin = {top: 40, right: 50, bottom: 40, left: 50};
+            
+            const svg = d3.select("#vision-timeline").append("svg")
+                .attr("width", width).attr("height", height);
+            
+            const data = [
+                { year: 2024, value: 5, label: "시험 비행" },
+                { year: 2025, value: 20, label: "궤도 보급" },
+                { year: 2026, value: 40, label: "무인 착륙" },
+                { year: 2028, value: 60, label: "유인 탐사" },
+                { year: 2030, value: 75, label: "거주 기지" },
+                { year: 2044, value: 100, label: "100만 명" }
+            ];
+            
+            const xScale = d3.scaleLinear()
+                .domain([2024, 2044])
+                .range([margin.left, width - margin.right]);
+            
+            const yScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([height - margin.bottom, margin.top]);
+            
+            // Area gradient
+            const defs = svg.append("defs");
+            const gradient = defs.append("linearGradient")
+                .attr("id", "area-gradient")
+                .attr("x1", "0%").attr("y1", "0%")
+                .attr("x2", "0%").attr("y2", "100%");
+            
+            gradient.append("stop")
+                .attr("offset", "0%")
+                .attr("stop-color", "#E50914")
+                .attr("stop-opacity", 0.6);
+            
+            gradient.append("stop")
+                .attr("offset", "100%")
+                .attr("stop-color", "#E50914")
+                .attr("stop-opacity", 0);
+            
+            // Line
+            const line = d3.line()
+                .x(d => xScale(d.year))
+                .y(d => yScale(d.value))
+                .curve(d3.curveMonotoneX);
+            
+            // Area
+            const area = d3.area()
+                .x(d => xScale(d.year))
+                .y0(height - margin.bottom)
+                .y1(d => yScale(d.value))
+                .curve(d3.curveMonotoneX);
+            
+            svg.append("path")
+                .datum(data)
+                .attr("class", "area")
+                .attr("d", area)
+                .attr("fill", "url(#area-gradient)");
+            
+            svg.append("path")
+                .datum(data)
+                .attr("class", "line")
+                .attr("d", line)
+                .attr("fill", "none")
+                .attr("stroke", "#E50914")
+                .attr("stroke-width", 4);
+            
+            // Points
+            svg.selectAll(".point")
+                .data(data)
+                .enter().append("circle")
+                .attr("class", "point")
+                .attr("cx", d => xScale(d.year))
+                .attr("cy", d => yScale(d.value))
+                .attr("r", d => d.year === 2026 ? 8 : 6)
+                .attr("fill", d => d.year === 2026 ? "#E50914" : "white")
+                .attr("stroke", "#E50914")
+                .attr("stroke-width", 3);
+            
+            // X Axis
+            svg.append("g")
+                .attr("transform", `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(xScale).tickFormat(d3.format("d")).ticks(5))
+                .selectAll("text")
+                .attr("fill", "rgba(255,255,255,0.7)")
+                .attr("font-size", "12px");
+            
+            svg.select(".domain").attr("stroke", "rgba(255,255,255,0.3)");
+            svg.selectAll(".tick line").attr("stroke", "rgba(255,255,255,0.1)");
+        });
+    </script>
+</body>
+</html>
+```
